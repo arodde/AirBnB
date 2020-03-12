@@ -1,0 +1,5 @@
+Numéro du Voyageur : 0
+Numéro du logement : 0
+Date d'arrivée (DD/MM/YYYY) : 2019-11-02
+Nombre de nuits : 5
+Nombre de personnes : 10

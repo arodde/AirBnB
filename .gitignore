@@ -1,3 +1,11 @@
+# mes exclusions
+
+.idea/
+AirBnB.iml
+
+
+# JAVA PAR GIT HUB
+
 # Compiled class file
 *.class
 
