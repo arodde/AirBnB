@@ -5,7 +5,7 @@ import rodde.airbnb.utilisateurs.Hote;
 
 public class GestionHotes {
 
-    public static void listerHotes() {
+    public static void menuListerHotes() {
         Uti.info("GestionHotes","listerHotes()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
@@ -20,7 +20,7 @@ public class GestionHotes {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerHotes();
+                    menuListerHotes();
                 }
 
                 break;
@@ -31,7 +31,7 @@ public class GestionHotes {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerHotes();
+                    menuListerHotes();
                 }
 
                 break;

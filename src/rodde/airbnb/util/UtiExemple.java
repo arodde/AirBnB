@@ -12,7 +12,8 @@ import java.util.Scanner;
 import static java.nio.file.Files.*;
 
 public class UtiExemple{
-   public  Scanner  sc;
+    public  Scanner  sc;
+
     public static void arrondi(){
         Uti.info("UtiExemple","arrondi()","");
         // avec arrondi:

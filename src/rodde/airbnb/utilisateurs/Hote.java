@@ -14,14 +14,13 @@ public class Hote extends Personne {
         this.delaiReponse = delaiReponse;
     }
     public void afficher(){
-  Uti.info("Hote","afficher()","");
+        Uti.info("Hote","afficher()","");
         super.afficher();
         if(delaiReponse>1){
             System.out.println( " qui s'engage à répondre dans les "+delaiReponse+ " heures.");
         }else{
             System.out.println( " qui s'engage à répondre dans l'heure.");
         }
-
     }
 }
 

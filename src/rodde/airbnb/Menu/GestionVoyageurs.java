@@ -5,7 +5,7 @@ import rodde.airbnb.utilisateurs.Voyageur;
 
 public class GestionVoyageurs {
 
-    public static void listerVoyageurs() {
+    public static void menuListerVoyageurs() {
         Uti.info("GestionVoyageurs","listerVoyageurs","");
         Uti.sep("-", 50);
         indiceVoyageurAffiche();
@@ -21,7 +21,7 @@ public class GestionVoyageurs {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerVoyageurs();
+                    menuListerVoyageurs();
                 }
                 break;
             case 2:
@@ -31,7 +31,7 @@ public class GestionVoyageurs {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerVoyageurs();
+                    menuListerVoyageurs();
                 }
                 break;
             case 3:

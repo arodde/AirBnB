@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 import static java.util.Locale.*;
 
@@ -24,12 +26,28 @@ public class Uti{
         }
         System.out.println(".");
     }
+    public static void mess(String message){
+        System.out.println("---------->     "+message);
+    }
     public static void sep(String motif, int repetition){
         for (int i = 0; i<repetition;i++){
             System.out.print(motif);
         }
         System.out.println("");
     }
+    public static <T> void affichageListe(List<T> liste){
+        Uti.info("UtiExemple","affichageListe()","");
+        if(liste.size()>0){
+            for (int elt = 0; elt < liste.size(); elt++){
+                System.out.println(liste.get(elt).toString());
+            }
+        }
+        else
+        {
+            System.out.println("Liste vide!!!");
+        }
+    }
+
     public static void conversionSimpleFormatDateEnString (Date date,String pattern) {
 //        String pattern = "MM/dd/yyyy HH:mm:ss";
 

@@ -1,17 +1,16 @@
 package rodde.airbnb.Menu;
 
+import rodde.airbnb.logements.Appartement;
 import rodde.airbnb.logements.Logement;
 import rodde.airbnb.logements.Maison;
-import rodde.airbnb.reservations.Reservation;
-import rodde.airbnb.util.LesIO;
+import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.util.UtiExemple;
 import rodde.airbnb.utilisateurs.Hote;
 import rodde.airbnb.utilisateurs.Voyageur;
 
-import java.awt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -40,7 +39,55 @@ public class Menu {
         Uti.info("Menu","getListeReservations","");
         return listeReservations;
     }
-
+    public static void afficherReservations(){
+        if(listeReservations.size()>0){
+        for ( int i = 0 ; i < listeReservations.size(); i++){
+            listeReservations.get(i).afficher();
+            System.out.println("\n");
+        }
+    }
+        else
+        {
+            System.out.println("liste réservations vide");
+        }
+    }
+    public static void afficherHotes(){
+        if(listeHotes.size()>0){
+            for ( int i = 0 ; i < listeHotes.size(); i++){
+                listeHotes.get(i).afficher();
+                System.out.println("\n");
+            }
+        }
+        else
+        {
+            System.out.println("liste hôtes vide");
+        }
+    }
+    public static void afficherVoyageurs(){
+        if(listeVoyageurs.size()>0){
+            for ( int i = 0 ; i < listeVoyageurs.size(); i++){
+                listeVoyageurs.get(i).afficher();
+                System.out.println("\n");
+            }
+        }
+        else
+        {
+            System.out.println("liste voyageurs vide");
+        }
+    }
+    public static void afficherLogements(){
+        // todo afficher liste
+        if(listeLogements.size()>0){
+            for ( int i = 0 ; i < listeLogements.size(); i++){
+                listeLogements.get(i).afficher();
+                System.out.println("\n");
+            }
+        }
+        else
+        {
+            System.out.println("liste logement vide");
+        }
+    }
     public static void setListeReservations(ArrayList<Reservation> listeReservations) {
         Uti.info("Menu","setListeReservations","");
         Menu.listeReservations = listeReservations;
@@ -109,7 +156,7 @@ public class Menu {
         Uti.info("Menu","setListeLogements","");
         Menu.listeLogements = listeLogements;
     }
-    public static void airBnB(){
+    public static void airBnB()  {
         Uti.info("Menu","airBnB","");
 
         System.out.println( "Bienvenue chez AirBnB" );
@@ -123,12 +170,34 @@ public class Menu {
         gestionVoyageurs = new GestionVoyageurs();
         gestionReservations= new GestionReservations();
 
+
+afficherReservations();
         Hote h1 = new Hote("zz","rr",1,12);
         listeHotes.add(h1);
         Voyageur v1 = new Voyageur("zo","rp",55);
         listeVoyageurs.add(v1);
         Maison m1 = new Maison(h1,89,"ert",752,10,1700,true);
+        Appartement a1 = new Appartement(h1,88,"ab cdefg hijk lmnopqr stu vwxyz",45,4,7,3);
+
+        LocalDate dateArrivee = LocalDate.of(2020, 4, 3);
+     Sejour s1 = null;
+     int dureeSejour =3;
+        if (dureeSejour < 6) {
+            s1 = new SejourCourt(dateArrivee, dureeSejour, m1, 5);
+        } else {
+            s1 = new SejourLong(dateArrivee, dureeSejour, m1, 5);
+        }
+        try {
+            Reservation r1 = new Reservation(s1,v1);
+            listeReservations.add(r1);
+        } catch (InstanciationReservationException e) {
+            System.out.println("réservation impossible à prendre!!!");
+            e.printStackTrace();
+        }
         listeLogements.add(m1);
+        listeLogements.add(a1);
+
+afficherReservations();
 
         while(optionChoisie<1||optionChoisie>5){
             optionChoisie = 0;
@@ -137,19 +206,19 @@ public class Menu {
             optionChoisie = choix(5);
             switch(optionChoisie){
                 case 1 :
-                    gestionHotes.listerHotes();
+                    gestionHotes.menuListerHotes();
                     optionChoisie = 0;
                     break;
                 case 2 :
-                    gestionLogements.listerLogements();
+                    gestionLogements.menuListerLogements();
                     optionChoisie = 0;
                     break;
                 case 3 :
-                    gestionVoyageurs.listerVoyageurs();
+                    gestionVoyageurs.menuListerVoyageurs();
                     optionChoisie = 0;
                     break;
                 case 4 :
-                    gestionReservations.listerReservations();
+                    gestionReservations.menuListerReservations();
                     optionChoisie = 0;
                     break;
                 default:
@@ -160,7 +229,7 @@ public class Menu {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         Uti.info("Menu","main","");
         sc = new Scanner( System .in);
 

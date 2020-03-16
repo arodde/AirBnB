@@ -17,7 +17,7 @@ public class VueCreationVoyageur  extends JFrame {
     private JTextField textFieldAge;
 
     public VueCreationVoyageur(){
-        // ajout de caractéristique à la fenêtre
+        // ajout de caractéristiques à la fenêtre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("AirBnB");
         setName("AirBnBAjoutVoyageur");

@@ -8,18 +8,12 @@ import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Voyageur;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import static java.nio.file.Files.*;
 
 public class GestionReservations {
 
-    public static void listerReservations() {
+    public static void menuListerReservations() {
         Uti.info("GestionReservations","listerReservations()","");
         Uti.sep("-", 50);
 
@@ -41,7 +35,7 @@ public class GestionReservations {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerReservations();
+                    menuListerReservations();
                 }
 
                 break;
@@ -52,7 +46,7 @@ public class GestionReservations {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerReservations();
+                    menuListerReservations();
                 }
 
                 break;

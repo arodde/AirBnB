@@ -1,6 +1,5 @@
 package rodde.airbnb.Menu;
 
-import rodde.airbnb.Main;
 import rodde.airbnb.logements.Appartement;
 import rodde.airbnb.logements.Logement;
 import rodde.airbnb.logements.Maison;
@@ -19,7 +18,7 @@ public class GestionLogements {
             indiceAffi++;
         }
     }
-    public static void listerLogements() {
+    public static void menuListerLogements() {
         Uti.info("GestionLogements","listerLogements()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
@@ -34,7 +33,7 @@ public class GestionLogements {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerLogements();
+                    menuListerLogements();
                 }
 
                 break;
@@ -45,7 +44,7 @@ public class GestionLogements {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    listerLogements();
+                    menuListerLogements();
                 }
 
                 break;
@@ -423,7 +422,7 @@ public class GestionLogements {
                 break;
             case 3:
                 Menu.sc.nextLine();
-                listerLogements();
+                menuListerLogements();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
