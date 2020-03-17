@@ -7,6 +7,8 @@ import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Hote;
 import rodde.airbnb.utilisateurs.Voyageur;
+import rodde.airbnb.vues.VueCreationHote;
+import rodde.airbnb.vues.VueMenu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -232,8 +234,8 @@ afficherReservations();
     public static void main(String[] args)  {
         Uti.info("Menu","main","");
         sc = new Scanner( System .in);
-
-          airBnB();
+        VueMenu vueMenu = new VueMenu();
+//          airBnB();
 
 
         sc.close();
