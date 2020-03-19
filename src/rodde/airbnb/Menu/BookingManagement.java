@@ -1,19 +1,19 @@
 package rodde.airbnb.Menu;
 
-import rodde.airbnb.reservations.Reservation;
-import rodde.airbnb.reservations.Sejour;
-import rodde.airbnb.reservations.SejourCourt;
-import rodde.airbnb.reservations.SejourLong;
+import rodde.airbnb.reservations.Booking;
+import rodde.airbnb.reservations.Stay;
+import rodde.airbnb.reservations.ShortStay;
+import rodde.airbnb.reservations.LongStay;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Voyageur;
+import rodde.airbnb.utilisateurs.Traveler;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-public class GestionReservations {
+public class BookingManagement {
 
-    public static void menuListerReservations() {
+    public static void listBookingsMenu() {
         Uti.info("GestionReservations","listerReservations()","");
         Uti.sep("-", 50);
 
@@ -26,27 +26,27 @@ public class GestionReservations {
         System.out.println("1 : Ajouter une réservation");
         System.out.println("2 : Supprimer une réservation");
         System.out.println("3 : Retour");
-        switch (Menu.choix(3)) {
+        switch (Menu.choice(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
-                    ajouterReservation();
+                    addBooking();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerReservations();
+                    listBookingsMenu();
                 }
 
                 break;
             case 2:
                 Menu.sc.nextLine();
                 try {
-                    supprimerReservation();
+                    deleteBooking();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerReservations();
+                    listBookingsMenu();
                 }
 
                 break;
@@ -56,34 +56,34 @@ public class GestionReservations {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
         }
     }
-    protected static void ajouterReservation() throws Exception {
+    protected static void addBooking() throws Exception {
         Uti.info("GestionReservations","ajouterReservation()","");
         boolean bOk = false;
         int nombreNuit =-1;
         int numeroVoyageur=-1;
         int numeroLogement= -1;
-        Voyageur voyageur=null;
-        Sejour sejour ;
-        Reservation reservationAjoutee;
+        Traveler voyageur=null;
+        Stay sejour ;
+        Booking reservationAjoutee;
         LocalDate dateSejour = null;
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
         File file = null;
-        GestionVoyageurs  gestionVoyageurs =null;
+        TravellersManagement gestionVoyageurs =null;
         // voyageur affichage des voyageurs et choix de l'indice
-        indiceReservationAffiche();
+        indexOfDisplayedBooking();
         //
-        if (Menu.getListeVoyageurs().isEmpty()) {
+        if (Menu.getTravelerArrayList().isEmpty()) {
             System.out.println("Aucun voyageur enregistré, Toute réservation doit être rattachée à un voyageur");
-            Menu.listerMenu();
+            Menu.listMenu();
         }
         else
         {
             // afficher la liste des voyageurs
-            GestionVoyageurs.indiceVoyageurAffiche();
+            TravellersManagement.indexOfDisplayedTraveler();
             // saisie nombre de voyageurs
             bOk=false;
             while (!bOk) {
@@ -91,25 +91,25 @@ public class GestionReservations {
                     System.out.print("Entrer le numéro du voyageur dans la liste: ");
                     numeroVoyageur = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroVoyageur >= 0 && numeroVoyageur<= (Menu.getListeVoyageurs().size()-1)) {
+                    if (numeroVoyageur >= 0 && numeroVoyageur<= (Menu.getTravelerArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
                     System.out.println("il faut un numero de voyageur saisi en chiffre(s) et positif");
                 }
             }
-            voyageur = Menu.getListeVoyageurs().get(numeroVoyageur);
+            voyageur = Menu.getTravelerArrayList().get(numeroVoyageur);
         }
 
         // détermination numéro du logement
-        if (Menu.getListeLogements().isEmpty()) {
+        if (Menu.getHousingArrayList().isEmpty()) {
             System.out.println("Aucun logement enregistré, Toute séjour doit doit être rattaché à un logement.");
-            Menu.listerMenu();
+            Menu.listMenu();
         }
         else
         {
             // afficher la liste des logements
-            GestionLogements.indiceLogementAffiche();
+            HousingManagement.indexOfDisplayedHousing();
             // saisie nombre de logements
             bOk=false;
             while (!bOk) {
@@ -127,7 +127,7 @@ public class GestionReservations {
 
         }
         // affichage liste des réservations
-        Menu.getListeReservations().forEach(reservation->reservation.afficher());
+        Menu.getBookingArrayList().forEach(reservation->reservation.display());
 
         // determination du nombre de nuits
         bOk = false;
@@ -200,18 +200,18 @@ public class GestionReservations {
 
         // ajout du séjour court ou longs
         if (nombreNuit < 6) {
-            sejour = new SejourCourt(dateSejour, nombreNuit, Menu.getListeLogements().get(numeroLogement), Menu.getListeLogements().get(numeroLogement).getNbVoyageursMax());
+            sejour = new ShortStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
         } else {
-            sejour = new SejourLong(dateSejour, nombreNuit, Menu.getListeLogements().get(numeroLogement), Menu.getListeLogements().get(numeroLogement).getNbVoyageursMax());
+            sejour = new LongStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
 
         }
         // instanciation Réservation
-        reservationAjoutee =new Reservation(sejour,voyageur);
+        reservationAjoutee =new Booking(sejour,voyageur);
         // ajout d'une réservation à la liste des réservations
-        Menu.getListeReservations().add(reservationAjoutee);
+        Menu.getBookingArrayList().add(reservationAjoutee);
         // affiche la liste de tous les réservations
 
-        indiceReservationAffiche();
+        indexOfDisplayedBooking();
 
         // sauvegarde dans un fichier de la réservation
   /*      try {
@@ -253,7 +253,7 @@ public class GestionReservations {
             pw.print("Numéro du logement : " + numeroLogement + "\n");
             pw.print("Date d'arrivée (DD/MM/YYYY) : " + dateSejour + "\n");
             pw.print("Nombre de nuits : " + nombreNuit + "\n");
-            pw.print("Nombre de personnes : " + sejour.getNbVoyageurs() + "\n");
+            pw.print("Nombre de personnes : " + sejour.getTravelersNumber() + "\n");
             pw.close();
 //        } catch (Exception e) {
 //            System.err.println("error");
@@ -264,21 +264,21 @@ public class GestionReservations {
 //            System.out.println("=======> Erreur lecture/écriture"+ e.getMessage());
 //        }
     }
-    protected static void indiceReservationAffiche(){
+    protected static void indexOfDisplayedBooking(){
         Uti.info("GestionReservations","indiceReservationAffiche()","");
         // affiche la liste de tous les hôtes
         int indiceAffi=0;
-        for(Reservation reservation:Menu.getListeReservations()){
+        for(Booking reservation:Menu.getBookingArrayList()){
             System.out.print("n° "+indiceAffi+" : ");
-            reservation.afficher();
+            reservation.display();
             System.out.println();
             indiceAffi++;
         }
     }
 
-    protected static void supprimerReservation() throws Exception{
+    protected static void deleteBooking() throws Exception{
         Uti.info("GestionReservations","supprimerReservation()","");
-        if(Menu.getListeReservations().isEmpty()){
+        if(Menu.getBookingArrayList().isEmpty()){
             System.out.println("Aucune réservation à supprimer, la liste est vide.");
         }
         else
@@ -286,25 +286,25 @@ public class GestionReservations {
             boolean bOk = false;
 
             int indiceSuppr=0;
-            indiceReservationAffiche();
+            indexOfDisplayedBooking();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice : ");
                     indiceSuppr = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getListeReservations().size()-1)) {
+                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getBookingArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getListeReservations().size()-1));
+                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getBookingArrayList().size()-1));
                 }
                 // affiche la liste de tous les réservations
-                indiceReservationAffiche();
+                indexOfDisplayedBooking();
             }
             System.out.println();
-            Menu.getListeReservations().remove(indiceSuppr);
-            indiceReservationAffiche();
+            Menu.getBookingArrayList().remove(indiceSuppr);
+            indexOfDisplayedBooking();
         }
 
     }

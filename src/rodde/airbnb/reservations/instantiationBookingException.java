@@ -2,8 +2,8 @@ package rodde.airbnb.reservations;
 
 import rodde.airbnb.util.Uti;
 
-public class InstanciationReservationException extends Exception {
-    public InstanciationReservationException(){
+public class instantiationBookingException extends Exception {
+    public instantiationBookingException(){
 
         Uti.info("InstanciationReservationException","InstanciationReservationException()","");
         System.out.println("La réservation ne peut être créé si :");

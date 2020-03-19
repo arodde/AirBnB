@@ -1,50 +1,50 @@
 package rodde.airbnb.Menu;
 
-import rodde.airbnb.logements.Appartement;
-import rodde.airbnb.logements.Logement;
-import rodde.airbnb.logements.Maison;
+import rodde.airbnb.logements.Appartment;
+import rodde.airbnb.logements.Housing;
+import rodde.airbnb.logements.House;
 import rodde.airbnb.util.Uti;
 
-public class GestionLogements {
+public class HousingManagement {
 
-    protected static void indiceLogementAffiche () {
+    protected static void indexOfDisplayedHousing() {
         Uti.info("GestionLogements","indiceLogementAffiche()","");
         // affiche la liste de tous les logements
         int indiceAffi = 0;
-        for (Logement logement : Menu.getListeLogements()) {
+        for (Housing logement : Menu.getHousingArrayList()) {
             System.out.print(indiceAffi + ". ");
-            logement.afficher();            System.out.println();
+            logement.display();            System.out.println();
 
             indiceAffi++;
         }
     }
-    public static void menuListerLogements() {
+    public static void listHousingsMenu() {
         Uti.info("GestionLogements","listerLogements()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter un logement");
         System.out.println("2 : Supprimer un logement");
         System.out.println("3 : Retour");
-        switch (Menu.choix(3)) {
+        switch (Menu.choice(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
-                    ajouterLogement();
+                    addHousing();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerLogements();
+                    listHousingsMenu();
                 }
 
                 break;
             case 2:
                 Menu.sc.nextLine();
                 try {
-                    supprimerLogement();
+                    deleteHousing();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerLogements();
+                    listHousingsMenu();
                 }
 
                 break;
@@ -54,11 +54,11 @@ public class GestionLogements {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
         }
     }
 
-    protected static void ajouterMaison() {
+    protected static void addHouse() {
         Uti.info("GestionLogements","ajouterMaison()","");
         boolean bOk = false;
         int numeroHote = -1;
@@ -69,19 +69,19 @@ public class GestionLogements {
         boolean possedePiscine = false;
         String repBoolPiscine = "";
         String adresseHote = "";
-        if (Menu.getListeHotes().isEmpty()) {
+        if (Menu.getHostArrayList().isEmpty()) {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
 
         } else {
             // afficher la liste des hôtes
-            GestionHotes.indiceHoteAffiche();
+            HostsManagement.indexOfDisplayedHost();
             // saisie nombre de voyageurs
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro de l'hôte': ");
                     numeroHote = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroHote >= 0 && numeroHote <= (Menu.getListeHotes().size()-1)) {
+                    if (numeroHote >= 0 && numeroHote <= (Menu.getHostArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -165,19 +165,19 @@ public class GestionLogements {
             }
             //
             // instanciation maison
-            Maison maisonAjoute = new Maison(Menu.getListeHotes().get(numeroHote), tarifJournalier,
+            House houseAjoute = new House(Menu.getHostArrayList().get(numeroHote), tarifJournalier,
                     adresseHote, superficie, nombreVoyageursMax,
                     superficieJardin, possedePiscine);
             // ajout d'un hote à la liste des hotes
-            Menu.getListeLogements().add(maisonAjoute);
+            Menu.getHousingArrayList().add(houseAjoute);
             // affiche la liste de tous les logement
 //            Menu.getListeLogement().forEach(logement->logement.afficher());
-            indiceLogementAffiche();
+            indexOfDisplayedHousing();
 
         }
     }
 
-    protected static void ajouterAppartement() {
+    protected static void addAppartment() {
         Uti.info("GestionLogements", "ajouterAppartement()", "");
         boolean bOk = false;
         int numeroHote = -1;
@@ -187,11 +187,11 @@ public class GestionLogements {
         int superficieBalcon = 0;
         int nombreVoyageursMax = 0;
         String adresseHote = "";
-        if (Menu.getListeHotes().isEmpty()) {
+        if (Menu.getHostArrayList().isEmpty()) {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
         } else {
             // afficher la liste des hôtes
-            GestionHotes.indiceHoteAffiche();
+            HostsManagement.indexOfDisplayedHost();
             // saisie nombre de voyageurs
             bOk = false;
             while (!bOk) {
@@ -283,15 +283,15 @@ public class GestionLogements {
             }
 
             // instanciation maison
-            Appartement appartementAjoute =
-                    new Appartement(Menu.getListeHotes().get(numeroHote),
+            Appartment appartementAjoute =
+                    new Appartment(Menu.getHostArrayList().get(numeroHote),
                             tarifJournalier, adresseHote, superficie,
                             nombreVoyageursMax, numeroEtage, superficieBalcon);
             // ajout d'un hote à la liste des hotes
-            Menu.getListeLogements().add(appartementAjoute);
+            Menu.getHousingArrayList().add(appartementAjoute);
             // affiche la liste de tous les logement
 //            Menu.getListeLogement().forEach(logement->logement.afficher());
-            indiceLogementAffiche();
+            indexOfDisplayedHousing();
 
       /*
         }if (Menu.getListeHotes().isEmpty()) {
@@ -403,7 +403,7 @@ public class GestionLogements {
         */
         }
     }
-    protected static void ajouterLogement() {
+    protected static void addHousing() {
         Uti.info("GestionLogements","ajouterLogement()","");
 
         Uti.sep("-", 50);
@@ -411,28 +411,28 @@ public class GestionLogements {
         System.out.println("1 : Ajouter un maison");
         System.out.println("2 : Supprimer un appartement");
         System.out.println("3 : Retour");
-        switch (Menu.choix(3)) {
+        switch (Menu.choice(3)) {
             case 1:
                 Menu.sc.nextLine();
-                ajouterMaison();
+                addHouse();
                 break;
             case 2:
                 Menu.sc.nextLine();
-                ajouterAppartement();
+                addAppartment();
                 break;
             case 3:
                 Menu.sc.nextLine();
-                menuListerLogements();
+                listHousingsMenu();
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
         }
     }
 
 
-    protected static void supprimerLogement ()  {
+    protected static void deleteHousing()  {
         Uti.info("GestionLogements","supprimerLogement()","");
-        if(Menu.getListeLogements().isEmpty()){
+        if(Menu.getHousingArrayList().isEmpty()){
             System.out.println("Aucun logement à supprimer, la liste est vide.");
         }
         else
@@ -442,26 +442,26 @@ public class GestionLogements {
             int indiceSuppr = 0;
             //  Menu.getListeLogements().forEach(logement -> logement.afficher());
 
-            indiceLogementAffiche();
+            indexOfDisplayedHousing();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
                     indiceSuppr = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getListeLogements().size() - 1)) {
+                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getHousingArrayList().size() - 1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un indice compris entre 0 et " + (Menu.getListeLogements().size() - 1));
+                    System.out.println("il faut un indice compris entre 0 et " + (Menu.getHousingArrayList().size() - 1));
                 }
                 // affiche la liste de tous les logements
-                indiceLogementAffiche();
+                indexOfDisplayedHousing();
                 //  Menu.getListeLogements().forEach(logement->logement.afficher());
             }
             System.out.println();
-            Menu.getListeLogements().remove(indiceSuppr);
-            indiceLogementAffiche();
+            Menu.getHousingArrayList().remove(indiceSuppr);
+            indexOfDisplayedHousing();
         }
     }
 

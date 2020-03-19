@@ -1,37 +1,25 @@
 package rodde.airbnb.reservations;
 
-import rodde.airbnb.Main;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.logements.Logement;
+import rodde.airbnb.logements.Housing;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import static java.time.temporal.TemporalQueries.localDate;
-import static java.util.Locale.FRANCE;
-import static rodde.airbnb.Main.*;
-
-public abstract class Sejour implements ServiceInterface {
+public abstract class Stay implements ServiceInterface {
     //    private LocalDate dateArrivee;
     //    private Date dateArrivee;
     protected LocalDate dateArrivee;
-    protected int nbNuits;
-    protected Logement logement;
+    protected int overnightsNumber;
+    protected Housing housing;
 
-    public int getNbVoyageurs() {
+    public int getTravelersNumber() {
         Uti.info("Sejour","getNbVoyageurs()","");
-        return nbVoyageurs;
+        return travelersNumber;
     }
 
-    protected int nbVoyageurs;
-    protected int tarif;
-    public boolean verificationDateArrivee(){
+    protected int travelersNumber;
+    protected int rate;
+    public boolean arrivalDateVerification(){
         Uti.info("Sejour","verificationDateArrivee()","");
         // date arrivée doit etre plus grande que date actuelle
         LocalDate date = LocalDate.now() ;// la date actuelle
@@ -44,10 +32,10 @@ public abstract class Sejour implements ServiceInterface {
             return false;
     }
 
-    public boolean verificationNombreDeNuits(){
+    public boolean overnightsNumberVerification(){
         Uti.info("Sejour","verificationNombreDeNuits()","");
         // nombre jours du séjour entre 1 et 31
-        if(nbNuits>0 && nbNuits <=31){
+        if(overnightsNumber >0 && overnightsNumber <=31){
             return true;
         }
         else
@@ -58,16 +46,16 @@ public abstract class Sejour implements ServiceInterface {
     }
 
     //    public Sejour(Date dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
-    public Sejour(LocalDate dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
+    public Stay(LocalDate dateArrivee, int nbNuits, Housing logement, int nbVoyageurs) {
        Uti.info("Sejour","Sejour()","");
         //        Uti.info("Sejour", "Sejour()","");
         this.dateArrivee = dateArrivee;
-        this.nbNuits = nbNuits;
-        this.logement = logement;
-        this.nbVoyageurs = nbVoyageurs;
-        this.tarif = tarif;
+        this.overnightsNumber = nbNuits;
+        this.housing = logement;
+        this.travelersNumber = nbVoyageurs;
+        this.rate = rate;
     }
-    public abstract void afficher();
+    public abstract void display();
 
-    protected abstract int miseAJourDuTarif();
+    protected abstract int rateUpdate();
 }

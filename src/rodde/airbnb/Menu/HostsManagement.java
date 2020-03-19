@@ -1,37 +1,37 @@
 package rodde.airbnb.Menu;
 
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Hote;
+import rodde.airbnb.utilisateurs.Host;
 
-public class GestionHotes {
+public class HostsManagement {
 
-    public static void menuListerHotes() {
+    public static void listHostsMenu() {
         Uti.info("GestionHotes","listerHotes()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter un hôte");
         System.out.println("2 : Supprimer un hôte");
         System.out.println("3 : Retour");
-        switch (Menu.choix(3)) {
+        switch (Menu.choice(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
-                    ajouterHote();
+                    addHost();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerHotes();
+                    listHostsMenu();
                 }
 
                 break;
             case 2:
                 Menu.sc.nextLine();
                 try {
-                    supprimerHote();
+                    deleteHost();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerHotes();
+                    listHostsMenu();
                 }
 
                 break;
@@ -41,22 +41,22 @@ public class GestionHotes {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
         }
     }
 
 
-    protected static void ajouterHote() throws Exception {
+    protected static void addHost() throws Exception {
         Uti.info("GestionHotes","ajouterHote()","");
         boolean bOk = false;
 
         String prenom = "";
         String nom = "";
         int age = -1;
-        Hote hoteAjoute;
+        Host hoteAjoute;
         // affichage liste des hotes
 
-        Menu.getListeHotes().forEach(hote->hote.afficher());
+        Menu.getHostArrayList().forEach(hote->hote.display());
 
         // saisie nom et prénom
         System.out.print("Entrer le prénom: ");
@@ -76,63 +76,63 @@ public class GestionHotes {
             } catch (NumberFormatException nfe) {
                 System.out.println("il faut un age saisi en chiffre(s) et positif");
             }
-            indiceHoteAffiche();
+            indexOfDisplayedHost();
         }
         // instanciation hôte
-        hoteAjoute= new Hote(nom,prenom,age,48);
+        hoteAjoute= new Host(nom,prenom,age,48);
         // ajout d'un hote à la liste des hotes
-        Menu.getListeHotes().add(hoteAjoute);
+        Menu.getHostArrayList().add(hoteAjoute);
         // affiche la liste de tous les hôtes
 //            Menu.getListeHotes().forEach(hote->hote.afficher());
-        indiceHoteAffiche();
+        indexOfDisplayedHost();
     }
-    protected static void indiceHoteAffiche(){
+    protected static void indexOfDisplayedHost(){
         Uti.info("GestionHotes","indiceHoteAffiche()","");
         // affiche la liste de tous les hôtes
         int indiceAffi=0;
-        for(Hote hote:Menu.getListeHotes()){
+        for(Host hote:Menu.getHostArrayList()){
             System.out.print("n° "+indiceAffi+" : ");
-            hote.afficher();
+            hote.display();
             System.out.println();
             indiceAffi++;
         }
     }
 
-    protected static void supprimerHote() throws Exception{
+    protected static void deleteHost() throws Exception{
         Uti.info("GestionHotes","supprimerHote()","");
 
         boolean bOk = false;
 
         int indiceSuppr=0;
 //        Menu.getListeHotes().forEach(hote -> hote.afficher());
-        if(Menu.getListeHotes().isEmpty()){
+        if(Menu.getHostArrayList().isEmpty()){
             System.out.println("Aucun hôte à supprimer, la liste est vide.");
         }
         else
         {
-            indiceHoteAffiche();
+            indexOfDisplayedHost();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
                     indiceSuppr = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getListeHotes().size()-1)) {
+                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getHostArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getListeHotes().size()-1));
+                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getHostArrayList().size()-1));
                 }
 
 
 
                 // affiche la liste de tous les hôtes
-                indiceHoteAffiche();
+                indexOfDisplayedHost();
 //            Menu.getListeHotes().forEach(hote->hote.afficher());
             }
             System.out.println();
-            Menu.getListeHotes().remove(indiceSuppr);
-            indiceHoteAffiche();
+            Menu.getHostArrayList().remove(indiceSuppr);
+            indexOfDisplayedHost();
 
         }
 

@@ -1,37 +1,37 @@
 package rodde.airbnb.Menu;
 
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Voyageur;
+import rodde.airbnb.utilisateurs.Traveler;
 
-public class GestionVoyageurs {
+public class TravellersManagement {
 
-    public static void menuListerVoyageurs() {
+    public static void listTravelersMenu() {
         Uti.info("GestionVoyageurs","listerVoyageurs","");
         Uti.sep("-", 50);
-        indiceVoyageurAffiche();
+        indexOfDisplayedTraveler();
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter un voyageur");
         System.out.println("2 : Supprimer un voyageur");
         System.out.println("3 : Retour");
-        switch (Menu.choix(3)) {
+        switch (Menu.choice(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
-                    ajouterVoyageur();
+                    addTraveler();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerVoyageurs();
+                    listTravelersMenu();
                 }
                 break;
             case 2:
                 Menu.sc.nextLine();
                 try {
-                    supprimerVoyageur();
+                    deleteTraveler();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    menuListerVoyageurs();
+                    listTravelersMenu();
                 }
                 break;
             case 3:
@@ -39,11 +39,11 @@ public class GestionVoyageurs {
 
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choix(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
         }
     }
 
-    protected static void ajouterVoyageur() throws Exception {
+    protected static void addTraveler() throws Exception {
         Uti.info("GestionVoyageurs","ajouterVoyageur()","");
 
         boolean bOk = false;
@@ -51,11 +51,11 @@ public class GestionVoyageurs {
         String prenom = "";
         String nom = "";
         int age = -1;
-        Voyageur voyageurAjoute;
+        Traveler voyageurAjoute;
         // affichage liste des hotes
 
         //        Menu.getListeHotes().forEach(voyageur->voyageur.afficher());
-        indiceVoyageurAffiche();
+        indexOfDisplayedTraveler();
         // saisie nom et prénom
         System.out.print("Entrer le prénom: ");
         prenom = Menu.sc.nextLine();
@@ -77,15 +77,15 @@ public class GestionVoyageurs {
 
         }
         // instanciation hôte
-        voyageurAjoute= new Voyageur(nom,prenom,age);
+        voyageurAjoute= new Traveler(nom,prenom,age);
         // ajout d'un voyageur à la liste des voyageurs
-        Menu.getListeVoyageurs().add(voyageurAjoute);
+        Menu.getTravelerArrayList().add(voyageurAjoute);
         // affiche la liste de tous les voyageurs
-        indiceVoyageurAffiche();
+        indexOfDisplayedTraveler();
     }
-    protected static void supprimerVoyageur() throws Exception{
+    protected static void deleteTraveler() throws Exception{
         Uti.info("GestionVoyageurs","supprimerVoyageur()","");
-        if(Menu.getListeVoyageurs().isEmpty()){
+        if(Menu.getTravelerArrayList().isEmpty()){
             System.out.println("Aucun voyageur à supprimer, la liste est vide.");
         }
         else
@@ -93,35 +93,35 @@ public class GestionVoyageurs {
             boolean bOk = false;
             int indiceSuppr=0;
             //        Menu.getListeVoyageurs().forEach(voyageur -> voyageur.afficher());
-            indiceVoyageurAffiche();
+            indexOfDisplayedTraveler();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
                     indiceSuppr = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getListeVoyageurs().size()-1)) {
+                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getTravelerArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getListeVoyageurs().size()-1));
+                    System.out.println("il faut un indice compris entre 0 et "+ (Menu.getTravelerArrayList().size()-1));
                 }
-                indiceVoyageurAffiche();
+                indexOfDisplayedTraveler();
                 //            Menu.getListeVoyageur().forEach(voyageur->voyageur.afficher());
             }
             System.out.println();
-            Menu.getListeVoyageurs().remove(indiceSuppr);
-            indiceVoyageurAffiche();
+            Menu.getTravelerArrayList().remove(indiceSuppr);
+            indexOfDisplayedTraveler();
         }
 
     }
-    protected static void indiceVoyageurAffiche(){
+    protected static void indexOfDisplayedTraveler(){
         Uti.info("GestionVoyageurs","indiceVoyageurAffiche()","");
         // affiche la liste de tous les voyageurs
         int indiceAffi=0;
-        for(Voyageur voyageur:Menu.getListeVoyageurs()){
+        for(Traveler voyageur:Menu.getTravelerArrayList()){
             System.out.print(indiceAffi+". ");
-            voyageur.afficher();
+            voyageur.display();
             System.out.println();
             indiceAffi++;
         }

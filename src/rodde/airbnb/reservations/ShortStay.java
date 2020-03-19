@@ -1,28 +1,28 @@
 package rodde.airbnb.reservations;
-import rodde.airbnb.logements.Logement;
+
+import rodde.airbnb.logements.Housing;
 import rodde.airbnb.util.Uti;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 
-public class SejourLong extends Sejour {
-    public SejourLong(LocalDate dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
-        super(dateArrivee, nbNuits, logement, nbVoyageurs);
-        this.tarif = miseAJourDuTarif();
-        this.promotion = tarif *(100 - PROMOTION_EN_POURCENTAGE)/100;
-    }
-    private final int PROMOTION_EN_POURCENTAGE = 20;
-    private int promotion ;
-    public int miseAJourDuTarif(){
+public class ShortStay extends Stay {
 
-        return nbNuits*logement.getTarifJournalier();
+    public ShortStay(LocalDate dateArrivee, int nbNuits, Housing logement, int nbVoyageurs) {
+
+        super(dateArrivee, nbNuits, logement, nbVoyageurs);
+        this.rate = rateUpdate();
     }
-    public boolean verificationNombreDeVoyageurs(){
-        Uti.info("SejourLong","verificationNombreDeVoyageurs()","");
+
+    protected int rateUpdate(){
+        Uti.info("SejourCourt", "miseAJourDuTarif()","");
+        return housing.getDaylyRate()* overnightsNumber;
+    }
+    public boolean checkTravelersNumber(){
+       Uti.info("Sejour","verificationNombreDeVoyageurs()","");
         // nombre voyageurs < inférieur ou égal à capacité acceuil et supérieur à 0
-        if(nbVoyageurs >= 1 && nbVoyageurs  <= logement.getNbVoyageursMax()){
+        if(travelersNumber >= 1 && travelersNumber <= housing.getMaxTravelersNumber()){
             return true;
         }
         else
@@ -31,41 +31,26 @@ public class SejourLong extends Sejour {
             return false;
         }
     }
-    public int getTarif(){
-        Uti.info("SejourLong","getTarif()","");
-//        if (beneficiePromotion()){
-//           return tarif *(100 - PROMOTION_EN_POURCENTAGE)/100;
-//        } else {
-//            return 0;
-//        }
-
+    public int getRate(){
+       Uti.info("SejourCourt","getTarif()","");
         // gestion arrondi
         String masque = new String("#0.00#");
-        int tarifInitial =0;
         DecimalFormat form = new DecimalFormat(masque); // import java.text.DecimalFormat;
-        form.format(tarif);
-        System.out.print("Le prix de ce séjour est de "+ tarif + " € ");
-        if (beneficiePromotion()){
-            tarifInitial = tarif;
-            tarif = tarif *(100 - PROMOTION_EN_POURCENTAGE)/100;
-            System.out.print(" ("+(tarifInitial-tarif)+"€ de promotion)");
-        }
+        form.format(rate);
 
-        return tarif;
+        System.out.print("Le prix de ce séjour est de " + rate + " € ");
+
+
+        return rate;
     }
-    public boolean beneficiePromotion(){
-        Uti.info("SejourLong","beneficiePromotion()","");
-        boolean bPromotion= false;
-        if(nbNuits>=6){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean benefitPromotion(){
+        Uti.info("SejourCourt","beneficiePromotion()","");
+        return false;
     }
-    public void afficher() {
-        Uti.info("SejourLong", "afficher()", "");
+    public void display() {
+       Uti.info("SejourCourt", "afficher()", "");
         // gestion de la date en chaîne de caractères
-        double tarif = (double) nbNuits * logement.getTarifJournalier();
+        double tarif = (double) overnightsNumber * housing.getDaylyRate();
 
         boolean bOkParamSejour = false;
         int annee = dateArrivee.getYear();
@@ -104,16 +89,15 @@ public class SejourLong extends Sejour {
             System.out.println("----> nombre de nuits correct");
         }*/
         // si les 3 conditions sont vérifiées
-        if (verificationDateArrivee() && verificationNombreDeNuits() && verificationNombreDeVoyageurs()) {
+        if (arrivalDateVerification() && overnightsNumberVerification() && checkTravelersNumber()) {
             // affichage
-            logement.afficher();
+            housing.display();
             System.out.println("Avis de réservation");
-            System.out.println("La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + nbNuits + " nuits.");
+            System.out.println("La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + overnightsNumber + " nuits.");
 //            System.out.print("Le prix de ce séjour est de " + tarif + " € ");
 //            System.out.print("Le prix de ce séjour est de " + form.format(tarif) + " € ");
 //            System.out.print("Le prix de ce séjour est de " + getTarif() + " € ");
-
-            getTarif();
+            getRate();
 
             System.out.println(".");
         }

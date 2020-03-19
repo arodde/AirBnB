@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VueMenu extends JFrame {
+public class ViewMenu extends JFrame {
     public JPanel jPanel;
     public JMenuBar jMenuBar;
     public JMenu jMenuAdd ;
@@ -19,7 +19,7 @@ public class VueMenu extends JFrame {
     public JMenuItem jMenuItemAddStay ;
 
 
-    public VueMenu(){
+    public ViewMenu(){
         // todo fen menu pour ajouter voyageurs, hôtes, logements, réservations
         // add characteristics to The window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,13 +28,10 @@ public class VueMenu extends JFrame {
         setSize(600,500);
         setLocationRelativeTo(null);
         initMenu();
-// todo revoir logique  ajouter hôte voyageur logement tenter de prendre un séjour et voir pour avoir une réservation
-
-
+        // todo revoir logique  ajouter hôte voyageur logement tenter de prendre un séjour et voir pour avoir une réservation
         jPanel = new JPanel();
         jPanel.setBackground(Color.blue);
         this.setContentPane(jPanel);
-
         setVisible(true);
     }
     public void initMenu(){

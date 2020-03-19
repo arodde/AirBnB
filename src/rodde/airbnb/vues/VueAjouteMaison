@@ -1,6 +1,6 @@
 package rodde.airbnb.vues;
 
-        import rodde.airbnb.logements.Maison;
+        import rodde.airbnb.logements.House;
 
 
         import javax.swing.*;

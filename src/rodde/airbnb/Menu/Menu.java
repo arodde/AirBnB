@@ -1,50 +1,48 @@
 package rodde.airbnb.Menu;
 
-import rodde.airbnb.logements.Appartement;
-import rodde.airbnb.logements.Logement;
-import rodde.airbnb.logements.Maison;
+import rodde.airbnb.logements.Appartment;
+import rodde.airbnb.logements.Housing;
+import rodde.airbnb.logements.House;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Hote;
-import rodde.airbnb.utilisateurs.Voyageur;
-import rodde.airbnb.vues.VueCreationHote;
-import rodde.airbnb.vues.VueMenu;
+import rodde.airbnb.utilisateurs.Host;
+import rodde.airbnb.utilisateurs.Traveler;
+import rodde.airbnb.vues.ViewMenu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     public static Scanner sc;
-    private static int optionChoisie;
+    private static int selectedOption;
 
-    public static ArrayList<Hote> getListeHotes() {
+    public static ArrayList<Host> getHostArrayList() {
         Uti.info("Menu","getListeHotes","");
-        return listeHotes;
+        return hostArrayList;
     }
 
-    public static void setListeHotes(ArrayList<Hote> listeHotes) {
+    public static void setHostArrayList(ArrayList<Host> hostArrayList) {
         Uti.info("Menu","setListeHotes","");
-        Menu.listeHotes = listeHotes;
+        Menu.hostArrayList = hostArrayList;
     }
 
-    private static ArrayList<Hote> listeHotes;
-    private static ArrayList<Voyageur> listeVoyageurs;
-    private static ArrayList<Logement> listeLogements;
-    private static ArrayList<Reservation> listeReservations;
-    private static  GestionReservations gestionReservations;
-    private static  GestionVoyageurs gestionVoyageurs;
-    private static GestionHotes gestionHotes;
-    private static  GestionLogements gestionLogements;
-    public static ArrayList<Reservation> getListeReservations() {
+    private static ArrayList<Host> hostArrayList;
+    private static ArrayList<Traveler> travelerArrayList;
+    private static ArrayList<Housing> housingArrayList;
+    private static ArrayList<Booking> bookingArrayList;
+    private static BookingManagement bookingManagement;
+    private static TravellersManagement travellersManagement;
+    private static HostsManagement hostsManagement;
+    private static HousingManagement housingManagement;
+    public static ArrayList<Booking> getBookingArrayList() {
         Uti.info("Menu","getListeReservations","");
-        return listeReservations;
+        return bookingArrayList;
     }
-    public static void afficherReservations(){
-        if(listeReservations.size()>0){
-        for ( int i = 0 ; i < listeReservations.size(); i++){
-            listeReservations.get(i).afficher();
+    public static void displayBookings(){
+        if(bookingArrayList.size()>0){
+        for (int i = 0; i < bookingArrayList.size(); i++){
+            bookingArrayList.get(i).display();
             System.out.println("\n");
         }
     }
@@ -53,10 +51,10 @@ public class Menu {
             System.out.println("liste réservations vide");
         }
     }
-    public static void afficherHotes(){
-        if(listeHotes.size()>0){
-            for ( int i = 0 ; i < listeHotes.size(); i++){
-                listeHotes.get(i).afficher();
+    public static void displayHosts(){
+        if(hostArrayList.size()>0){
+            for (int i = 0; i < hostArrayList.size(); i++){
+                hostArrayList.get(i).display();
                 System.out.println("\n");
             }
         }
@@ -65,10 +63,10 @@ public class Menu {
             System.out.println("liste hôtes vide");
         }
     }
-    public static void afficherVoyageurs(){
-        if(listeVoyageurs.size()>0){
-            for ( int i = 0 ; i < listeVoyageurs.size(); i++){
-                listeVoyageurs.get(i).afficher();
+    public static void displayTravelers(){
+        if(travelerArrayList.size()>0){
+            for (int i = 0; i < travelerArrayList.size(); i++){
+                travelerArrayList.get(i).display();
                 System.out.println("\n");
             }
         }
@@ -77,11 +75,11 @@ public class Menu {
             System.out.println("liste voyageurs vide");
         }
     }
-    public static void afficherLogements(){
+    public static void displayHousings(){
         // todo afficher liste
-        if(listeLogements.size()>0){
-            for ( int i = 0 ; i < listeLogements.size(); i++){
-                listeLogements.get(i).afficher();
+        if(housingArrayList.size()>0){
+            for (int i = 0; i < housingArrayList.size(); i++){
+                housingArrayList.get(i).display();
                 System.out.println("\n");
             }
         }
@@ -90,138 +88,138 @@ public class Menu {
             System.out.println("liste logement vide");
         }
     }
-    public static void setListeReservations(ArrayList<Reservation> listeReservations) {
+    public static void setBookingArrayList(ArrayList<Booking> bookingArrayList) {
         Uti.info("Menu","setListeReservations","");
-        Menu.listeReservations = listeReservations;
+        Menu.bookingArrayList = bookingArrayList;
     }
 
-    public static GestionReservations getGestionReservations() {
+    public static BookingManagement getBookingManagement() {
         Uti.info("Menu","getGestionReservations","");
-        return gestionReservations;
+        return bookingManagement;
     }
 
-    public static void setGestionReservations(GestionReservations gestionReservations) {
+    public static void setBookingManagement(BookingManagement bookingManagement) {
         Uti.info("Menu","setGestionReservations","");
-        Menu.gestionReservations = gestionReservations;
+        Menu.bookingManagement = bookingManagement;
     }
 
 
-    public static GestionHotes getGestionHotes() {
+    public static HostsManagement getHostsManagement() {
         Uti.info("Menu","getGestionHotes","");
-        return gestionHotes;
+        return hostsManagement;
     }
 
-    public static void setGestionHotes(GestionHotes gestionHotes) {
+    public static void setHostsManagement(HostsManagement hostsManagement) {
         Uti.info("Menu","setGestionHotes","");
-        Menu.gestionHotes = gestionHotes;
+        Menu.hostsManagement = hostsManagement;
     }
 
-    public static GestionLogements getGestionLogements() {
+    public static HousingManagement getHousingManagement() {
         Uti.info("Menu","getGestionLogements","");
-        return gestionLogements;
+        return housingManagement;
     }
 
-    public static void setGestionLogements(GestionLogements gestionLogements) {
+    public static void setHousingManagement(HousingManagement housingManagement) {
         Uti.info("Menu","setGestionLogements","");
-        Menu.gestionLogements = gestionLogements;
+        Menu.housingManagement = housingManagement;
     }
 
 
 
-    public static GestionVoyageurs getGestionVoyageurs() {
+    public static TravellersManagement getTravellersManagement() {
         Uti.info("Menu","getGestionVoyageurs","");
-        return gestionVoyageurs;
+        return travellersManagement;
     }
 
-    public static void setGestionVoyageurs(GestionVoyageurs gestionVoyageurs) {
+    public static void setTravellersManagement(TravellersManagement travellersManagement) {
         Uti.info("Menu","setGestionVoyageurs","");
-        Menu.gestionVoyageurs = gestionVoyageurs;
+        Menu.travellersManagement = travellersManagement;
     }
 
-    public static ArrayList<Voyageur> getListeVoyageurs() {
+    public static ArrayList<Traveler> getTravelerArrayList() {
         Uti.info("Menu","getListeVoyageurs","");
-        return listeVoyageurs;
+        return travelerArrayList;
     }
 
-    public static void setListeVoyageurs(ArrayList<Voyageur> listeVoyageurs)    {
+    public static void setTravelerArrayList(ArrayList<Traveler> travelerArrayList)    {
         Uti.info("Menu","setListeVoyageurs","");
-        Menu.listeVoyageurs = listeVoyageurs;
+        Menu.travelerArrayList = travelerArrayList;
     }
 
 
-    public static ArrayList<Logement> getListeLogements() {
+    public static ArrayList<Housing> getHousingArrayList() {
         Uti.info("Menu","getListeLogements","");
-        return listeLogements;
+        return housingArrayList;
     }
 
-    public static void setListeLogements(ArrayList<Logement> listeLogements) {
+    public static void setHousingArrayList(ArrayList<Housing> housingArrayList) {
         Uti.info("Menu","setListeLogements","");
-        Menu.listeLogements = listeLogements;
+        Menu.housingArrayList = housingArrayList;
     }
     public static void airBnB()  {
         Uti.info("Menu","airBnB","");
 
         System.out.println( "Bienvenue chez AirBnB" );
 
-        listeHotes = new ArrayList<Hote>();
-        listeVoyageurs = new ArrayList<Voyageur>();
-        listeLogements = new ArrayList<Logement>();
-        listeReservations = new ArrayList<Reservation>();
-        gestionHotes = new GestionHotes();
-        gestionLogements = new GestionLogements();
-        gestionVoyageurs = new GestionVoyageurs();
-        gestionReservations= new GestionReservations();
+        hostArrayList = new ArrayList<Host>();
+        travelerArrayList = new ArrayList<Traveler>();
+        housingArrayList = new ArrayList<Housing>();
+        bookingArrayList = new ArrayList<Booking>();
+        hostsManagement = new HostsManagement();
+        housingManagement = new HousingManagement();
+        travellersManagement = new TravellersManagement();
+        bookingManagement = new BookingManagement();
 
 
-afficherReservations();
-        Hote h1 = new Hote("zz","rr",1,12);
-        listeHotes.add(h1);
-        Voyageur v1 = new Voyageur("zo","rp",55);
-        listeVoyageurs.add(v1);
-        Maison m1 = new Maison(h1,89,"ert",752,10,1700,true);
-        Appartement a1 = new Appartement(h1,88,"ab cdefg hijk lmnopqr stu vwxyz",45,4,7,3);
+displayBookings();
+        Host h1 = new Host("zz","rr",1,12);
+        hostArrayList.add(h1);
+        Traveler v1 = new Traveler("zo","rp",55);
+        travelerArrayList.add(v1);
+        House m1 = new House(h1,89,"ert",752,10,1700,true);
+        Appartment a1 = new Appartment(h1,88,"ab cdefg hijk lmnopqr stu vwxyz",45,4,7,3);
 
         LocalDate dateArrivee = LocalDate.of(2020, 4, 3);
-     Sejour s1 = null;
+     Stay s1 = null;
      int dureeSejour =3;
         if (dureeSejour < 6) {
-            s1 = new SejourCourt(dateArrivee, dureeSejour, m1, 5);
+            s1 = new ShortStay(dateArrivee, dureeSejour, m1, 5);
         } else {
-            s1 = new SejourLong(dateArrivee, dureeSejour, m1, 5);
+            s1 = new LongStay(dateArrivee, dureeSejour, m1, 5);
         }
         try {
-            Reservation r1 = new Reservation(s1,v1);
-            listeReservations.add(r1);
-        } catch (InstanciationReservationException e) {
+            Booking r1 = new Booking(s1,v1);
+            bookingArrayList.add(r1);
+        } catch (instantiationBookingException e) {
             System.out.println("réservation impossible à prendre!!!");
             e.printStackTrace();
         }
-        listeLogements.add(m1);
-        listeLogements.add(a1);
+        housingArrayList.add(m1);
+        housingArrayList.add(a1);
 
-afficherReservations();
+displayBookings();
 
-        while(optionChoisie<1||optionChoisie>5){
-            optionChoisie = 0;
+        while(selectedOption <1|| selectedOption >5){
+            selectedOption = 0;
 //            sc.useDelimiter("\n");
-            listerMenu();
-            optionChoisie = choix(5);
-            switch(optionChoisie){
+            listMenu();
+            selectedOption = choice(5);
+            switch(selectedOption){
                 case 1 :
-                    gestionHotes.menuListerHotes();
-                    optionChoisie = 0;
+                    hostsManagement.listHostsMenu();
+                    selectedOption = 0;
                     break;
                 case 2 :
-                    gestionLogements.menuListerLogements();
-                    optionChoisie = 0;
+                    housingManagement.listHousingsMenu();
+                    selectedOption = 0;
                     break;
                 case 3 :
-                    gestionVoyageurs.menuListerVoyageurs();
-                    optionChoisie = 0;
+                    travellersManagement.listTravelersMenu();
+                    selectedOption = 0;
                     break;
                 case 4 :
-                    gestionReservations.menuListerReservations();
-                    optionChoisie = 0;
+                    bookingManagement.listBookingsMenu();
+                    selectedOption = 0;
                     break;
                 default:
                     System.out.println("A bientôt.");
@@ -234,13 +232,13 @@ afficherReservations();
     public static void main(String[] args)  {
         Uti.info("Menu","main","");
         sc = new Scanner( System .in);
-        VueMenu vueMenu = new VueMenu();
+        ViewMenu vueMenu = new ViewMenu();
 //          airBnB();
 
 
         sc.close();
     }
-    static protected void listerMenu(){
+    static protected void listMenu(){
         Uti.info("Menu","listerMenu()","");
 
 
@@ -251,7 +249,7 @@ afficherReservations();
         System.out.println("4. Liste des réservations");
         System.out.println("5. Fermer le programme");
     }
-    static int choix(int maxValue){
+    static int choice(int maxValue){
         Uti.info("Menu","choix()","");
         boolean ok= false;
         String sChoix = "";

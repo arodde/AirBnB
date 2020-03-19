@@ -1,19 +1,16 @@
 package rodde.airbnb;
-import rodde.airbnb.Menu.Menu;
-import rodde.airbnb.logements.Appartement;
-import rodde.airbnb.logements.Maison;
-import rodde.airbnb.reservations.Reservation;
-import rodde.airbnb.reservations.Sejour;
-import rodde.airbnb.reservations.SejourCourt;
-import rodde.airbnb.reservations.SejourLong;
+import rodde.airbnb.logements.Appartment;
+import rodde.airbnb.logements.House;
+import rodde.airbnb.reservations.Stay;
+import rodde.airbnb.reservations.ShortStay;
+import rodde.airbnb.reservations.LongStay;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Hote;
-import rodde.airbnb.utilisateurs.Voyageur;
-import rodde.airbnb.vues.VueCreationHote;
-import rodde.airbnb.vues.VueCreationVoyageur;
+import rodde.airbnb.utilisateurs.Host;
+import rodde.airbnb.utilisateurs.Traveler;
+import rodde.airbnb.vues.ViewHostCreation;
+import rodde.airbnb.vues.ViewTravellerCreation;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
@@ -24,28 +21,28 @@ public class Main {
 
         Uti.info("Main", "main", "");
         sc = new Scanner(System.in);
-        VueCreationHote vch = new VueCreationHote();
-        VueCreationVoyageur vcv = new VueCreationVoyageur();
+        ViewHostCreation vch = new ViewHostCreation();
+        ViewTravellerCreation vcv = new ViewTravellerCreation();
         //
         // les personnes
         //
-        Hote personne1 = new Hote("RODDE", "Alain", 37, 12);
-        Hote personne5 = new Hote("RODDE", "Léon", 72, 24);
-        Voyageur personne2 = new Voyageur("LESDEMA", "Fabien", 37);
-        Hote personne3 = new Hote("Commençais", "Sabrina", 39, 15);
-        Voyageur personne4 = new Voyageur("Boureaud", "Nicolas", 37);
+        Host personne1 = new Host("RODDE", "Alain", 37, 12);
+        Host personne5 = new Host("RODDE", "Léon", 72, 24);
+        Traveler personne2 = new Traveler("LESDEMA", "Fabien", 37);
+        Host personne3 = new Host("Commençais", "Sabrina", 39, 15);
+        Traveler personne4 = new Traveler("Boureaud", "Nicolas", 37);
         //
         // les logements
         //
-        Maison maison1 = new Maison(personne1, 85,
+        House house1 = new House(personne1, 85,
                 "11 Rue Georges Clémenceau, 36000 CHATEAUROUX", 80, 2,
                 700, false
         );
-        Maison maison2 = new Maison(personne5, 200,
+        House house2 = new House(personne5, 200,
                 "19 Bis Avenue de la Châtre, 36000 CHATEAUROUX", 200, 6,
                 1000, true
         );
-        Appartement appartement1 = new Appartement(personne3, 60,
+        Appartment appartement1 = new Appartment(personne3, 60,
                 "appart. 12, 159 Rue Victor Hugo, 37000 TOURS", 45, 1,
                 3, 6
         );
@@ -58,30 +55,30 @@ public class Main {
         int dureeSejour1 = 9;
         int dureeSejour2 = 5;
         int dureeSejour3 = 3;
-        Sejour sejour1 = null;
-        Sejour sejour2 = null;
-        Sejour sejour3 = null;
+        Stay sejour1 = null;
+        Stay sejour2 = null;
+        Stay sejour3 = null;
         if (dureeSejour1 < 6) {
-            sejour1 = new SejourCourt(dateArrivee1, dureeSejour1, maison1, 2);
+            sejour1 = new ShortStay(dateArrivee1, dureeSejour1, house1, 2);
         } else {
-            sejour1 = new SejourLong(dateArrivee1, dureeSejour1, maison1, 2);
+            sejour1 = new LongStay(dateArrivee1, dureeSejour1, house1, 2);
         }
         if (dureeSejour2 < 6) {
 
-            sejour2 = new SejourCourt(dateArrivee2, dureeSejour2, appartement1, 1);
+            sejour2 = new ShortStay(dateArrivee2, dureeSejour2, appartement1, 1);
         } else {
 
-            sejour2 = new SejourLong(dateArrivee2, dureeSejour2, appartement1, 1);
+            sejour2 = new LongStay(dateArrivee2, dureeSejour2, appartement1, 1);
         }
         if (dureeSejour3 < 6) {
-            sejour3 = new SejourCourt(dateArrivee3, dureeSejour3, maison2, 5);
+            sejour3 = new ShortStay(dateArrivee3, dureeSejour3, house2, 5);
         } else {
-            sejour3 = new SejourLong(dateArrivee3, dureeSejour3, maison2, 5);
+            sejour3 = new LongStay(dateArrivee3, dureeSejour3, house2, 5);
         }
 // conversion en sejour du séjour court ou long pour que la réservation accepte les deux types enfants
-        sejour1 = (Sejour) sejour1;
-        sejour2 = (Sejour) sejour2;
-        sejour3 = (Sejour) sejour3;
+        sejour1 = (Stay) sejour1;
+        sejour2 = (Stay) sejour2;
+        sejour3 = (Stay) sejour3;
 
 
 //        //

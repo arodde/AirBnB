@@ -1,9 +1,9 @@
 package rodde.airbnb.reservations;
 
 public interface ServiceInterface {
-    public boolean verificationDateArrivee();
-    public boolean verificationNombreDeNuits();
-    public boolean verificationNombreDeVoyageurs();
-    public void afficher();
+    public boolean arrivalDateVerification();
+    public boolean overnightsNumberVerification();
+    public boolean checkTravelersNumber();
+    public void display();
 
 }
