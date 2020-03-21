@@ -6,10 +6,10 @@ public class Person {
     protected String surname;
     protected String firstname;
     protected int age;
-    public Person(String nom, String prenom, int age){
+    public Person(String surname, String firstname, int age){
        Uti.info("Personne", "Personne()","3 paramètres");
-        this.surname = nom;
-        this.firstname = prenom;
+        this.surname = surname;
+        this.firstname = firstname;
         this.age = age;
     }
     public void display(){

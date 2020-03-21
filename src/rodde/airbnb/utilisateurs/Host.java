@@ -9,9 +9,9 @@ public class Host extends Person {
     }
 
     private int responseTime;
-    public Host(String nom, String prenom, int age, int delaiReponse){
-        super( nom,prenom , age);// appelle le constructeur de personne
-        this.responseTime = delaiReponse;
+    public Host(String surname, String firstname, int age, int responseTime){
+        super( surname,firstname , age);// appelle le constructeur de personne
+        this.responseTime = responseTime;
     }
     public void display(){
         Uti.info("Hote","afficher()","");

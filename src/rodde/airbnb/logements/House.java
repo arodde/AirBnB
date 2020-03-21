@@ -6,10 +6,10 @@ import rodde.airbnb.utilisateurs.Host;
 public class House extends Housing {
     private int gardenArea;
     private boolean ownSwimmingPool;
-    public House(Host hote, int tarifJournalier, String adresse, int superficie, int nbVoyageursMax, int superficieJardin, boolean possedePiscine) {
-        super(hote, tarifJournalier, adresse, superficie, nbVoyageursMax);
-        this.gardenArea = superficieJardin;
-        this.ownSwimmingPool = possedePiscine;
+    public House(Host host, int daylyRate, String address, int area, int maxTravelersNumber, int gardenArea, boolean ownSwimmingPool) {
+        super(host, daylyRate, address, area, maxTravelersNumber);
+        this.gardenArea = gardenArea;
+        this.ownSwimmingPool = ownSwimmingPool;
     }
     public void display(){
         Uti.info("House","afficher","");

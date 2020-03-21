@@ -9,13 +9,13 @@ public abstract class Housing {
     protected String address;
     protected int area;
     protected int maxTravelersNumber;
-    public Housing(Host hote, int tarifJournalier, String adresse, int superficie, int nbVoyageursMax) {
+    public Housing(Host host, int daylyRate, String address, int area, int maxTravelersNumber) {
         Uti.info("Housing","Logement","");
-        this.host = hote;
-        this.daylyRate = tarifJournalier;
-        this.address = adresse;
-        this.area = superficie;
-        this.maxTravelersNumber = nbVoyageursMax;
+        this.host = host;
+        this.daylyRate = daylyRate;
+        this.address = address;
+        this.area = area;
+        this.maxTravelersNumber = maxTravelersNumber;
     }
 
     public int getDaylyRate() {

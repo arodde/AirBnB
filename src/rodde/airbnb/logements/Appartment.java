@@ -6,10 +6,10 @@ package rodde.airbnb.logements;
 public class Appartment extends Housing {
     private int balconyArea;
     private int floorNumber;
-    public Appartment(Host hote, int tarifJournalier, String adresse, int superficie, int nbVoyageursMax, int numeroEtage, int superficieBalcon) {
-        super(hote, tarifJournalier, adresse, superficie, nbVoyageursMax);
-        this.floorNumber = numeroEtage;
-        this.balconyArea =superficieBalcon;
+    public Appartment(Host host, int daylyRate, String address, int Area, int maxTravelersNumber, int floorNumber, int balconyArea) {
+        super(host, daylyRate, address, Area, maxTravelersNumber);
+        this.floorNumber = floorNumber;
+        this.balconyArea =balconyArea;
     }
     public   void display(){
         Uti.info("Appartement","afficher()","");
