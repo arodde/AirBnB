@@ -3,6 +3,8 @@ package rodde.airbnb.Menu;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
+import javax.swing.*;
+
 public class HostsManagement {
 
     public static void listHostsMenu() {
@@ -87,6 +89,10 @@ public class HostsManagement {
         indexOfDisplayedHost();
     }
     protected static void indexOfDisplayedHost(){
+        /**
+         * display the list's element with index and call the
+         * display method of this element and go to the next line
+         */
         Uti.info("GestionHotes","indiceHoteAffiche()","");
         // affiche la liste de tous les hôtes
         int indiceAffi=0;
@@ -97,6 +103,7 @@ public class HostsManagement {
             indiceAffi++;
         }
     }
+
 
     protected static void deleteHost() throws Exception{
         Uti.info("GestionHotes","supprimerHote()","");

@@ -3,6 +3,22 @@ package rodde.airbnb.utilisateurs;
 import rodde.airbnb.util.Uti;
 
 public class Person {
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     protected String surname;
     protected String firstname;
     protected int age;

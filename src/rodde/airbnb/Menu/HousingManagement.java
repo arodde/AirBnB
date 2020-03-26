@@ -8,6 +8,10 @@ import rodde.airbnb.util.Uti;
 public class HousingManagement {
 
     protected static void indexOfDisplayedHousing() {
+        /**
+         * display the list's element with index and call the
+         * display method of this element and go to the next line
+         */
         Uti.info("GestionLogements","indiceLogementAffiche()","");
         // affiche la liste de tous les logements
         int indiceAffi = 0;

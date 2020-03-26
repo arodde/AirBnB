@@ -11,6 +11,9 @@ public class House extends Housing {
         this.gardenArea = gardenArea;
         this.ownSwimmingPool = ownSwimmingPool;
     }
+
+
+
     public void display(){
         Uti.info("House","afficher","");
         host.display();

@@ -8,6 +8,7 @@ import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 import rodde.airbnb.utilisateurs.Traveler;
 import rodde.airbnb.vues.ViewHostCreation;
+import rodde.airbnb.vues.ViewHouseCreation;
 import rodde.airbnb.vues.ViewTravellerCreation;
 
 import java.time.LocalDate;
@@ -21,8 +22,10 @@ public class Main {
 
         Uti.info("Main", "main", "");
         sc = new Scanner(System.in);
+
         ViewHostCreation vch = new ViewHostCreation();
         ViewTravellerCreation vcv = new ViewTravellerCreation();
+        ViewHouseCreation vhc = new ViewHouseCreation();
         //
         // les personnes
         //

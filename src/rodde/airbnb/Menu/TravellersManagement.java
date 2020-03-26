@@ -116,6 +116,10 @@ public class TravellersManagement {
 
     }
     protected static void indexOfDisplayedTraveler(){
+        /**
+         * display the list's element with index and call the
+         * display method of this element and go to the next line
+         */
         Uti.info("GestionVoyageurs","indiceVoyageurAffiche()","");
         // affiche la liste de tous les voyageurs
         int indiceAffi=0;

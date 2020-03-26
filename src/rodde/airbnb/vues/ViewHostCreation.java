@@ -1,5 +1,6 @@
 package rodde.airbnb.vues;
 
+import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;

@@ -265,6 +265,10 @@ public class BookingManagement {
 //        }
     }
     protected static void indexOfDisplayedBooking(){
+        /**
+         * display the list's element with index and call the
+         * display method of this element and go to the next line
+         */
         Uti.info("GestionReservations","indiceReservationAffiche()","");
         // affiche la liste de tous les hôtes
         int indiceAffi=0;
