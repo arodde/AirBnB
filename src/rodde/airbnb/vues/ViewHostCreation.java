@@ -5,6 +5,10 @@ import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static rodde.airbnb.vues.ViewMenu.hostArrayList;
+import static rodde.airbnb.vues.ViewMenu.viewHostCreation;
 
 public class ViewHostCreation extends JFrame {
     private JLabel jLabelSurname;
@@ -19,12 +23,13 @@ public class ViewHostCreation extends JFrame {
     public ViewHostCreation(){
         // ajout de caractéristique à la fenêtre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AirBnB");
+        setTitle("Ajouter un hôte");
         setName("AirBnBAjoutHote");
         setResizable(false);
         setBounds(500,200,300,250);
         // rend la fenêtre visible
         setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         // instanciation des propriétés de la classe
         jLabelSurname = new JLabel("Nom :");
         jTextFieldSurname = new JTextField();
@@ -52,19 +57,24 @@ public class ViewHostCreation extends JFrame {
         // rafraichit la vue de la fenêtre
         setVisible(true);
         // gestion du clic du bouton
-        jButtonValidate.addActionListener(new AbstractAction() {
+        jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Création de l'hôte
-                Host hoteVue = new Host(
+                Host currentHote = new Host(
                         (String) jTextFieldSurname.getText(),
                         (String) jTextFieldFirstName.getText(),
                         Integer.parseInt(jTextFieldAge.getText()),
                         Integer.parseInt(jTextFieldResponseTime.getText())
                 );
-                hoteVue.display();
+                hostArrayList.add(currentHote);
+                viewHostCreation.setVisible(false);
+                Uti.mess(String.valueOf(hostArrayList.size())+" hôte(s) dans la liste");
+                viewHostCreation = null;
             }
         });
+
     }
+
 
 }

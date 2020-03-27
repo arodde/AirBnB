@@ -4,7 +4,7 @@ import rodde.airbnb.utilisateurs.Traveler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-public class ViewTravellerCreation extends JFrame {
+public class ViewTravelerCreation extends JFrame {
 
     private JLabel jLabelSurname;
     private JTextField jTextFieldSurname;
@@ -14,15 +14,16 @@ public class ViewTravellerCreation extends JFrame {
     private JLabel jLabelAge;
     private JTextField jTextFieldAge;
 
-    public ViewTravellerCreation(){
+    public ViewTravelerCreation(){
         // ajout de caractéristiques à la fenêtre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AirBnB");
+        setTitle("Ajouter un voyageur");
         setName("AirBnBAjoutVoyageur");
         setResizable(false);
         setBounds(600,300,300,250);
         // rend la fenêtre visible
         setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         // instanciation des propriétés de la classe
         jLabelSurname = new JLabel("Nom :");
         jTextFieldSurname = new JTextField();

@@ -40,21 +40,22 @@ public class ViewHouseCreation extends JFrame {
 
         jLabelHost = new JLabel("Hôte :");
         jComboBoxHosts = new JComboBox();
-        hostArrayList = new ArrayList<Host>();
-//--------------------------------------------------------------------------------------------------------
-        Host personne1 = new Host("RODDE", "Alain", 37, 12);
-        Host personne2 = new Host("RODDE", "Léon", 72, 24);
-        Host personne3 = new Host("RODDE", "Emmanuelle", 37, 12);
-        Host personne4 = new Host("RODDE", "Marie-Claude", 72, 24);
-        Host personne5 = new Host("RODDE", "Jean-Louis", 37, 12);
-        Host personne6 = new Host("RODDE", "Marie-Louis", 72, 24);
-        hostArrayList.add(personne1);
-        hostArrayList.add(personne2);
-        hostArrayList.add(personne3);
-        hostArrayList.add(personne4);
-        hostArrayList.add(personne5);
-        hostArrayList.add(personne6);
         fillHostComboItem();
+
+//--------------------------------------------------------------------------------------------------------
+//        Host personne1 = new Host("RODDE", "Alain", 37, 12);
+//        Host personne2 = new Host("RODDE", "Léon", 72, 24);
+//        Host personne3 = new Host("RODDE", "Emmanuelle", 37, 12);
+//        Host personne4 = new Host("RODDE", "Marie-Claude", 72, 24);
+//        Host personne5 = new Host("RODDE", "Jean-Louis", 37, 12);
+//        Host personne6 = new Host("RODDE", "Marie-Louis", 72, 24);
+//        hostArrayList.add(personne1);
+//        hostArrayList.add(personne2);
+//        hostArrayList.add(personne3);
+//        hostArrayList.add(personne4);
+//        hostArrayList.add(personne5);
+//        hostArrayList.add(personne6);
+//        fillHostComboItem();
 //--------------------------------------------------------------------------------------------------------
 
         jLabelDailyRate = new JLabel("Tarif journalier :");
@@ -75,7 +76,7 @@ public class ViewHouseCreation extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelHost);
         panel.add(jComboBoxHosts);
-//        jComboBoxHosts.addItemListener(addEltHost);
+        jComboBoxHosts.addItemListener(addEltHost);
         panel.add(jLabelDailyRate);
         panel.add(jTextFieldDailyRate);
         panel.add(jLabelAddress);
@@ -139,13 +140,19 @@ public class ViewHouseCreation extends JFrame {
         /**
          * give combo item content
          */
-        Uti.info("ViewMenu","fillHostComboItem","");
+        Uti.info("ViewHouseCreation","fillHostComboItem","");
         String s = "";
         for(int j = 0 ; j < hostArrayList.size(); j++){
+
             Host h =  hostArrayList.get(j);
             s = h.getSurname()+ " "+ h.getFirstname();
-            jComboBoxHosts.addItem(s+new AddEltHost());
+            jComboBoxHosts.addItem(s);
+            Uti.mess(s);
+            Uti.mess("zz");
         }
+        Uti.mess(s);
+        Uti.mess("yy");
+
     }
     class AddEltHost implements ItemListener {
         /**
@@ -160,6 +167,7 @@ public class ViewHouseCreation extends JFrame {
 
         @Override
         public void itemStateChanged(ItemEvent e) {
+            Uti.info("ViewHouseCreation","itemStateChanged","");
             // combo
 //            String s="";
 //            Host h = null;
@@ -167,8 +175,9 @@ public class ViewHouseCreation extends JFrame {
 //                jComboBoxHosts.addItem(hostArrayList.get(i));
 //
 //            }
+            Uti.mess("plop");
             currentHost = (Host) e.getItem();
-            Uti.mess(currentHost.toString());
+            Uti.mess(currentHost.getSurname()+" "+currentHost.getFirstname());
         }
     }
 }

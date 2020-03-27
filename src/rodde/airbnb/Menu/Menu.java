@@ -1,8 +1,6 @@
 package rodde.airbnb.Menu;
 
-import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.Housing;
-import rodde.airbnb.logements.House;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
@@ -10,9 +8,8 @@ import rodde.airbnb.utilisateurs.Traveler;
 import rodde.airbnb.vues.ViewHostCreation;
 import rodde.airbnb.vues.ViewHouseCreation;
 import rodde.airbnb.vues.ViewMenu;
-import rodde.airbnb.vues.ViewTravellerCreation;
+import rodde.airbnb.vues.ViewTravelerCreation;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,7 +28,7 @@ public class Menu {
     private static HousingManagement housingManagement;
     private static ViewMenu viewMenu;
     private static ViewHostCreation viewHostCreation;
-    private static ViewTravellerCreation viewTravellerCreation;
+    private static ViewTravelerCreation viewTravelerCreation;
     private static ViewHouseCreation viewHouseCreation;
 //    private static View viewMenu;// view appartement
     public static void displayBookings(){

@@ -14,8 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,41 +25,39 @@ public class ViewMenu extends JFrame {
     public JMenu jMenuDisplay ;
     public JMenuItem jMenuItemClose ;
     public JMenuItem jMenuItemDisplayReservation ;
-    public JMenu jMenuAddHost;
-    public JMenu jMenuAddTraveler;
-    public JMenu jMenuAddHouse;
-    public JMenu jMenuAddAppartment;
-    public JMenu jMenuAddBooking;
+    public JMenuItem jMenuAddHost;
+    public JMenuItem jMenuAddTraveler;
+    public JMenuItem jMenuAddHouse;
+    public JMenuItem jMenuAddAppartment;
+    public JMenuItem jMenuAddStay;
     public JComboBox jComboBoxTravelers;
     public JComboBox jComboBoxHousings;
-    public JComboBox jComboBoxBookings;
+    public JComboBox jComboBoxStays;
 
     //    private Menu menu;
-    private static ArrayList<Traveler> travelerArrayList = new ArrayList<Traveler>();
-    private static ArrayList<Housing> housingArrayList = new ArrayList<Housing>();
-    private static ArrayList<Booking> bookingArrayList  = new ArrayList<Booking>();
-    private static BookingManagement bookingManagement = new BookingManagement();
-    private static TravellersManagement travelersManagement =  new TravellersManagement();
-    private static HostsManagement hostsManagement = new HostsManagement();
-    private static HousingManagement housingManagement= new HousingManagement();
-    private static ViewMenu viewMenu;
-    private static ViewHostCreation viewHostCreation;
-    private static ViewTravellerCreation viewTravellerCreation;
-    private static ViewHouseCreation viewHouseCreation;
+    public static ArrayList<Traveler> travelerArrayList = new ArrayList<Traveler>();
+    public static ArrayList<Host> hostArrayList = new ArrayList<Host>();
+    public static ArrayList<Housing> housingArrayList = new ArrayList<Housing>();
+    public static ArrayList<Booking> bookingArrayList  = new ArrayList<Booking>();
+    public static BookingManagement bookingManagement = new BookingManagement();
+    public static TravellersManagement travelersManagement =  new TravellersManagement();
+    public static HostsManagement hostsManagement = new HostsManagement();
+    public static HousingManagement housingManagement= new HousingManagement();
+    public static ViewMenu viewMenu;
+    public static ViewHostCreation viewHostCreation;
+    public static ViewTravelerCreation viewTravelerCreation;
+    public static ViewHouseCreation viewHouseCreation;
 
     public static void main(String[] args)  {
-        Uti.info("Menu","main","");
+        Uti.info("ViewMenu","main","");
         sc = new Scanner( System .in);
         ViewMenu vueMenu = new ViewMenu();
 //        airBnB();
-        travelerArrayList = new ArrayList<Traveler>();
-        housingArrayList = new ArrayList<Housing>();
-        bookingArrayList = new ArrayList<Booking>();
         hostsManagement = new HostsManagement();
         housingManagement = new HousingManagement();
         travelersManagement = new TravellersManagement();
         bookingManagement = new BookingManagement();
-
+        hostArrayList = new ArrayList<Host>();
 
 
 
@@ -94,16 +90,16 @@ public class ViewMenu extends JFrame {
         jMenuAdd = new JMenu("Ajouter");
         jMenuDisplay = new JMenu("Afficher");
         jMenuItemDisplayReservation = new JMenuItem("Afficher les réservations");
-//        jMenuItemAddHost = new JMenuItem("Ajouter un hôte");
-        jMenuAddHost = new JMenu("Ajouter un hôte");
-        jMenuAddTraveler = new JMenu("Ajouter un voyageur");
-        jMenuAddHouse = new JMenu("Ajouter une maison");
-        jMenuAddAppartment = new JMenu("Ajouter un appartement");
-        jMenuAddBooking = new JMenu("Ajouter un séjour");
+        jMenuAddHost = new JMenuItem("Ajouter un hôte");
+        jMenuAddTraveler = new JMenuItem("Ajouter un voyageur");
+        jMenuAddHouse = new JMenuItem("Ajouter une maison");
+        jMenuAddAppartment = new JMenuItem("Ajouter un appartement");
+        jMenuAddStay = new JMenuItem("Ajouter un séjour");
         jMenuItemClose = new JMenuItem("Fermer");
         jComboBoxTravelers = new JComboBox();
         jComboBoxHousings = new JComboBox();
-        jComboBoxBookings = new JComboBox();
+        jComboBoxStays = new JComboBox();
+
         jMenuItemClose.addActionListener(new ActionListener(){
                                              @Override
                                              public void actionPerformed(ActionEvent e) {
@@ -111,12 +107,14 @@ public class ViewMenu extends JFrame {
                                              }
                                          }
         );
-        viewHouseCreation = new ViewHouseCreation();
+        jMenuAddHost.addActionListener(new ViewCreationHostListener());
+        jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
+        jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
         jMenuAdd.add(jMenuAddAppartment);
         jMenuAdd.add(jMenuAddTraveler);
-        jMenuAdd.add(jMenuAddBooking);
+        jMenuAdd.add(jMenuAdd);
         jMenuDisplay.add(jMenuItemDisplayReservation);
         jMenuBar.add(jMenuAdd);
         jMenuBar.add(jMenuDisplay);
@@ -124,7 +122,34 @@ public class ViewMenu extends JFrame {
         setJMenuBar(jMenuBar);
     }
 
+    class ViewCreationHouseListener implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewHouseCreation = new ViewHouseCreation();
+        }
+    }
+//    class ViewCreationAppartmentListener implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            viewAppartmentCreation = new ViewAppartmentCreation();
+//        }
+//    }
+    class ViewCreationHostListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewHostCreation = new ViewHostCreation();
+        }
+    }
+    class ViewCreationTravelersListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewTravelerCreation = new ViewTravelerCreation();
+        }
+    }
 }
 // todo vue création logements
 // todo vue création séjours
