@@ -12,12 +12,14 @@ public class ViewHostCreation extends JFrame {
     public JLabel jLabelSurname;
     public JTextField jTextFieldSurname;
     public JButton jButtonValidate;
+    public JButton jButtonFastImput;
     public JLabel jLabelFirstName;
     public JTextField jTextFieldFirstName;
     public JLabel jLabelAge;
     public JTextField jTextFieldAge;
     public JLabel jLabelResponseTime;
     public JTextField jTextFieldResponseTime;
+
     public ViewHostCreation(ArrayList<Host> hosts){
 
         // ajout de caractéristique à la fenêtre
@@ -41,6 +43,7 @@ public class ViewHostCreation extends JFrame {
         jLabelResponseTime = new JLabel("Délai de réponse :");
         jTextFieldResponseTime = new JTextField();
         jButtonValidate = new JButton("Valider");
+        jButtonFastImput = new JButton("saisie rapide");
         // ajout d'un conteneur de vues
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -53,6 +56,8 @@ public class ViewHostCreation extends JFrame {
         panel.add(jLabelResponseTime);
         panel.add(jTextFieldResponseTime);
         panel.add(jButtonValidate);
+        jButtonValidate.setEnabled(false);
+        panel.add(jButtonFastImput);
         // modifie la mise en page de la fenêtre avec le panel
         getContentPane().add(panel);
         // rafraichit la vue de la fenêtre
@@ -61,6 +66,7 @@ public class ViewHostCreation extends JFrame {
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Uti.info("jButtonValidate","actionPerformed","");
                 // Création de l'hôte
                 Host currentHost = new Host(
                         jTextFieldSurname.getText(),
@@ -71,8 +77,28 @@ public class ViewHostCreation extends JFrame {
                 if( hosts == null)
                         Uti.mess("hosts est null");
                 hosts.add(currentHost);
-
-                Uti.mess(String.valueOf(hosts.size())+" hôte(s) dans la liste");
+                jButtonValidate.setEnabled(false);
+                toRemoveAfter1();
+                Uti.mess((hosts.size())+" hôte(s) dans la liste");
+            }
+            public void toRemoveAfter1(){
+                Uti.info("jButtonValidate","toRemoveAfter1","");
+                jTextFieldSurname.setEnabled(false);
+                jTextFieldFirstName.setEnabled(false);
+                jTextFieldAge.setEnabled(false);
+                jTextFieldResponseTime.setEnabled(false);
+            }
+        });
+        jButtonFastImput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+                jTextFieldSurname.setText("BUR");
+                jTextFieldFirstName.setText("Max");
+                jTextFieldAge.setText("51");
+                jTextFieldResponseTime.setText("48");
+                jButtonValidate.setEnabled(true);
+               jButtonFastImput.setEnabled(false);
             }
         });
     }

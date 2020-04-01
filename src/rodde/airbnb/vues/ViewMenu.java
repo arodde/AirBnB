@@ -52,7 +52,6 @@ public class ViewMenu extends JFrame {
 
     }
     public ViewMenu(){
-        // doit remplacer menu
         // todo fen menu pour ajouter voyageurs, hôtes, logements, réservations
         // add characteristics to The window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -117,14 +116,14 @@ public class ViewMenu extends JFrame {
 
             if (hostArrayList == null)
                 Uti.mess("liste d'hôtes nulle.");
-            viewHouseCreation = new ViewHouseCreation(hostArrayList);
+            viewHouseCreation = new ViewHouseCreation(hostArrayList,housingArrayList);
         }
     }
     //    class ViewCreationAppartmentListener implements ActionListener {
 //
 //        @Override
 //        public void actionPerformed(ActionEvent e) {
-//            viewAppartmentCreation = new ViewAppartmentCreation();
+//            viewAppartmentCreation = new ViewAppartmentCreation(hostArrayList,housingArrayList);
 //        }
 //    }
     class ViewCreationHostListener implements ActionListener {
