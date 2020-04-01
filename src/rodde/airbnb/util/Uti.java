@@ -108,5 +108,17 @@ public class Uti{
             System.err.println("error");
         }
     }
+    public static void nullNotNull(String nomInstance, Object object, String mark ){
+        if(object == null)
+            Uti.mess(mark +" "+object+" : "+nomInstance + " est null.");
+        else
+            Uti.mess(mark +" "+object +" : "+nomInstance + " n'est pas null.");
+    }
+    public static void nullNotNullList(String nomInstance, List<Object> objects, String mark ){
+        if(objects == null)
+            Uti.mess(mark +" "+objects+" : "+nomInstance + " est null.");
+        else
+            Uti.mess(mark +" "+objects +" : "+nomInstance + " n'est pas null.");
+    }
 }
 

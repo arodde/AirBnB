@@ -1,9 +1,5 @@
 package rodde.airbnb.vues;
 
-import rodde.airbnb.Menu.BookingManagement;
-import rodde.airbnb.Menu.HostsManagement;
-import rodde.airbnb.Menu.HousingManagement;
-import rodde.airbnb.Menu.TravellersManagement;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.Booking;
 import rodde.airbnb.util.Uti;
@@ -15,10 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 public class ViewMenu extends JFrame {
-    public static Scanner sc;
+
     public JPanel jPanel;
     public JMenuBar jMenuBar;
     public JMenu jMenuAdd ;
@@ -35,33 +31,25 @@ public class ViewMenu extends JFrame {
     public JComboBox jComboBoxStays;
 
     //    private Menu menu;
-    public static ArrayList<Traveler> travelerArrayList = new ArrayList<Traveler>();
-    public static ArrayList<Host> hostArrayList = new ArrayList<Host>();
-    public static ArrayList<Housing> housingArrayList = new ArrayList<Housing>();
-    public static ArrayList<Booking> bookingArrayList  = new ArrayList<Booking>();
-    public static BookingManagement bookingManagement = new BookingManagement();
-    public static TravellersManagement travelersManagement =  new TravellersManagement();
-    public static HostsManagement hostsManagement = new HostsManagement();
-    public static HousingManagement housingManagement= new HousingManagement();
-    public static ViewMenu viewMenu;
-    public static ViewHostCreation viewHostCreation;
-    public static ViewTravelerCreation viewTravelerCreation;
-    public static ViewHouseCreation viewHouseCreation;
+    public  ViewHostCreation viewHostCreation;
+    public  ViewTravelerCreation viewTravelerCreation;
+    public  ViewHouseCreation viewHouseCreation;
+    public  ArrayList<Traveler> travelerArrayList;
+    public ArrayList<Host> hostArrayList = null;
+    public  ArrayList<Housing> housingArrayList;
+    public  ArrayList<Booking> bookingArrayList;
 
-    public static void main(String[] args)  {
-        Uti.info("ViewMenu","main","");
-        sc = new Scanner( System .in);
-        ViewMenu vueMenu = new ViewMenu();
-//        airBnB();
-        hostsManagement = new HostsManagement();
-        housingManagement = new HousingManagement();
-        travelersManagement = new TravellersManagement();
-        bookingManagement = new BookingManagement();
-        hostArrayList = new ArrayList<Host>();
+    public void initArrayAndManagment(){
+        Uti.info("ViewMenu","initArrayAndManagment()","");
+        if(travelerArrayList== null)
+            travelerArrayList = new ArrayList<Traveler>();
+        if(hostArrayList== null)
+            hostArrayList = new ArrayList<Host>();
+        if(housingArrayList== null)
+            housingArrayList = new ArrayList<Housing>();
+        if(bookingArrayList== null)
+            bookingArrayList  = new ArrayList<Booking>();
 
-
-
-        sc.close();
     }
     public ViewMenu(){
         // doit remplacer menu
@@ -72,7 +60,7 @@ public class ViewMenu extends JFrame {
         setResizable(false);
         setSize(600,500);
         setLocationRelativeTo(null);
-
+        initArrayAndManagment();
         initMenu();
         // todo revoir logique  ajouter hôte voyageur logement tenter de prendre un séjour et voir pour avoir une réservation
         jPanel = new JPanel();
@@ -99,7 +87,6 @@ public class ViewMenu extends JFrame {
         jComboBoxTravelers = new JComboBox();
         jComboBoxHousings = new JComboBox();
         jComboBoxStays = new JComboBox();
-
         jMenuItemClose.addActionListener(new ActionListener(){
                                              @Override
                                              public void actionPerformed(ActionEvent e) {
@@ -126,10 +113,14 @@ public class ViewMenu extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewHouseCreation = new ViewHouseCreation();
+            Uti.info("ViewCreationHouseListener","actionPerformed()","");
+
+            if (hostArrayList == null)
+                Uti.mess("liste d'hôtes nulle.");
+            viewHouseCreation = new ViewHouseCreation(hostArrayList);
         }
     }
-//    class ViewCreationAppartmentListener implements ActionListener {
+    //    class ViewCreationAppartmentListener implements ActionListener {
 //
 //        @Override
 //        public void actionPerformed(ActionEvent e) {
@@ -138,15 +129,23 @@ public class ViewMenu extends JFrame {
 //    }
     class ViewCreationHostListener implements ActionListener {
 
+
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewHostCreation = new ViewHostCreation();
+            Uti.info("ViewCreationHostListener","actionPerformed()","");
+            if (hostArrayList == null)
+                Uti.mess("liste d'hôtes nulle.");
+            viewHostCreation = new ViewHostCreation(hostArrayList);
         }
     }
     class ViewCreationTravelersListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+
+            Uti.info("ViewCreationTravelersListener","actionPerformed()","");
             viewTravelerCreation = new ViewTravelerCreation();
         }
     }

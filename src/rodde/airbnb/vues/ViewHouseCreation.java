@@ -6,30 +6,31 @@ import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+
 public class ViewHouseCreation extends JFrame {
-    private JLabel jLabelHost;
+    private ArrayList<Host> hosts;
+    public JLabel jLabelHost;
     public JComboBox jComboBoxHosts;
     public Host currentHost ;
-    private JLabel jLabelDailyRate;
-    private JTextField jTextFieldDailyRate;
-    private JLabel jLabelAddress;
-    private JTextField jTextFieldAddress;
-    private JLabel jLabelArea;
-    private JTextField jTextFieldArea;
-    private JLabel jLabelTravelersNumber;
-    private JTextField jTextFieldTravelersNumber;
-    private JLabel jLabelGardenArea;
-    private JTextField jTextFieldGardenArea;
-    private  ArrayList<Host> hostArrayList = new ArrayList<Host>();
+    public JLabel jLabelDailyRate;
+    public JTextField jTextFieldDailyRate;
+    public JLabel jLabelAddress;
+    public JTextField jTextFieldAddress;
+    public JLabel jLabelArea;
+    public JTextField jTextFieldArea;
+    public JLabel jLabelTravelersNumber;
+    public JTextField jTextFieldTravelersNumber;
+    public JLabel jLabelGardenArea;
+    public JTextField jTextFieldGardenArea;
+//    private  ArrayList<Host> hostArrayList = new ArrayList<Host>();
     public AddEltHost addEltHost;
     //    private JTextField jTextFieldGardenArea;
-    private JButton jButtonValidate;
-    public ViewHouseCreation(){
+    public JButton jButtonValidate;
+    public ViewHouseCreation(ArrayList<Host> hosts){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
         setName("window for add house House");
@@ -37,11 +38,11 @@ public class ViewHouseCreation extends JFrame {
         setBounds(500,200,300,250);
 //        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        this.hosts = hosts;
         jLabelHost = new JLabel("Hôte :");
         jComboBoxHosts = new JComboBox();
         fillHostComboItem();
-
+        hosts.toString();
 //--------------------------------------------------------------------------------------------------------
 //        Host personne1 = new Host("RODDE", "Alain", 37, 12);
 //        Host personne2 = new Host("RODDE", "Léon", 72, 24);
@@ -142,14 +143,17 @@ public class ViewHouseCreation extends JFrame {
          */
         Uti.info("ViewHouseCreation","fillHostComboItem","");
         String s = "";
-        for(int j = 0 ; j < hostArrayList.size(); j++){
-
-            Host h =  hostArrayList.get(j);
-            s = h.getSurname()+ " "+ h.getFirstname();
-            jComboBoxHosts.addItem(s);
-            Uti.mess(s);
-            Uti.mess("zz");
+        Uti.mess("dans la liste d'hôtes : "+ hosts.size());
+        if(hosts != null){
+            Uti.mess("hôtes : "+hosts.size());
+            for(int j = 0; j < hosts.size(); j++){
+                Host h =  hosts.get(j);
+                s = h.getSurname()+ " "+ h.getFirstname();
+                jComboBoxHosts.addItem(s);
+            }
         }
+
+        Uti.mess("dans la liste d'hôtes : "+ hosts.size());
         Uti.mess(s);
         Uti.mess("yy");
 

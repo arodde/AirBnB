@@ -6,29 +6,30 @@ import rodde.airbnb.utilisateurs.Host;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static rodde.airbnb.vues.ViewMenu.hostArrayList;
-import static rodde.airbnb.vues.ViewMenu.viewHostCreation;
+import java.util.ArrayList;
 
 public class ViewHostCreation extends JFrame {
-    private JLabel jLabelSurname;
-    private JTextField jTextFieldSurname;
-    private JButton jButtonValidate;
-    private JLabel jLabelFirstName;
-    private JTextField jTextFieldFirstName;
-    private JLabel jLabelAge;
-    private JTextField jTextFieldAge;
-    private JLabel jLabelResponseTime;
-    private JTextField jTextFieldResponseTime;
-    public ViewHostCreation(){
+    public JLabel jLabelSurname;
+    public JTextField jTextFieldSurname;
+    public JButton jButtonValidate;
+    public JLabel jLabelFirstName;
+    public JTextField jTextFieldFirstName;
+    public JLabel jLabelAge;
+    public JTextField jTextFieldAge;
+    public JLabel jLabelResponseTime;
+    public JTextField jTextFieldResponseTime;
+    public ViewHostCreation(ArrayList<Host> hosts){
+
         // ajout de caractéristique à la fenêtre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un hôte");
         setName("AirBnBAjoutHote");
         setResizable(false);
+
         setBounds(500,200,300,250);
         // rend la fenêtre visible
         setVisible(true);
+
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         // instanciation des propriétés de la classe
         jLabelSurname = new JLabel("Nom :");
@@ -61,20 +62,18 @@ public class ViewHostCreation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Création de l'hôte
-                Host currentHote = new Host(
-                        (String) jTextFieldSurname.getText(),
+                Host currentHost = new Host(
+                        jTextFieldSurname.getText(),
                         (String) jTextFieldFirstName.getText(),
                         Integer.parseInt(jTextFieldAge.getText()),
                         Integer.parseInt(jTextFieldResponseTime.getText())
                 );
-                hostArrayList.add(currentHote);
-                viewHostCreation.setVisible(false);
-                Uti.mess(String.valueOf(hostArrayList.size())+" hôte(s) dans la liste");
-                viewHostCreation = null;
+                if( hosts == null)
+                        Uti.mess("hosts est null");
+                hosts.add(currentHost);
+
+                Uti.mess(String.valueOf(hosts.size())+" hôte(s) dans la liste");
             }
         });
-
     }
-
-
 }
