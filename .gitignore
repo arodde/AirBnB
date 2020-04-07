@@ -2,7 +2,8 @@
 
 .idea/
 AirBnB.iml
-
+resources/listeInventaire.txt
+exempleutilisationItemlistener.java
 
 # JAVA PAR GIT HUB
 

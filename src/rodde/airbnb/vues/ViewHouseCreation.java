@@ -11,12 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ViewHouseCreation extends JFrame {
+    public Host currentHost ;
+    public House currentHouse;
     public JLabel jLabelHost;
     public JComboBox jComboBoxHosts;
-    public Host currentHost ;
     public JLabel jLabelDailyRate;
     public JTextField jTextFieldDailyRate;
     public JLabel jLabelAddress;
@@ -30,10 +32,11 @@ public class ViewHouseCreation extends JFrame {
     public JLabel jLabelSwimmingPool;
     private  ArrayList<Host> hosts = new ArrayList<Host>();
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
-    public AddEltHost addEltHost;
+    public AddEltHostListener addEltHost;
     //    private JTextField jTextFieldGardenArea;
     public JButton jButtonValidate;
     public JButton jButtonFastImput;
+    ArrayList<String> listHostsCombo = new ArrayList<String >() ;
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
@@ -99,7 +102,7 @@ public class ViewHouseCreation extends JFrame {
         panel.add(jButtonValidate);
         panel.add(jButtonFastImput);
         getContentPane().add(panel);
-        addEltHost = new AddEltHost();
+        addEltHost = new AddEltHostListener();
         jComboBoxHosts.addItemListener(addEltHost);
         setVisible(true);
         // gestion du clic du bouton
@@ -117,6 +120,7 @@ public class ViewHouseCreation extends JFrame {
                         "une aire de jardin");
                 boolean correctHouse = false;
                 // todo résultat booléen à verifier à chaque étape
+
                 correctHouse = currentHost != null ? true:false;
                 if (correctHouse){
                     correctHouse = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
@@ -135,7 +139,7 @@ public class ViewHouseCreation extends JFrame {
                 }
                 toRemoveAfter2();
                 if(correctHouse){
-                    House currentHouse = new House(
+                     currentHouse= new House(
                             currentHost,
                             Integer.parseInt(jTextFieldDailyRate.getText()) ,
                             jTextFieldAddress.getText(),
@@ -188,16 +192,29 @@ public class ViewHouseCreation extends JFrame {
         String s = "";
         Uti.mess("dans la liste d'hôtes : "+ hosts.size());
         if(hosts != null){
-            for(int j = 0; j < hosts.size(); j++){
-                Host h =  hosts.get(j);
-                s = h.getSurname()+ " "+ h.getFirstname();
-                jComboBoxHosts.addItem(s);
+            String labelCombo = "";
+           listHostsCombo = new ArrayList<>();
+
+            for(int i=0;i< hosts.size(); i++){
+                labelCombo =  hosts.get(i).getSurname() + " " + hosts.get(i).getFirstname();
+               listHostsCombo.add(labelCombo);
+
+                jComboBoxHosts.addItem(labelCombo);
             }
+                //            for(int j = 0; j < hosts.size(); j++){
+                //                Host h =  hosts.get(j);
+                ////                s = h.getSurname()+ " "+ h.getFirstname();
+                ////                jComboBoxHosts.addItem(s);
+                //                jComboBoxHosts.addItem(j );
+                //
+                //            }
         }
 
 
     }
-    class AddEltHost implements ItemListener {
+
+
+    class AddEltHostListener implements ItemListener {
         /**
          *
          * @param
@@ -205,19 +222,25 @@ public class ViewHouseCreation extends JFrame {
 //        @Override
 //        public void actionPerformed(ActionEvent e) {
 //            Uti.info("AddEltHost","itemStateChanged","");
-//
 //        }
 
         @Override
         public void itemStateChanged(ItemEvent e) {
+            /*
+                the list hosts is filled of host and a second list is filled of a string
+                composed of the host's surname and the host's firstname between them.
+                the same index of each list helps to fill the comboBox item and find
+                the searched host in the list
+            */
             Uti.info("ViewHouseCreation","itemStateChanged","");
             // combo
+            if(e.getSource() == jComboBoxHosts){
+                if(e.getStateChange() == ItemEvent.SELECTED){
+                    String recup = (String) e.getItem();
+                    Uti.mess("c'est recup : "+ recup );
+                }
+            }
 
-            jComboBoxHosts.addItemListener(this);
-//            for(int i = 0 ; i < hosts.size()-1 ; i++ ){
-//                jComboBoxHosts.addItem(hosts.get(i));
-                Uti.mess("ajout itemlistener");
-//            }
 
 
         }
