@@ -23,7 +23,7 @@ public class Person {
     protected String firstname;
     protected int age;
     public Person(String surname, String firstname, int age){
-       Uti.info("Personne", "Personne()","3 paramètres");
+//       Uti.info("Personne", "Personne()","3 paramètres");
         this.surname = surname;
         this.firstname = firstname;
         this.age = age;

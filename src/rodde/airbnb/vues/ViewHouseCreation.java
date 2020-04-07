@@ -139,7 +139,7 @@ public class ViewHouseCreation extends JFrame {
                 }
                 toRemoveAfter2();
                 if(correctHouse){
-                     currentHouse= new House(
+                    currentHouse= new House(
                             currentHost,
                             Integer.parseInt(jTextFieldDailyRate.getText()) ,
                             jTextFieldAddress.getText(),
@@ -171,7 +171,7 @@ public class ViewHouseCreation extends JFrame {
                 jTextFieldTravelersNumber.setText("8");
                 jTextFieldGardenArea.setText("125");
                 jCheckBoxMenuItemGardenArea.setState(true);
-                jButtonValidate.setEnabled(true);
+                jButtonValidate.setEnabled(false);
                 jButtonFastImput.setEnabled(false);
             }
         });
@@ -189,60 +189,51 @@ public class ViewHouseCreation extends JFrame {
          * give combo item content
          */
         Uti.info("ViewHouseCreation","fillHostComboItem","");
-        String s = "";
         Uti.mess("dans la liste d'hôtes : "+ hosts.size());
+
         if(hosts != null){
-            String labelCombo = "";
-           listHostsCombo = new ArrayList<>();
-
+//            String labelCombo = "";
             for(int i=0;i< hosts.size(); i++){
-                labelCombo =  hosts.get(i).getSurname() + " " + hosts.get(i).getFirstname();
-               listHostsCombo.add(labelCombo);
-
-                jComboBoxHosts.addItem(labelCombo);
+               jComboBoxHosts.addItem(i+" "+hosts.get(i).getSurname()+ " "+hosts.get(i).getFirstname());
             }
-                //            for(int j = 0; j < hosts.size(); j++){
-                //                Host h =  hosts.get(j);
-                ////                s = h.getSurname()+ " "+ h.getFirstname();
-                ////                jComboBoxHosts.addItem(s);
-                //                jComboBoxHosts.addItem(j );
-                //
-                //            }
         }
-
-
     }
 
 
     class AddEltHostListener implements ItemListener {
         /**
-         *
          * @param
          */
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            Uti.info("AddEltHost","itemStateChanged","");
-//        }
-
         @Override
         public void itemStateChanged(ItemEvent e) {
-            /*
-                the list hosts is filled of host and a second list is filled of a string
-                composed of the host's surname and the host's firstname between them.
-                the same index of each list helps to fill the comboBox item and find
-                the searched host in the list
-            */
-            Uti.info("ViewHouseCreation","itemStateChanged","");
+            /**
+             * the item's number gives the index of object in the list.
+             *  the jComboBox object doesn't support the List or ArrayList Objects
+             */
+            Uti.info("ViewHouseCreation", "itemStateChanged", "");
             // combo
-            if(e.getSource() == jComboBoxHosts){
-                if(e.getStateChange() == ItemEvent.SELECTED){
-                    String recup = (String) e.getItem();
-                    Uti.mess("c'est recup : "+ recup );
+            if (e.getSource() == jComboBoxHosts) {
+                jButtonValidate.setEnabled(true);
+                String recup="";
+                int index = -1;
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    recup = (String) e.getItem();
+                    index = Integer.parseInt(returnFirstWord(recup));
+                    currentHost = hosts.get(index);
                 }
             }
-
-
-
+        }
+        public String returnFirstWord(String severalWords){
+            Uti.info("AddEltHostListener","returnFirstWord()","");
+            int i = severalWords.indexOf(" ");
+            String returnedWord="";
+            if(i!=-1 && i!=0){
+                returnedWord = severalWords.substring(0,i);
+                Uti.mess(returnedWord + " "+"longueur : "+returnedWord.length());
+                return returnedWord;
+            } else {
+                return severalWords;
+            }
         }
     }
 }
