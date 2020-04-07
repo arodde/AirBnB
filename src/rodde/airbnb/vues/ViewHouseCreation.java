@@ -36,7 +36,6 @@ public class ViewHouseCreation extends JFrame {
     //    private JTextField jTextFieldGardenArea;
     public JButton jButtonValidate;
     public JButton jButtonFastImput;
-    ArrayList<String> listHostsCombo = new ArrayList<String >() ;
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
@@ -118,27 +117,13 @@ public class ViewHouseCreation extends JFrame {
                         "une aire," +
                         "un nombre de voyageurs," +
                         "une aire de jardin");
+
                 boolean correctHouse = false;
                 // todo résultat booléen à verifier à chaque étape
 
-                correctHouse = currentHost != null ? true:false;
-                if (correctHouse){
-                    correctHouse = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
-                    if (correctHouse){
-                        correctHouse = jTextFieldAddress.getText() !="" ? true:false;
-                        if (correctHouse){
-                            correctHouse = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
-                            if (correctHouse){
-                                correctHouse = Integer.parseInt(jTextFieldTravelersNumber.getText())>0 ? true:false;
-                                if (correctHouse){
-                                    correctHouse = Integer.parseInt(jTextFieldGardenArea.getText())>0 ? true:false;
-                                }
-                            }
-                        }
-                    }
-                }
+
                 toRemoveAfter2();
-                if(correctHouse){
+                if(checkFieldsHouse(correctHouse)){
                     currentHouse= new House(
                             currentHost,
                             Integer.parseInt(jTextFieldDailyRate.getText()) ,
@@ -147,18 +132,22 @@ public class ViewHouseCreation extends JFrame {
                             Integer.parseInt(jTextFieldTravelersNumber.getText()),
                             Integer.parseInt(jTextFieldGardenArea.getText()),
                             okGarden);
+                    housings.add(currentHouse);
+                    jButtonValidate.setEnabled(false);
+                    Uti.mess("longueur liste maison : "+housings.size());
                 } else {
                     Uti.mess("La maison ne peut être créée.");
                 }
-                Uti.mess("item jComboBox sélectionné?");
             }
             public void toRemoveAfter2(){
                 Uti.info("jButtonValidate","toRemoveAfter2","");
+                jComboBoxHosts.setEnabled(false);
                 jTextFieldDailyRate.setEnabled(false);
                 jTextFieldAddress.setEnabled(false);
                 jTextFieldArea.setEnabled(false);
                 jTextFieldTravelersNumber.setEnabled(false);
                 jCheckBoxMenuItemGardenArea.setEnabled(false);
+
             }
 
         });
@@ -168,13 +157,34 @@ public class ViewHouseCreation extends JFrame {
                 jTextFieldDailyRate.setText("5");
                 jTextFieldAddress.setText("21 rue de la couille 23000 GUERET");
                 jTextFieldArea.setText("27");
-                jTextFieldTravelersNumber.setText("8");
+                jTextFieldTravelersNumber.setText("4");
                 jTextFieldGardenArea.setText("125");
                 jCheckBoxMenuItemGardenArea.setState(true);
                 jButtonValidate.setEnabled(false);
                 jButtonFastImput.setEnabled(false);
             }
         });
+    }
+    public Boolean checkFieldsHouse(Boolean correctHouse){
+        Uti.info("ViewHouseCreation","checkFieldsHouse","");
+        correctHouse = currentHost != null ? true:false;
+        if (correctHouse){
+            correctHouse = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
+            if (correctHouse){
+                correctHouse = jTextFieldAddress.getText() !="" ? true:false;
+                if (correctHouse){
+                    correctHouse = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
+                    if (correctHouse){
+                        correctHouse = Integer.parseInt(jTextFieldTravelersNumber.getText())>0 ? true:false;
+                        if (correctHouse){
+                            correctHouse = Integer.parseInt(jTextFieldGardenArea.getText())>0 ? true:false;
+                            return correctHouse;
+                        }
+                    }
+                }
+            }
+        }
+        return correctHouse;
     }
     public void toRemoveAfter3(){
         Uti.info("jButtonValidate","toRemoveAfter3","");
