@@ -1,17 +1,22 @@
 package rodde.airbnb.vues;
 
+import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.List;
+ import java.lang.Object;
+
+//import static com.sun.deploy.util.StringUtils.*;
 
 
 public class ViewHouseCreation extends JFrame {
@@ -35,7 +40,9 @@ public class ViewHouseCreation extends JFrame {
     public AddEltHostListener addEltHost;
     //    private JTextField jTextFieldGardenArea;
     public JButton jButtonValidate;
-    public JButton jButtonFastImput;
+    //***
+//    public JButton jButtonFastImput;
+    public boolean checkBeforeValidation= false;
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
@@ -51,22 +58,6 @@ public class ViewHouseCreation extends JFrame {
         jComboBoxHosts = new JComboBox();
         fillHostComboItem();
         hosts.toString();
-//--------------------------------------------------------------------------------------------------------
-//        Host personne1 = new Host("RODDE", "Alain", 37, 12);
-//        Host personne2 = new Host("RODDE", "Léon", 72, 24);
-//        Host personne3 = new Host("RODDE", "Emmanuelle", 37, 12);
-//        Host personne4 = new Host("RODDE", "Marie-Claude", 72, 24);
-//        Host personne5 = new Host("RODDE", "Jean-Louis", 37, 12);
-//        Host personne6 = new Host("RODDE", "Marie-Louis", 72, 24);
-//        hostArrayList.add(personne1);
-//        hostArrayList.add(personne2);
-//        hostArrayList.add(personne3);
-//        hostArrayList.add(personne4);
-//        hostArrayList.add(personne5);
-//        hostArrayList.add(personne6);
-//        fillHostComboItem();
-//--------------------------------------------------------------------------------------------------------
-
         jLabelDailyRate = new JLabel("Tarif journalier :");
         jTextFieldDailyRate = new JTextField();
         jLabelAddress = new JLabel("Adresse :");
@@ -81,8 +72,8 @@ public class ViewHouseCreation extends JFrame {
         JCheckBoxMenuItem jCheckBoxMenuItemGardenArea= new JCheckBoxMenuItem();
         boolean okGarden = jCheckBoxMenuItemGardenArea.getState();
         jButtonValidate = new JButton("Valider");
-        jButtonValidate.setEnabled(false);
-        jButtonFastImput = new JButton("Saisie Rapide");
+//        jButtonValidate.setEnabled(false);
+//        jButtonFastImput = new JButton("Saisie Rapide");
         // ajout d'un conteneur de vues
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -96,10 +87,12 @@ public class ViewHouseCreation extends JFrame {
         panel.add(jTextFieldArea);
         panel.add(jLabelTravelersNumber);
         panel.add(jTextFieldTravelersNumber);
+        panel.add(jLabelGardenArea);
+        panel.add(jTextFieldGardenArea);
         panel.add(jLabelSwimmingPool);
         panel.add(jCheckBoxMenuItemGardenArea);
         panel.add(jButtonValidate);
-        panel.add(jButtonFastImput);
+//        panel.add(jButtonFastImput);
         getContentPane().add(panel);
         addEltHost = new AddEltHostListener();
         jComboBoxHosts.addItemListener(addEltHost);
@@ -111,18 +104,8 @@ public class ViewHouseCreation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Création de l'hôte
-                Uti.mess("Maison à créer  dans cette méthode un hôte, " +
-                        "un tarif journalier, " +
-                        "une adresse," +
-                        "une aire," +
-                        "un nombre de voyageurs," +
-                        "une aire de jardin");
-
                 boolean correctHouse = false;
-                // todo résultat booléen à verifier à chaque étape
-
-
-                toRemoveAfter2();
+                inactiveFieldsViewHouse();
                 if(checkFieldsHouse(correctHouse)){
                     currentHouse= new House(
                             currentHost,
@@ -137,40 +120,128 @@ public class ViewHouseCreation extends JFrame {
                     Uti.mess("longueur liste maison : "+housings.size());
                 } else {
                     Uti.mess("La maison ne peut être créée.");
+                    activeFieldsViewHouse();
+                    jButtonValidate.setEnabled(true);
                 }
             }
-            public void toRemoveAfter2(){
-                Uti.info("jButtonValidate","toRemoveAfter2","");
+            public void inactiveFieldsViewHouse(){
+                Uti.info("jButtonValidate","inactiveFieldsViewHouse","");
                 jComboBoxHosts.setEnabled(false);
                 jTextFieldDailyRate.setEnabled(false);
                 jTextFieldAddress.setEnabled(false);
                 jTextFieldArea.setEnabled(false);
                 jTextFieldTravelersNumber.setEnabled(false);
+                jTextFieldGardenArea.setEnabled(false);
                 jCheckBoxMenuItemGardenArea.setEnabled(false);
-
             }
-
-        });
-        jButtonFastImput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jTextFieldDailyRate.setText("5");
-                jTextFieldAddress.setText("21 rue de la couille 23000 GUERET");
-                jTextFieldArea.setText("27");
-                jTextFieldTravelersNumber.setText("4");
-                jTextFieldGardenArea.setText("125");
-                jCheckBoxMenuItemGardenArea.setState(true);
-                jButtonValidate.setEnabled(false);
-                jButtonFastImput.setEnabled(false);
+            public void activeFieldsViewHouse(){
+                Uti.info("jButtonValidate","activeFieldsViewHouse","");
+                jComboBoxHosts.setEnabled(true);
+                jTextFieldDailyRate.setEnabled(true);
+                jTextFieldAddress.setEnabled(true);
+                jTextFieldArea.setEnabled(true);
+                jTextFieldTravelersNumber.setEnabled(true);
+                jTextFieldGardenArea.setEnabled(true);
+                jCheckBoxMenuItemGardenArea.setEnabled(true);
             }
         });
+//        jButtonFastImput.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                jTextFieldDailyRate.setText("5");
+//                jTextFieldAddress.setText("");//("21 rue de la couille 23000 GUERET");
+//                jTextFieldArea.setText("27");
+//                jTextFieldTravelersNumber.setText("4");
+//                jTextFieldGardenArea.setText("125");
+//                jCheckBoxMenuItemGardenArea.setState(true);
+//                jButtonValidate.setEnabled(false);
+//                jButtonFastImput.setEnabled(false);
+//            }
+//        });
     }
+
     public Boolean checkFieldsHouse(Boolean correctHouse){
+        /**
+         * checks the necessary fields before validation:
+         * - present host
+         * - correct daylyRate
+         * - address not empty
+         * - correct area
+         *
+         * the function returns true if all checked fiels are true.
+         */
+        Uti.info("ViewHouseCreation","checkFieldsHouse","");
+
+        Boolean verifications[]= new Boolean[5];
+        for(int i = 0; i<verifications.length;i++){
+            verifications[i]=false;
+        }
+        verifications[0] = currentHost != null ? true:false;
+        if(!verifications[0])
+            jComboBoxHosts.setBackground(Color.RED);
+        // todo ajouter fonction pour vérifier que chaque caractère est bien un chiffre
+        // todo à tester avant d'adapter pour viewAppartementCreation
+        //todo revoir position enable
+        if((!jTextFieldDailyRate.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
+                Integer.parseInt(jTextFieldDailyRate.getText())>=0)){
+            verifications[1]=true;
+            jTextFieldDailyRate.setBackground(Color.white);
+        } else {
+            jTextFieldDailyRate.setBackground(Color.red);
+            jTextFieldDailyRate.setText("");
+        }
+        if(!jTextFieldAddress.getText().isEmpty()){
+            verifications[2]=true;
+            jTextFieldAddress.setBackground(Color.white);
+        } else {
+            jTextFieldAddress.setBackground(Color.red);
+            jTextFieldAddress.setText("");
+        }
+        if((!jTextFieldArea.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldArea.getText()) &&
+                Integer.parseInt(jTextFieldArea.getText())>0)){
+            verifications[3]=true;
+            jTextFieldArea.setBackground(Color.white);
+        } else {
+            jTextFieldArea.setBackground(Color.red);
+            jTextFieldArea.setText("");
+        }
+        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
+                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
+            verifications[4]=true;
+            jTextFieldTravelersNumber.setBackground(Color.white);
+        } else {
+            jTextFieldTravelersNumber.setBackground(Color.red);
+            jTextFieldTravelersNumber.setText("");
+        }
+        if((!jTextFieldGardenArea.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldGardenArea.getText()) &&
+                Integer.parseInt(jTextFieldGardenArea.getText())>0)){
+            verifications[4]=true;
+            jTextFieldGardenArea.setBackground(Color.white);
+        } else {
+            jTextFieldGardenArea.setBackground(Color.red);
+            jTextFieldGardenArea.setText("");
+        }
+        for(int i=0; i<verifications.length;i++){
+            if(verifications[i]==true)
+                correctHouse = true;
+            else{
+                i=verifications.length;
+                correctHouse = false;
+            }
+        }
+        return correctHouse;
+    }
+    public Boolean checkFieldsHouse2(Boolean correctHouse){
         Uti.info("ViewHouseCreation","checkFieldsHouse","");
         correctHouse = currentHost != null ? true:false;
         if (correctHouse){
             correctHouse = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
             if (correctHouse){
+                // todo why a string of 0 character gives true IMPOSSIBLE
                 correctHouse = jTextFieldAddress.getText() !="" ? true:false;
                 if (correctHouse){
                     correctHouse = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
@@ -223,6 +294,7 @@ public class ViewHouseCreation extends JFrame {
             Uti.info("ViewHouseCreation", "itemStateChanged", "");
             // combo
             if (e.getSource() == jComboBoxHosts) {
+                jComboBoxHosts.setBackground(Color.white);
                 jButtonValidate.setEnabled(true);
                 String recup="";
                 int index = -1;

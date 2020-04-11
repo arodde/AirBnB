@@ -26,14 +26,11 @@ public class ViewMenu extends JFrame {
     public JMenuItem jMenuAddHouse;
     public JMenuItem jMenuAddAppartment;
     public JMenuItem jMenuAddStay;
-    public JComboBox jComboBoxTravelers;
-    public JComboBox jComboBoxHousings;
-    public JComboBox jComboBoxStays;
-
     //    private Menu menu;
     public  ViewHostCreation viewHostCreation;
     public  ViewTravelerCreation viewTravelerCreation;
     public  ViewHouseCreation viewHouseCreation;
+    public  ViewAppartmentCreation viewAppartmentCreation;
     public  ArrayList<Traveler> travelerArrayList;
     public ArrayList<Host> hostArrayList = null;
     public  ArrayList<Housing> housingArrayList;
@@ -83,9 +80,6 @@ public class ViewMenu extends JFrame {
         jMenuAddAppartment = new JMenuItem("Ajouter un appartement");
         jMenuAddStay = new JMenuItem("Ajouter un séjour");
         jMenuItemClose = new JMenuItem("Fermer");
-        jComboBoxTravelers = new JComboBox();
-        jComboBoxHousings = new JComboBox();
-        jComboBoxStays = new JComboBox();
         jMenuItemClose.addActionListener(new ActionListener(){
                                              @Override
                                              public void actionPerformed(ActionEvent e) {
@@ -95,6 +89,7 @@ public class ViewMenu extends JFrame {
         );
         jMenuAddHost.addActionListener(new ViewCreationHostListener());
         jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
+        jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
         jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
@@ -109,27 +104,24 @@ public class ViewMenu extends JFrame {
     }
 
     class ViewCreationHouseListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationHouseListener","actionPerformed()","");
-
             if (hostArrayList == null)
                 Uti.mess("liste d'hôtes nulle.");
             viewHouseCreation = new ViewHouseCreation(hostArrayList,housingArrayList);
         }
     }
-    //    class ViewCreationAppartmentListener implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            viewAppartmentCreation = new ViewAppartmentCreation(hostArrayList,housingArrayList);
-//        }
-//    }
+        class ViewCreationAppartmentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Uti.info("ViewCreationAppartmentListener","actionPerformed()","");
+            if (hostArrayList == null)
+                Uti.mess("liste d'hôtes nulle.");
+            viewAppartmentCreation = new ViewAppartmentCreation(hostArrayList,housingArrayList);
+        }
+    }
     class ViewCreationHostListener implements ActionListener {
-
-
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationHostListener","actionPerformed()","");
@@ -139,11 +131,8 @@ public class ViewMenu extends JFrame {
         }
     }
     class ViewCreationTravelersListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-
-
             Uti.info("ViewCreationTravelersListener","actionPerformed()","");
             viewTravelerCreation = new ViewTravelerCreation();
         }
