@@ -68,7 +68,7 @@ public class Menu {
         }
     }
     public static void displayHousings(){
-        // todo afficher liste
+
         if(housingArrayList.size()>0){
             for (int i = 0; i < housingArrayList.size(); i++){
                 housingArrayList.get(i).display();

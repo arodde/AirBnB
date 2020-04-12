@@ -49,7 +49,7 @@ public class ViewMenu extends JFrame {
 
     }
     public ViewMenu(){
-        // todo fen menu pour ajouter voyageurs, hôtes, logements, réservations
+        // todo fen menu pour ajouter voyageurs,  réservations
         // add characteristics to The window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("AirBnB");

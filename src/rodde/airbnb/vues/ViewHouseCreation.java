@@ -38,18 +38,14 @@ public class ViewHouseCreation extends JFrame {
     private  ArrayList<Host> hosts = new ArrayList<Host>();
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
-    //    private JTextField jTextFieldGardenArea;
     public JButton jButtonValidate;
-    //***
-//    public JButton jButtonFastImput;
-    public boolean checkBeforeValidation= false;
+    public JButton jButtonFastImput;
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
         setName("window for add house");
         setResizable(false);
         setBounds(500,200,300,400);
-//        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.hosts = hosts;
         this.housings = housings;
@@ -72,7 +68,6 @@ public class ViewHouseCreation extends JFrame {
         JCheckBoxMenuItem jCheckBoxMenuItemGardenArea= new JCheckBoxMenuItem();
         boolean okGarden = jCheckBoxMenuItemGardenArea.getState();
         jButtonValidate = new JButton("Valider");
-//        jButtonValidate.setEnabled(false);
 //        jButtonFastImput = new JButton("Saisie Rapide");
         // ajout d'un conteneur de vues
         JPanel panel = new JPanel();
@@ -92,18 +87,15 @@ public class ViewHouseCreation extends JFrame {
         panel.add(jLabelSwimmingPool);
         panel.add(jCheckBoxMenuItemGardenArea);
         panel.add(jButtonValidate);
-//        panel.add(jButtonFastImput);
+        panel.add(jButtonFastImput);
         getContentPane().add(panel);
         addEltHost = new AddEltHostListener();
         jComboBoxHosts.addItemListener(addEltHost);
         setVisible(true);
-        // gestion du clic du bouton
-
         jButtonValidate.addActionListener(new ActionListener() {
             // wait parameter get by combo
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Création de l'hôte
                 boolean correctHouse = false;
                 inactiveFieldsViewHouse();
                 if(checkFieldsHouse(correctHouse)){
@@ -145,19 +137,19 @@ public class ViewHouseCreation extends JFrame {
                 jCheckBoxMenuItemGardenArea.setEnabled(true);
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                jTextFieldDailyRate.setText("5");
-//                jTextFieldAddress.setText("");//("21 rue de la couille 23000 GUERET");
-//                jTextFieldArea.setText("27");
-//                jTextFieldTravelersNumber.setText("4");
-//                jTextFieldGardenArea.setText("125");
-//                jCheckBoxMenuItemGardenArea.setState(true);
-//                jButtonValidate.setEnabled(false);
-//                jButtonFastImput.setEnabled(false);
-//            }
-//        });
+        jButtonFastImput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextFieldDailyRate.setText("5");
+                jTextFieldAddress.setText("");//("21 rue de la couille 23000 GUERET");
+                jTextFieldArea.setText("27");
+                jTextFieldTravelersNumber.setText("4");
+                jTextFieldGardenArea.setText("125");
+                jCheckBoxMenuItemGardenArea.setState(true);
+                jButtonValidate.setEnabled(false);
+                jButtonFastImput.setEnabled(false);
+            }
+        });
     }
 
     public Boolean checkFieldsHouse(Boolean correctHouse){
@@ -181,9 +173,7 @@ public class ViewHouseCreation extends JFrame {
         verifications[0] = currentHost != null ? true:false;
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
-        // todo ajouter fonction pour vérifier que chaque caractère est bien un chiffre
-        // todo à tester avant d'adapter pour viewAppartementCreation
-        //todo revoir position enable
+
         if((!jTextFieldDailyRate.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
                 Integer.parseInt(jTextFieldDailyRate.getText())>0)){
@@ -243,7 +233,6 @@ public class ViewHouseCreation extends JFrame {
         if (correctHouse){
             correctHouse = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
             if (correctHouse){
-                // todo why a string of 0 character gives true IMPOSSIBLE
                 correctHouse = jTextFieldAddress.getText() !="" ? true:false;
                 if (correctHouse){
                     correctHouse = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
@@ -275,7 +264,6 @@ public class ViewHouseCreation extends JFrame {
         Uti.mess("dans la liste d'hôtes : "+ hosts.size());
 
         if(hosts != null){
-//            String labelCombo = "";
             for(int i=0;i< hosts.size(); i++){
                jComboBoxHosts.addItem(i+" "+hosts.get(i).getSurname()+ " "+hosts.get(i).getFirstname());
             }

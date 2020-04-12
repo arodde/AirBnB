@@ -39,15 +39,15 @@ public class ViewAppartmentCreation extends JFrame {
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
     public JButton jButtonValidate;
-//    public JButton jButtonFastImput;
+    public JButton jButtonFastImput;
     public ViewAppartmentCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
+        // todo à cleaner
         Uti.info("ViewAppartmentCreation","ViewAppartmentCreation","");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une appartement");
         setName("window for add appartment");
         setResizable(false);
         setBounds(500,200,300,350);
-//        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.hosts = hosts;
         this.housings = housings;
@@ -69,9 +69,7 @@ public class ViewAppartmentCreation extends JFrame {
         jLabelBalconyArea = new JLabel("Superficie du balcon ");
         jTextFieldBalconyArea= new JTextField();
         jButtonValidate = new JButton("Valider");
-//        jButtonValidate.setEnabled(false);
-//        jButtonFastImput = new JButton("Saisie Rapide");
-        // ajout d'un conteneur de vues
+        jButtonFastImput = new JButton("Saisie Rapide");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelHost);
@@ -94,13 +92,9 @@ public class ViewAppartmentCreation extends JFrame {
         addEltHost = new AddEltHostListener();
         jComboBoxHosts.addItemListener(addEltHost);
         setVisible(true);
-        // gestion du clic du bouton
-
         jButtonValidate.addActionListener(new ActionListener() {
-            // wait parameter get by combo
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Création de l'hôte
                 boolean correctAppartment = false;
                 inactiveFieldsViewAppartment();
                 if(checkFieldsAppartment(correctAppartment)){
@@ -143,22 +137,22 @@ public class ViewAppartmentCreation extends JFrame {
                 jTextFieldBalconyArea.setEnabled(true);
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Uti.info("ActionListener","actionPerforme","");
-//                jTextFieldDailyRate.setText("7");
-//                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
-//                jTextFieldArea.setText("27");
-//                jTextFieldTravelersNumber.setText("4");
-//                jTextFieldFloorNumber.setText("0");
-////                jTextFieldFloorNumber.setText("1");
-////                jTextFieldFloorNumber.setText("2");
-//                jTextFieldBalconyArea.setText("4");
-//                jButtonValidate.setEnabled(true);
-//                jButtonFastImput.setEnabled(false);
-//            }
-//        });
+        jButtonFastImput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("ActionListener","actionPerforme","");
+                jTextFieldDailyRate.setText("7");
+                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
+                jTextFieldArea.setText("27");
+                jTextFieldTravelersNumber.setText("4");
+                jTextFieldFloorNumber.setText("0");
+//                jTextFieldFloorNumber.setText("1");
+//                jTextFieldFloorNumber.setText("2");
+                jTextFieldBalconyArea.setText("4");
+                jButtonValidate.setEnabled(true);
+                jButtonFastImput.setEnabled(false);
+            }
+        });
     }
     public Boolean checkFieldsHouse3(Boolean correctAppartment){
         /**
@@ -215,12 +209,6 @@ public class ViewAppartmentCreation extends JFrame {
         verifications[0] = currentHost != null ? true:false;
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
-//        verifications[1] = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
-//        verifications[2] = jTextFieldAddress.getText().isEmpty() ? false:true;
-//        verifications[3]  = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
-//        verifications[4]  = Integer.parseInt(jTextFieldTravelersNumber.getText())>0 ? true:false;
-//        verifications[5]  = ((Integer.parseInt(jTextFieldFloorNumber.getText())>=0) && Integer.parseInt(jTextFieldFloorNumber.getText())<3)? true:false;
-
         if((!jTextFieldDailyRate.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
                 Integer.parseInt(jTextFieldDailyRate.getText())>0)){
@@ -279,7 +267,6 @@ public class ViewAppartmentCreation extends JFrame {
             jTextFieldBalconyArea.setBackground(Color.red);
             jTextFieldBalconyArea.setText("");
         }
-        //
         for(int i=0; i<(verifications.length);i++){
             if(verifications[i]==true){
                 correctAppartment = true;
