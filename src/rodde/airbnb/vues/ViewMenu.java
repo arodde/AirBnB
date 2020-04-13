@@ -134,7 +134,9 @@ public class ViewMenu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationTravelersListener","actionPerformed()","");
-            viewTravelerCreation = new ViewTravelerCreation();
+            if (travelerArrayList == null)
+                Uti.mess("liste de voyageurs nulle.");
+            viewTravelerCreation = new ViewTravelerCreation(travelerArrayList);
         }
     }
 }
