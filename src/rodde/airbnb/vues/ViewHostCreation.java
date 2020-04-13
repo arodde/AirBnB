@@ -1,9 +1,11 @@
 package rodde.airbnb.vues;
 
+import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,25 +13,21 @@ import java.util.ArrayList;
 public class ViewHostCreation extends JFrame {
     public JLabel jLabelSurname;
     public JTextField jTextFieldSurname;
-    public JButton jButtonValidate;
-    public JButton jButtonFastImput;
     public JLabel jLabelFirstName;
     public JTextField jTextFieldFirstName;
     public JLabel jLabelAge;
     public JTextField jTextFieldAge;
     public JLabel jLabelResponseTime;
     public JTextField jTextFieldResponseTime;
-
+    public JButton jButtonValidate;
+    //    public JButton jButtonFastImput;// todo remove this line
     public ViewHostCreation(ArrayList<Host> hosts){
-
-        // ajout de caractéristique à la fenêtre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un hôte");
-        setName("AirBnBAjoutHote");
+        setName("AirBnBAddHost");
         setResizable(false);
 
         setBounds(500,200,300,250);
-        // rend la fenêtre visible
         setVisible(true);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,9 +40,8 @@ public class ViewHostCreation extends JFrame {
         jTextFieldAge = new JTextField();
         jLabelResponseTime = new JLabel("Délai de réponse :");
         jTextFieldResponseTime = new JTextField();
-        jButtonValidate = new JButton("Valider");
-        jButtonFastImput = new JButton("saisie rapide");
-        // ajout d'un conteneur de vues
+        jButtonValidate = new JButton("Valider");// todo remove this line
+        //        jButtonFastImput = new JButton("saisie rapide");// todo remove this line
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelSurname);
@@ -56,50 +53,143 @@ public class ViewHostCreation extends JFrame {
         panel.add(jLabelResponseTime);
         panel.add(jTextFieldResponseTime);
         panel.add(jButtonValidate);
-        jButtonValidate.setEnabled(false);
-        panel.add(jButtonFastImput);
-        // modifie la mise en page de la fenêtre avec le panel
+//        jButtonValidate.setEnabled(false);// todo remove this line
+//        panel.add(jButtonFastImput);// todo remove this line
         getContentPane().add(panel);
-        // rafraichit la vue de la fenêtre
         setVisible(true);
-        // gestion du clic du bouton
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonValidate","actionPerformed","");
-                // Création de l'hôte
-                Host currentHost = new Host(
-                        jTextFieldSurname.getText(),
-                        (String) jTextFieldFirstName.getText(),
-                        Integer.parseInt(jTextFieldAge.getText()),
-                        Integer.parseInt(jTextFieldResponseTime.getText())
-                );
-                if( hosts == null)
+                boolean correctTraveler = false;
+                Boolean verifications[]= new Boolean[3];
+                for(int i = 0; i<verifications.length;i++){
+                    verifications[i]=false;
+                }
+                if(!jTextFieldSurname.getText().isEmpty() &&
+                        !jTextFieldFirstName.getText().isEmpty() &&
+                        !jTextFieldAge.getText().isEmpty() &&
+                        StringUtils.isNumeric(jTextFieldAge.getText()) &&
+                        !jTextFieldResponseTime.getText().isEmpty() &&
+                        StringUtils.isNumeric(jTextFieldResponseTime.getText())
+                ){
+                    Host currentHost = new Host(
+                            jTextFieldSurname.getText(),
+                            (String) jTextFieldFirstName.getText(),
+                            Integer.parseInt(jTextFieldAge.getText()),
+                            Integer.parseInt(jTextFieldResponseTime.getText())
+                    );
+                    if( hosts == null)
                         Uti.mess("hosts est null");
-                hosts.add(currentHost);
-                jButtonValidate.setEnabled(false);
-                toRemoveAfter1();
+                    hosts.add(currentHost);
+                    inactiveFieldsViewHosts();
+                    jButtonValidate.setEnabled(false);
+                } else {
+                    checkFieldsHost(correctTraveler);
+                    activeFieldsViewHosts();
+                }
+//                toRemoveAfter1();// todo remove this line
                 Uti.mess((hosts.size())+" hôte(s) dans la liste");
             }
-            public void toRemoveAfter1(){
-                Uti.info("jButtonValidate","toRemoveAfter1","");
+
+            public Boolean checkFieldsHost(Boolean correctHost){
+                Uti.info("jButtonValidate","checkFieldsTraveler","");
+                Boolean verifications[]= new Boolean[4];
+                for(int i = 0; i<verifications.length;i++){
+                    verifications[i]=false;
+                }
+                if(!jTextFieldSurname.getText().isEmpty()){
+                    verifications[0]=true;
+                    jTextFieldSurname.setBackground(Color.white);
+                } else {
+                    jTextFieldSurname.setBackground(Color.red);
+                    jTextFieldSurname.setText("");
+                }
+                if(!jTextFieldFirstName.getText().isEmpty()){
+                    verifications[1]=true;
+                    jTextFieldFirstName.setBackground(Color.white);
+                } else {
+                    jTextFieldFirstName.setBackground(Color.red);
+                    jTextFieldFirstName.setText("");
+                }
+                if((!jTextFieldAge.getText().isEmpty() &&
+                        StringUtils.isNumeric(jTextFieldAge.getText()) &&
+                        Integer.parseInt(jTextFieldAge.getText())>0)){
+                    verifications[2]=true;
+                    jTextFieldAge.setBackground(Color.white);
+                } else {
+                    jTextFieldAge.setBackground(Color.red);
+                    jTextFieldAge.setText("");
+                }
+                if((!jTextFieldResponseTime.getText().isEmpty() &&
+                        StringUtils.isNumeric(jTextFieldResponseTime.getText()) &&
+                        Integer.parseInt(jTextFieldResponseTime.getText())>0)){
+                    verifications[2]=true;
+                    jTextFieldResponseTime.setBackground(Color.white);
+                } else {
+                    jTextFieldResponseTime.setBackground(Color.red);
+                    jTextFieldResponseTime.setText("");
+                }
+                for(int i=0; i<(verifications.length);i++){
+                    if(verifications[i]==true){
+                        correctHost= true;
+
+                        jButtonValidate.setEnabled(true);
+                    }
+                    else{
+                        i=verifications.length;
+                        correctHost = false;
+//                        jButtonValidate.setEnabled(false);
+                    }
+                }
+                return correctHost;
+            }
+            public void inactiveFieldsViewHosts(){
+                Uti.info("jButtonValidate","inactiveFieldsViewTravelers","");
                 jTextFieldSurname.setEnabled(false);
+                jTextFieldSurname.setBackground(Color.white);
                 jTextFieldFirstName.setEnabled(false);
+                jTextFieldFirstName.setBackground(Color.white);
                 jTextFieldAge.setEnabled(false);
+                jTextFieldAge.setBackground(Color.white);
                 jTextFieldResponseTime.setEnabled(false);
+                jTextFieldResponseTime.setBackground(Color.white);
+            }
+            public void activeFieldsViewHosts(){
+                Uti.info("jButtonValidate","activeFieldsViewTravelers","");
+                jTextFieldSurname.setEnabled(true);
+                jTextFieldFirstName.setEnabled(true);
+                jTextFieldAge.setEnabled(true);
+                jTextFieldResponseTime.setEnabled(true);
+            }
+            public void toRemoveAfter1() {
+                Uti.info("jButtonValidate", "toRemoveAfter1", "");
+                if(!jTextFieldSurname.getText().isEmpty() &&
+                        !jTextFieldFirstName.getText().isEmpty() &&
+                        !jTextFieldAge.getText().isEmpty() &&
+                        !jTextFieldResponseTime.getText().isEmpty()){
+                    jTextFieldSurname.setEnabled(false);
+                    jTextFieldFirstName.setEnabled(false);
+                    jTextFieldAge.setEnabled(false);
+                    jTextFieldResponseTime.setEnabled(false);
+                }
+                else {
+                    jButtonValidate.setEnabled(false);
+//                    jButtonFastInput.setEnabled(true); //todo remove this line
+                }
             }
         });
-        jButtonFastImput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Uti.info("jButtonFastImput","actionPerformed","a retirer");
-                jTextFieldSurname.setText("BUR");
-                jTextFieldFirstName.setText("Max");
-                jTextFieldAge.setText("51");
-                jTextFieldResponseTime.setText("48");
-                jButtonValidate.setEnabled(true);
-               jButtonFastImput.setEnabled(false);
-            }
-        });
+//        jButtonFastImput.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+//                jTextFieldSurname.setText("BUR");
+//                jTextFieldFirstName.setText("Max");
+//                jTextFieldAge.setText("51");
+//                jTextFieldResponseTime.setText("48");
+//                jButtonValidate.setEnabled(true);
+//               jButtonFastImput.setEnabled(false);
+//            }
+//        });
     }
 }
