@@ -20,7 +20,7 @@ public class ViewHostCreation extends JFrame {
     public JLabel jLabelResponseTime;
     public JTextField jTextFieldResponseTime;
     public JButton jButtonValidate;
-    //    public JButton jButtonFastImput;// todo remove this line
+    public JButton jButtonFastInput;// todo remove this line
     public ViewHostCreation(ArrayList<Host> hosts){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un hôte");
@@ -41,7 +41,7 @@ public class ViewHostCreation extends JFrame {
         jLabelResponseTime = new JLabel("Délai de réponse :");
         jTextFieldResponseTime = new JTextField();
         jButtonValidate = new JButton("Valider");// todo remove this line
-        //        jButtonFastImput = new JButton("saisie rapide");// todo remove this line
+        jButtonFastInput = new JButton("saisie rapide");// todo remove this line
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelSurname);
@@ -53,15 +53,14 @@ public class ViewHostCreation extends JFrame {
         panel.add(jLabelResponseTime);
         panel.add(jTextFieldResponseTime);
         panel.add(jButtonValidate);
-//        jButtonValidate.setEnabled(false);// todo remove this line
-//        panel.add(jButtonFastImput);// todo remove this line
+        panel.add(jButtonFastInput);// todo remove this line
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonValidate","actionPerformed","");
-                boolean correctTraveler = false;
+                boolean correctHost = false;
                 Boolean verifications[]= new Boolean[3];
                 for(int i = 0; i<verifications.length;i++){
                     verifications[i]=false;
@@ -85,7 +84,7 @@ public class ViewHostCreation extends JFrame {
                     inactiveFieldsViewHosts();
                     jButtonValidate.setEnabled(false);
                 } else {
-                    checkFieldsHost(correctTraveler);
+                    checkFieldsHost(correctHost);
                     activeFieldsViewHosts();
                 }
 //                toRemoveAfter1();// todo remove this line
@@ -172,24 +171,23 @@ public class ViewHostCreation extends JFrame {
                     jTextFieldFirstName.setEnabled(false);
                     jTextFieldAge.setEnabled(false);
                     jTextFieldResponseTime.setEnabled(false);
-                }
-                else {
+                } else {
                     jButtonValidate.setEnabled(false);
-//                    jButtonFastInput.setEnabled(true); //todo remove this line
+                    jButtonFastInput.setEnabled(true); //todo remove this line
                 }
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Uti.info("jButtonFastImput","actionPerformed","a retirer");
-//                jTextFieldSurname.setText("BUR");
-//                jTextFieldFirstName.setText("Max");
-//                jTextFieldAge.setText("51");
-//                jTextFieldResponseTime.setText("48");
-//                jButtonValidate.setEnabled(true);
-//               jButtonFastImput.setEnabled(false);
-//            }
-//        });
+        jButtonFastInput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+                jTextFieldSurname.setText("BUR");
+                jTextFieldFirstName.setText("Max");
+                jTextFieldAge.setText("51");
+                jTextFieldResponseTime.setText("48");
+                jButtonValidate.setEnabled(true);
+                jButtonFastInput.setEnabled(false);
+            }
+        });
     }
 }

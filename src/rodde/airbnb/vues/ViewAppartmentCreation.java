@@ -51,7 +51,7 @@ public class ViewAppartmentCreation extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.hosts = hosts;
         this.housings = housings;
-        toRemoveAfter3();
+//        toRemoveAfter3(); // todo delete this line
         jLabelHost = new JLabel("Hôte :");
         jComboBoxHosts = new JComboBox();
         fillHostComboItem();
@@ -154,40 +154,7 @@ public class ViewAppartmentCreation extends JFrame {
             }
         });
     }
-    public Boolean checkFieldsHouse3(Boolean correctAppartment){
-        /**
-         * checks the necessary fields before validation:
-         * - present host
-         * - correct daylyRate
-         * - address not empty
-         * - correct area
-         * - correct travelersNumber
-         * - correct floorNumber
-         * - correct balconyArea
-         *
-         * the function returns true if all checked fiels are true.
-         */
-        Uti.info("ViewHouseCreation","checkFieldsHouse","");
-        Boolean verifications[]= new Boolean[5];
-        for(int i = 0; i<verifications.length;i++){
-            verifications[i]=false;
-        }
 
-        verifications[0] = currentHost != null ? true:false;
-        verifications[1] = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
-        verifications[2] = jTextFieldAddress.getText().isEmpty() ? false:true;
-        verifications[3]  = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
-        verifications[4]  = Integer.parseInt(jTextFieldTravelersNumber.getText())>0 ? true:false;
-        for(int i=0; i<verifications.length;i++){
-            if(verifications[i]==true)
-                correctAppartment = true;
-            else{
-                i=verifications.length;
-                correctAppartment = false;
-            }
-        }
-        return correctAppartment;
-    }
     public Boolean checkFieldsAppartment(Boolean correctAppartment){
         /**
          * checks the necessary fields before validation:
@@ -280,30 +247,7 @@ public class ViewAppartmentCreation extends JFrame {
         }
         return correctAppartment;
     }
-    public Boolean checkFieldsAppartment2(Boolean correctAppartment){
-        Uti.info("ViewHouseCreation","checkFieldsHouse","");
-        correctAppartment = currentHost != null ? true:false;
-        if (correctAppartment){
-            correctAppartment = Integer.parseInt(jTextFieldDailyRate.getText())>0 ? true:false;
-            if (correctAppartment){
-                correctAppartment = jTextFieldAddress.getText() !="" ? true:false;
-                if (correctAppartment){
-                    correctAppartment = Integer.parseInt(jTextFieldArea.getText())>0 ? true:false;
-                    if (correctAppartment){
-                        correctAppartment = Integer.parseInt(jTextFieldTravelersNumber.getText())>0 ? true:false;
-                        if (correctAppartment){
-                            correctAppartment = ((Integer.parseInt(jTextFieldFloorNumber.getText())>=0) && Integer.parseInt(jTextFieldFloorNumber.getText())<3)? true:false;
-                            if(correctAppartment) {
-                                correctAppartment = Integer.parseInt(jTextFieldBalconyArea.getText()) > 0 ? true : false;
-                                return correctAppartment;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return correctAppartment;
-    }
+
     public void toRemoveAfter3(){
         Uti.info("jButtonValidate","toRemoveAfter3","");
         hosts.add(new Host("DUPEUBLE","Aladdin",17,19));
