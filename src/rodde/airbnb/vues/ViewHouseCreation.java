@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
  import java.lang.Object;
 
@@ -38,8 +39,8 @@ public class ViewHouseCreation extends JFrame {
     private  ArrayList<Host> hosts = new ArrayList<Host>();
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
-    public JButton jButtonValidate;
-//    public JButton jButtonFastImput; // todo delete this line
+    public JButton jButtonValidate ;
+//    public JButton jButtonFastImput; // todo delete this line  // jbfi
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
@@ -56,6 +57,7 @@ public class ViewHouseCreation extends JFrame {
 //        toRemoveAfter3(); // todo delete this line
         jLabelHost = new JLabel("Hôte :");
         jComboBoxHosts = new JComboBox();
+        addEltHost = new AddEltHostListener();
         jComboBoxHosts.addItemListener(addEltHost);
         fillHostComboItem();
         jLabelDailyRate = new JLabel("Tarif journalier :");
@@ -72,7 +74,7 @@ public class ViewHouseCreation extends JFrame {
         JCheckBoxMenuItem jCheckBoxMenuItemGardenArea= new JCheckBoxMenuItem();
         boolean okGarden = jCheckBoxMenuItemGardenArea.getState();
         jButtonValidate = new JButton("Valider");
-//        jButtonFastImput = new JButton("Saisie Rapide");
+//        jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
         // ajout d'un conteneur de vues
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -91,9 +93,8 @@ public class ViewHouseCreation extends JFrame {
         panel.add(jLabelSwimmingPool);
         panel.add(jCheckBoxMenuItemGardenArea);
         panel.add(jButtonValidate);
-//        panel.add(jButtonFastImput);
+//        panel.add(jButtonFastImput); // jbfi
         getContentPane().add(panel);
-        addEltHost = new AddEltHostListener();
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
@@ -113,6 +114,7 @@ public class ViewHouseCreation extends JFrame {
                     housings.add(currentHouse);
                     jButtonValidate.setEnabled(false);
                     Uti.mess("longueur liste maison : "+housings.size());
+                    System.out.println(housings.get(0).toString()); // todo delete this line
                 } else {
                     Uti.mess("La maison ne peut être créée.");
                     activeFieldsViewHouse();
@@ -140,16 +142,16 @@ public class ViewHouseCreation extends JFrame {
                 jCheckBoxMenuItemGardenArea.setEnabled(true);
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() {
+//        jButtonFastImput.addActionListener(new ActionListener() { // jbfi
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
 //                jTextFieldDailyRate.setText("5");
-//                jTextFieldAddress.setText("");//("21 rue de la couille 23000 GUERET");
+//                jTextFieldAddress.setText("21 rue de la couille 23000 GUERET");//("");
 //                jTextFieldArea.setText("27");
 //                jTextFieldTravelersNumber.setText("4");
 //                jTextFieldGardenArea.setText("125");
 //                jCheckBoxMenuItemGardenArea.setState(true);
-//                jButtonValidate.setEnabled(false);
+////                jButtonValidate.setEnabled(false);
 //                jButtonFastImput.setEnabled(false);
 //            }
 //        });
@@ -168,14 +170,13 @@ public class ViewHouseCreation extends JFrame {
          * the function returns true if all checked fiels are true.
          */
         Uti.info("ViewHouseCreation","checkFieldsHouse","");
-         System.out.println(this.hosts.get(0).getFirstname()+" *1");
+         System.out.println(this.hosts.get(0).getFirstname()+" *1"); // todo delete this line
         Boolean verifications[]= new Boolean[5];
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
         verifications[0] = currentHost != null ? true:false;
-
-        System.out.println(this.hosts.get(0).getFirstname()+" *2");
+        System.out.println(this.hosts.get(0).getFirstname()+" *2"); // todo delete this line
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
         if((!jTextFieldDailyRate.getText().isEmpty() &&
@@ -269,9 +270,7 @@ public class ViewHouseCreation extends JFrame {
             Uti.info("AddEltHostListener", "itemStateChanged", "");
             // combo
             if (e.getSource() == jComboBoxHosts) {
-                System.out.println("COUCOU COUCOU COUCOU!!!");
                 jComboBoxHosts.setBackground(Color.white);
-                jButtonValidate.setEnabled(true);
                 String recup="";
                 int index = -1;
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -282,6 +281,8 @@ public class ViewHouseCreation extends JFrame {
                     System.out.println(recup+"  " +index+ "  "+hosts.get(index).getFirstname()+" "+currentHost.getFirstname());
 
                 }
+            } else {
+                System.out.println("Ca ne passe pas!");
             }
         }
         public String returnFirstWord(String severalWords){
