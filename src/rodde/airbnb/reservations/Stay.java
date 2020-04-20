@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public abstract class Stay implements ServiceInterface {
     //    private LocalDate dateArrivee;
     //    private Date dateArrivee;
-    protected LocalDate dateArrivee;
+    protected LocalDate arrivalDate;
     protected int overnightsNumber;
     protected Housing housing;
 
@@ -23,7 +23,7 @@ public abstract class Stay implements ServiceInterface {
         Uti.info("Sejour","verificationDateArrivee()","");
         // date arrivée doit etre plus grande que date actuelle
         LocalDate date = LocalDate.now() ;// la date actuelle
-        if( dateArrivee.isAfter(date)){
+        if( arrivalDate.isAfter(date)){
             //            System.out.println("la date d'arrivée est postérieure à la date de réservation.");
             return true;
         }
@@ -46,10 +46,10 @@ public abstract class Stay implements ServiceInterface {
     }
 
     //    public Sejour(Date dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
-    public Stay(LocalDate dateArrivee, int nbNuits, Housing logement, int nbVoyageurs) {
+    public Stay(LocalDate arrivalDate, int nbNuits, Housing logement, int nbVoyageurs) {
        Uti.info("Sejour","Sejour()","");
         //        Uti.info("Sejour", "Sejour()","");
-        this.dateArrivee = dateArrivee;
+        this.arrivalDate = arrivalDate;
         this.overnightsNumber = nbNuits;
         this.housing = logement;
         this.travelersNumber = nbVoyageurs;

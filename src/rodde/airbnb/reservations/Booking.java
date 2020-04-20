@@ -20,16 +20,19 @@ public class Booking {
         if((!sejour.arrivalDateVerification())||(!sejour.checkTravelersNumber())||(!sejour.overnightsNumberVerification())){
             throw new instantiationBookingException();
         }
-        // si les conditions à la créations d'un séjour sont correctes
-        Booking.id = id++;
-        this.stay = sejour;
-        this.traveler = voyageur;
-        this.isValidated = false;
-        this.bookingDate = LocalDate.now();
+        else
+        {
+            // si les conditions à la créations d'un séjour sont correctes
+            Booking.id = id++;
+            this.stay = sejour;
+            this.traveler = voyageur;
+            this.isValidated = false;
+            this.bookingDate = LocalDate.now();
+        }
 
     }
     public void display(){
-        Uti.info("Reservation", "afficher()","");
+        Uti.info("Reservation", "display()","");
         traveler.display();
         System.out.print(" a fait une réservation chez ");
         stay.display();
@@ -37,7 +40,7 @@ public class Booking {
 
 
     public int getId() {
-        Uti.info("Reservation", "getIdentifiant()","");
+        Uti.info("Reservation", "getId()","");
         return id;
     }
 }

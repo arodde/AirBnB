@@ -67,9 +67,9 @@ public class LongStay extends Stay {
         double tarif = (double) overnightsNumber * housing.getDaylyRate();
 
         boolean bOkParamSejour = false;
-        int annee = dateArrivee.getYear();
-        Month mois = dateArrivee.getMonth();
-        int jour = dateArrivee.getDayOfMonth();
+        int annee = arrivalDate.getYear();
+        Month mois = arrivalDate.getMonth();
+        int jour = arrivalDate.getDayOfMonth();
 
 //        // gestion arrondi
 //        String masque = new String("#0.00#");
