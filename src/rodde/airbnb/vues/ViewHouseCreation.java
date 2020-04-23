@@ -48,11 +48,7 @@ public class ViewHouseCreation extends JFrame {
         setResizable(false);
         setBounds(500,200,300,400);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        for(int i = 0 ; i < hosts.size();i++)
-//            System.out.println(hosts.get(i).getFirstname());
         this.hosts = hosts;
-//        for(int i = 0 ; i < hosts.size();i++)
-//            System.out.println(this.hosts.get(i).getFirstname());
         this.housings = housings;
 //        toRemoveAfter3(); // todo delete this line
         jLabelHost = new JLabel("Hôte :");
@@ -170,13 +166,13 @@ public class ViewHouseCreation extends JFrame {
          * the function returns true if all checked fiels are true.
          */
         Uti.info("ViewHouseCreation","checkFieldsHouse","");
-         System.out.println(this.hosts.get(0).getFirstname()+" *1"); // todo delete this line
+        // System.out.println(this.hosts.get(0).getFirstname()+" *1"); // todo delete this line
         Boolean verifications[]= new Boolean[5];
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
         verifications[0] = currentHost != null ? true:false;
-        System.out.println(this.hosts.get(0).getFirstname()+" *2"); // todo delete this line
+        //System.out.println(this.hosts.get(0).getFirstname()+" *2"); // todo delete this line
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
         if((!jTextFieldDailyRate.getText().isEmpty() &&

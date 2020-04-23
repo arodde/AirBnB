@@ -11,14 +11,18 @@ import rodde.airbnb.vues.ViewMenu;
 import rodde.airbnb.vues.ViewTravelerCreation;
 
 import javax.swing.*;
-import java.time.LocalDate;
-import java.util.Scanner;
-
-
+import java.time.*;
+import java.util.*;
 
 
 public class Main {
     public static Scanner sc;
+
+    public static void main3(String[] args)  {
+        Uti.info("Main","main","");
+
+        sc.close();
+    }
     public static void main(String[] args)  {
         Uti.info("Main","main","");
         sc = new Scanner( System .in);
@@ -116,6 +120,104 @@ public class Main {
         //        personne1.display();
         //        logement1.display();
         //        sejour1.display();
+        sc.close();
+    }
+    public static void gestiondedates(){
+        Uti.info("Main","gestiondedates","");
+        sc = new Scanner( System .in);
+
+        System.out.println("Test de dat 1");
+//         dateSaisie = new LocalDate(1992, 03, 21);
+//        Instant instant =  Instant.now();
+//        if (instant.isAfter(Instant.from(dateSaisie))){
+//            System.out.println("GAGNE!! La date saisie est postérieure à celle d'aujourd'hui.");
+//        }
+//        else
+//            {
+//                System.out.println("PERDU!! La date saisie est antérieure à celle d'aujourd'hui.");
+//            }
+
+        System.out.println("Test de date 2");
+
+        Uti.mess("Temps machine");
+        Instant instant1 = Instant.EPOCH;
+        Instant instant2 = Instant.now();
+        System.out.println(instant1 + "  " + instant2);
+        if(instant1.isAfter(instant2))
+        {
+            System.out.println("Le temps s'est inversé : Instant.EPOCH est après Intant.now()");
+        }
+        else
+        {
+            System.out.println("Le temps suit son cours : Instant.EPOCH est avant Intant.now()");
+        }
+        if(instant1.isBefore(instant2))
+        {
+            System.out.println("Le temps suit son cours : Instant.EPOCH est avant Intant.now()");
+        }
+        else
+        {
+            System.out.println("Le temps s'est inversé : Instant.EPOCH est après Intant.now()");
+        }
+
+        Uti.mess("Temps humain");
+
+        System.out.println("LocaleDate et LocalDateTime");
+        // Get the current date and time
+        LocalDateTime currentTime = LocalDateTime.now();
+        System.out.println("Date et heure courante : " + currentTime);
+
+        LocalDate date1 = currentTime.toLocalDate();
+        System.out.println("Date courante : " + date1);
+
+        Month mois = currentTime.getMonth();
+        int moisNombre = currentTime.getMonth().ordinal();
+        int jour = currentTime.getDayOfMonth();
+        int heure = currentTime.getHour();
+
+        System.out.println("Mois : " + mois +", jour : " + jour +", heure : " + heure);
+        System.out.println("Mois : " + (moisNombre+1) +", jour : " + jour +", heure : " + heure);
+
+        //Avoir le 25 décembre 2023
+        LocalDateTime date2 = currentTime.withDayOfMonth(25).withYear(2023).withMonth(12);
+        System.out.println("Date modifiée : " + date2);
+
+        //une autre façon
+        LocalDate date3 = LocalDate.of(2023, Month.DECEMBER, 25);
+        System.out.println("Autre façon de faire : " + date3);
+
+        //On peut même parser une date depuis un String
+        LocalTime parsed = LocalTime.parse("20:15:30");
+        System.out.println("Date parsée : " + parsed);
+        Uti.mess("les fuseaux horaires");
+        Map<String, String> maps = ZoneId.SHORT_IDS;
+        maps.values().stream().forEach((x) -> {System.out.println(x + " -- " + ZoneId.of(x).getRules());});
+
+        //Et connaître notre fuseau
+        System.out.println("");
+        System.out.println("Fuseau horaire courant : "+ZoneId.systemDefault());
+        System.out.println("Règle appliquer aux heures : " + ZoneId.systemDefault().getRules());
+        Uti.mess("application des changements de règles d'heures");
+        LocalDateTime ldt = LocalDateTime.now();
+        LocalDateTime ldt2 = LocalDateTime.parse(ldt.now().toString());
+        List<ZoneId> lzi = Arrays.asList(
+                ZoneId.of("Europe/Paris"),
+                ZoneId.of("Asia/Tokyo"),
+                ZoneId.of("America/Anchorage")
+        );
+
+        lzi	.stream()
+                .forEach((x) -> {
+                    System.out.println(x + " : \t" + ldt2.atZone(x).toInstant());
+                });
+
+        Uti.mess("date locale vers date universelle");
+
+        Uti.mess("date universelle date locale vers");
+
+        Uti.mess("Temps humain vers temps machine");
+
+        Uti.mess("Temps machine vers temps humain");
         sc.close();
     }
 }

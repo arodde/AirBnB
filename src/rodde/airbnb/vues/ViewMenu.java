@@ -1,7 +1,10 @@
 package rodde.airbnb.vues;
 
+import rodde.airbnb.logements.Appartment;
+import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.Booking;
+import rodde.airbnb.reservations.Stay;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 import rodde.airbnb.utilisateurs.Traveler;
@@ -11,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewMenu extends JFrame {
 
@@ -27,14 +29,16 @@ public class ViewMenu extends JFrame {
     public JMenuItem jMenuAddAppartment;
     public JMenuItem jMenuAddStay;
     //    private Menu menu;
-    public  ViewHostCreation viewHostCreation;
-    public  ViewTravelerCreation viewTravelerCreation;
-    public  ViewHouseCreation viewHouseCreation;
-    public  ViewAppartmentCreation viewAppartmentCreation;
-    public  ArrayList<Traveler> travelerArrayList;
-    public ArrayList<Host> hostArrayList = null;
-    public  ArrayList<Housing> housingArrayList;
-    public  ArrayList<Booking> bookingArrayList;
+    public ViewHostCreation viewHostCreation;
+    public ViewTravelerCreation viewTravelerCreation;
+    public ViewHouseCreation viewHouseCreation;
+    public ViewAppartmentCreation viewAppartmentCreation;
+    public ViewStayCreation viewStayCreation;
+    public ArrayList<Traveler> travelerArrayList;
+    public ArrayList<Host> hostArrayList ;
+    public ArrayList<Housing> housingArrayList;
+    public ArrayList<Booking> bookingArrayList;
+    public ArrayList<Stay> stayArrayList;
 
     public void initArrayAndManagment(){
         Uti.info("ViewMenu","initArrayAndManagment()","");
@@ -44,6 +48,8 @@ public class ViewMenu extends JFrame {
             hostArrayList = new ArrayList<Host>();
         if(housingArrayList== null)
             housingArrayList = new ArrayList<Housing>();
+        if(stayArrayList== null)
+            stayArrayList  = new ArrayList<Stay>();
         if(bookingArrayList== null)
             bookingArrayList  = new ArrayList<Booking>();
 
@@ -58,11 +64,29 @@ public class ViewMenu extends JFrame {
         setLocationRelativeTo(null);
         initArrayAndManagment();
         initMenu();
-        // todo revoir logique  ajouter hôte voyageur logement tenter de prendre un séjour et voir pour avoir une réservation
         jPanel = new JPanel();
         jPanel.setBackground(Color.blue);
         this.setContentPane(jPanel);
         setVisible(true);
+        provisoireRemplissageListes();// todo
+    }
+
+    private void provisoireRemplissageListes() {
+
+        hostArrayList.add(new Host("aa","aaa",12,11));
+        hostArrayList.add(new Host("ab","abb",13,12));
+        hostArrayList.add(new Host("ac","acc",14,13));
+        hostArrayList.add(new Host("ad","add",15,14));
+        travelerArrayList.add(new Traveler("zz","zzz",22));
+        travelerArrayList.add(new Traveler("zy","zyy",23));
+        travelerArrayList.add(new Traveler("zx","zxx",24));
+        travelerArrayList.add(new Traveler("zw","zww",25));
+        housingArrayList.add((Housing) new House(hostArrayList.get(0),3,"3ddd3",66,3,99,true));
+        housingArrayList.add((Housing) new House(hostArrayList.get(1),4,"3dgfsfhs",76,8,46,false));
+        housingArrayList.add((Housing) new Appartment(hostArrayList.get(2),5,"3ddffffffffd3",76,8,1,23));
+        housingArrayList.add((Housing) new Appartment(hostArrayList.get(3),6,"3dhhdd3",86,11,0,0));
+
+
     }
 
     public void initMenu(){
@@ -91,10 +115,12 @@ public class ViewMenu extends JFrame {
         jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
         jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
         jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
+        jMenuAddStay.addActionListener(new ViewCreationStayListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
         jMenuAdd.add(jMenuAddAppartment);
         jMenuAdd.add(jMenuAddTraveler);
+        jMenuAdd.add(jMenuAddStay);
         jMenuAdd.add(jMenuAdd);
         jMenuDisplay.add(jMenuItemDisplayReservation);
         jMenuBar.add(jMenuAdd);
@@ -112,7 +138,7 @@ public class ViewMenu extends JFrame {
             viewHouseCreation = new ViewHouseCreation(hostArrayList,housingArrayList);
         }
     }
-        class ViewCreationAppartmentListener implements ActionListener {
+    class ViewCreationAppartmentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationAppartmentListener","actionPerformed()","");
@@ -139,7 +165,15 @@ public class ViewMenu extends JFrame {
             viewTravelerCreation = new ViewTravelerCreation(travelerArrayList);
         }
     }
+    class ViewCreationStayListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Uti.info("ViewCreationStayListener","actionPerformed()","");
+            if (stayArrayList == null)
+                Uti.mess("liste de séjour nulle.");
+            viewStayCreation = new ViewStayCreation(housingArrayList,stayArrayList);
+        }
+    }
 }
-// todo vue création logements
 // todo vue création séjours
 // todo vue création réservation

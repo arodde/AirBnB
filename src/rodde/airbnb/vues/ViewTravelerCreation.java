@@ -161,7 +161,7 @@ public class ViewTravelerCreation extends JFrame {
 //            public void actionPerformed(ActionEvent e) {
 //                Uti.info("jButtonFastImput","actionPerformed","a retirer");
 //                jTextFieldSurname.setText("CHAUVINARDEAU Du MAZELONICAN DE VENDOMOISETTE");
-//                jTextFieldFirstName.setText("Hubert-Stanislas-Edmond-Jacques-Henri");
+//                jTextFieldFirstName.setText("Hubert-Stanislas-Edmond-Rodrigues-Jacques-Henri");
 //                jTextFieldAge.setText("69");
 //                jButtonValidate.setEnabled(true);
 //            }

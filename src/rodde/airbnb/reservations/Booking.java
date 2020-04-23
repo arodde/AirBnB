@@ -13,19 +13,19 @@ public class Booking {
     private boolean isValidated;
     private LocalDate bookingDate;
 
-    public Booking(/*int identifiant, */Stay sejour, Traveler voyageur ) throws instantiationBookingException {
+    public Booking(/*int identifiant, */Stay stay, Traveler traveler ) throws instantiationBookingException {
         Uti.info("Reservation", "Reservation()","2 p");
 
         // Tests de validation sur le séjour
-        if((!sejour.arrivalDateVerification())||(!sejour.checkTravelersNumber())||(!sejour.overnightsNumberVerification())){
+        if((!stay.arrivalDateVerification())||(!stay.checkTravelersNumber())||(!stay.overnightsNumberVerification())){
             throw new instantiationBookingException();
         }
         else
         {
             // si les conditions à la créations d'un séjour sont correctes
             Booking.id = id++;
-            this.stay = sejour;
-            this.traveler = voyageur;
+            this.stay = stay;
+            this.traveler = traveler;
             this.isValidated = false;
             this.bookingDate = LocalDate.now();
         }
