@@ -2,6 +2,8 @@ package rodde.airbnb.vues;
 
 
 import org.apache.commons.lang3.StringUtils;
+import rodde.airbnb.logements.Appartment;
+import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.Stay;
 import rodde.airbnb.util.Uti;
@@ -39,7 +41,7 @@ public class ViewStayCreation extends JFrame {
         setTitle("Ajouter un séjour");
         setName("window for add stay");
         setResizable(false);
-        setBounds(500,200,300,250);
+        setBounds(500,200,400,250);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.housings = housings;
         jLabelArrivalDate = new JLabel("Date d'arrivée");
@@ -203,23 +205,23 @@ public class ViewStayCreation extends JFrame {
          * if the date is validated the fonction returns true othewhise false
          */
         int iMaxDay=0;
-            if(iMonth==2){
-                if (((iYear % 100)!=0)&&((iYear % 400)==0)||((iYear % 4)==0)){
-                    iMaxDay = 29;
+        if(iMonth==2){
+            if (((iYear % 100)!=0)&&((iYear % 400)==0)||((iYear % 4)==0)){
+                iMaxDay = 29;
 //                    System.out.println("février 29 jours");
-                }else{
-                    iMaxDay = 28;
+            }else{
+                iMaxDay = 28;
 //                    System.out.println("février 29 jours");
-                }
-            } else if(iMonth==4 || iMonth==6 || iMonth==9 || iMonth == 11){
-                iMaxDay=30;
-            } else {
-                iMaxDay= 31;
             }
-            if(((iDay>=1)&&(iDay<=iMaxDay))&&((iMonth>=1)&&(iMonth<=12))&&((iYear>=2020)&&(iYear<=2100)))
-                return true;
-            else
-                return false;
+        } else if(iMonth==4 || iMonth==6 || iMonth==9 || iMonth == 11){
+            iMaxDay=30;
+        } else {
+            iMaxDay= 31;
+        }
+        if(((iDay>=1)&&(iDay<=iMaxDay))&&((iMonth>=1)&&(iMonth<=12))&&((iYear>=2020)&&(iYear<=2100)))
+            return true;
+        else
+            return false;
 
     }
     public void fillHousingsComboItem(){
@@ -231,7 +233,16 @@ public class ViewStayCreation extends JFrame {
 //        toRemoveAfter3();
         if(housings != null){
             for(int i = 0; i< housings.size(); i++){
-                jComboBoxHousings.addItem(i+" "+ housings.get(i).getDaylyRate()+ " "+ housings.get(i).getMaxTravelersNumber());
+                if(  housings.get(i) instanceof House){
+                    jComboBoxHousings.addItem(i+" : "+(String) ((House) housings.get(i)).shortDisplay());
+
+                }
+                else
+                {
+                    jComboBoxHousings.addItem(i+" : "+(String) ((Appartment) housings.get(i)).shortDisplay());
+
+                }
+
             }
         }
     }

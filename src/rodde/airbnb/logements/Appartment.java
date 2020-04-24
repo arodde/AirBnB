@@ -1,7 +1,7 @@
 package rodde.airbnb.logements;
 
-        import rodde.airbnb.util.Uti;
-        import rodde.airbnb.utilisateurs.Host;
+import rodde.airbnb.util.Uti;
+import rodde.airbnb.utilisateurs.Host;
 
 public class Appartment extends Housing {
     private int balconyArea;
@@ -11,7 +11,7 @@ public class Appartment extends Housing {
         this.floorNumber = floorNumber;
         this.balconyArea =balconyArea;
     }
-    public   void display(){
+    public void display(){
         Uti.info("Appartement","afficher()","");
 
         host.display();
@@ -30,6 +30,25 @@ public class Appartment extends Housing {
             System.out.println("Balcon : Non");
         }
     }
+    public   String shortDisplay(){
+        Uti.info("Appartment","shortDisplay()","");
+        String description= " Appartement (";
+        description += area +"m²), ";
+        if(floorNumber == 0){
+            description += "rez-de-chaussée, ";
+        } else if (floorNumber == 1){
+            description += "1ier Etage, ";
+        } else {
+            description += floorNumber +"ème Etage, ";
+        }
+        if(floorNumber>0){
+            description += " balcon ("+balconyArea+" m²), ";
+        }
+        description += "pour "+getMaxTravelersNumber()+" personnes";
+        return description;
+
+    }
+
     @Override
     public int getTotalArea() {
 

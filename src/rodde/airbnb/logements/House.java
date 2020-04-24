@@ -31,6 +31,19 @@ public class House extends Housing {
         }
 
     }
+    public   String shortDisplay(){
+        Uti.info("House","shortDisplay()","");
+        String description= " Maison (";
+        description += area +"m²), ";
+        if(gardenArea >0){
+            description += "avec jardin ("+ gardenArea+" m²), " ;
+        }
+        if(ownSwimmingPool){
+            description += "piscine, ";
+        }
+        description += "pour "+getMaxTravelersNumber()+" personnes";
+        return description;
+    }
     @Override
     public int getTotalArea() {
         Uti.info("House","getSuperficieTotale","");
