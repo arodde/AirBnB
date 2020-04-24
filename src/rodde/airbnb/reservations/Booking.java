@@ -15,7 +15,6 @@ public class Booking {
 
     public Booking(/*int identifiant, */Stay stay, Traveler traveler ) throws instantiationBookingException {
         Uti.info("Reservation", "Reservation()","2 p");
-
         // Tests de validation sur le séjour
         if((!stay.arrivalDateVerification())||(!stay.checkTravelersNumber())||(!stay.overnightsNumberVerification())){
             throw new instantiationBookingException();
@@ -29,7 +28,6 @@ public class Booking {
             this.isValidated = false;
             this.bookingDate = LocalDate.now();
         }
-
     }
     public void display(){
         Uti.info("Reservation", "display()","");

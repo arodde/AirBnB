@@ -85,7 +85,8 @@ public class ViewStayCreation extends JFrame {
                 inactiveFieldsViewHousing();
                 System.out.println(" liste Logements : "+housings.size());
                 if(checkFieldsHousing(correctHousing)){
-                    System.out.println("ici se passe ce doit se faire lorsque la validation est obtenue.");
+                    System.out.println("ici se passe ce qui doit se faire lorsque la validation est obtenue.");
+
                     inactiveFieldsViewHousing();
                     jButtonValidate.setEnabled(false);
                     jButtonFastImput.setEnabled(false);
