@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
+import rodde.airbnb.reservations.LongStay;
+import rodde.airbnb.reservations.ShortStay;
 import rodde.airbnb.reservations.Stay;
 import rodde.airbnb.util.Uti;
 
@@ -16,11 +18,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-
 //import static com.sun.deploy.util.StringUtils.*;
-
-
 public class ViewStayCreation extends JFrame {
     public Housing currentHousing;
     public JLabel jLabelArrivalDate;
@@ -81,14 +81,30 @@ public class ViewStayCreation extends JFrame {
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 Uti.info("jButtonValidate","actionPerformed()","");
                 boolean correctHousing = false;
                 inactiveFieldsViewHousing();
                 System.out.println(" liste Logements : "+housings.size());
                 if(checkFieldsHousing(correctHousing)){
                     System.out.println("ici se passe ce qui doit se faire lorsque la validation est obtenue.");
-
+                    // stay creation
+                    Stay currentStay = null;
+                    if (Integer.parseInt(jTextFieldOvernightsNumber.getText()) < 6) {
+                        currentStay = new ShortStay(
+                                stringToLocalDate(jFormattedTextFieldArrivalDate.getText()),
+                                Integer.parseInt(jTextFieldOvernightsNumber.getText()),
+                                currentHousing,
+                                Integer.parseInt(jTextFieldTravelersNumber.getText()));
+//                        Uti.mess("séjour court");
+                    } else {
+                        currentStay = new LongStay(
+                                stringToLocalDate(jFormattedTextFieldArrivalDate.getText()),
+                                Integer.parseInt(jTextFieldOvernightsNumber.getText()),
+                                currentHousing, 
+                                Integer.parseInt(jTextFieldTravelersNumber.getText()));
+//                        Uti.mess("séjour long");
+                    }
+                    //
                     inactiveFieldsViewHousing();
                     jButtonValidate.setEnabled(false);
                     jButtonFastImput.setEnabled(false);
@@ -98,7 +114,20 @@ public class ViewStayCreation extends JFrame {
                     jButtonValidate.setEnabled(true);
                 }
             }
+            public LocalDate stringToLocalDate(String stringLocalDate){
+                /**
+                 * this function converts a string dd/MM/yyyy in LocalDate
+                 */
+                int d=Integer.parseInt(jFormattedTextFieldArrivalDate.getText().substring(0,2));
+                int m=Integer.parseInt(jFormattedTextFieldArrivalDate.getText().substring(3,5));
+                int y=Integer.parseInt(jFormattedTextFieldArrivalDate.getText().substring(6,10));
+                LocalDate localDate = LocalDate.of(y,m,d);
+                return  localDate;
+            }
             public void inactiveFieldsViewHousing(){
+                /**
+                 * this function desactivates the fiels
+                 */
                 Uti.info("jButtonValidate","inactiveFieldsViewHousing","");
                 jComboBoxHousings.setEnabled(false);
                 jTextFieldTravelersNumber.setEnabled(false);
@@ -106,6 +135,9 @@ public class ViewStayCreation extends JFrame {
                 jFormattedTextFieldArrivalDate.setEnabled(false);
             }
             public void activeFieldsViewHousing(){
+                /**
+                 * this function activates the fiels
+                 */
                 Uti.info("jButtonValidate","activeFieldsViewHousing","");
                 jComboBoxHousings.setEnabled(true);
                 jTextFieldTravelersNumber.setEnabled(true);
@@ -149,11 +181,9 @@ public class ViewStayCreation extends JFrame {
         checkedDateString = checkedDateStringIni.trim();
         if (checkedDateString.length()==10){
             System.out.println("longueur "+ checkedDateString.length());
-
             String day = checkedDateString.substring(0,2);
             String month = checkedDateString.substring(3,5);
             String year = checkedDateString.substring(6,10);
-
             if (validationDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year))){
                 verifications[0]=true;
                 jFormattedTextFieldArrivalDate.setBackground(Color.white);
@@ -165,7 +195,6 @@ public class ViewStayCreation extends JFrame {
             jFormattedTextFieldArrivalDate.setBackground(Color.red);
             jFormattedTextFieldArrivalDate.setText("");
         }
-
         if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
                 Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
@@ -222,7 +251,6 @@ public class ViewStayCreation extends JFrame {
             return true;
         else
             return false;
-
     }
     public void fillHousingsComboItem(){
         /**
@@ -235,14 +263,11 @@ public class ViewStayCreation extends JFrame {
             for(int i = 0; i< housings.size(); i++){
                 if(  housings.get(i) instanceof House){
                     jComboBoxHousings.addItem(i+" : "+(String) ((House) housings.get(i)).shortDisplay());
-
                 }
                 else
                 {
                     jComboBoxHousings.addItem(i+" : "+(String) ((Appartment) housings.get(i)).shortDisplay());
-
                 }
-
             }
         }
     }
@@ -270,8 +295,6 @@ public class ViewStayCreation extends JFrame {
                     System.out.println();
                     index = Integer.parseInt(returnFirstWord(recup));
                     currentHousing = housings.get(index);
-                    System.out.println(recup+"  " +index+"  "+ housings.get(index).getClass().toString()+" "+ currentHousing.getAddress());
-
                 }
             } else {
                 System.out.println("Ca ne passe pas!");
