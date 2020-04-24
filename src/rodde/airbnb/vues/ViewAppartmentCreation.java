@@ -112,6 +112,7 @@ public class ViewAppartmentCreation extends JFrame {
                     Uti.mess("L'appartement ne peut être créé.");
                     activeFieldsViewAppartment();
                     jButtonValidate.setEnabled(true);
+				//	 jButtonFastImput.setEnabled(false);
                 }
             }
             public void inactiveFieldsViewAppartment(){
@@ -164,7 +165,7 @@ public class ViewAppartmentCreation extends JFrame {
          * - correct floorNumber
          * - correct balconyArea
          *
-         * the function returns true if all checked fiels are true.
+         * the function returns true if all checked fields are true.
          */
         Uti.info("ViewAppartmentCreation","checkFieldsAppartment","");
         Boolean verifications[]= new Boolean[7];
@@ -288,7 +289,7 @@ public class ViewAppartmentCreation extends JFrame {
                     recup = (String) e.getItem();
                     index = Integer.parseInt(returnFirstWord(recup));
                     currentHost = hosts.get(index);
-                    System.out.println("ZOUZOUZOU");
+                    System.out.println("ZOUZOUZOU");// todo à retirer
                 }
             }
         }

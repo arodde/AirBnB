@@ -1,6 +1,6 @@
 package rodde.airbnb.vues;
 
-;
+
 import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.Stay;
@@ -57,6 +57,7 @@ public class ViewStayCreation extends JFrame {
         jLabelHousing =new JLabel("logements");
         jComboBoxHousings = new JComboBox();
         addEltStayListener = new AddEltStayListener();
+        jComboBoxHousings.addItemListener(addEltStayListener);
         fillHousingsComboItem();
         jButtonValidate = new JButton("Valider");
         jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
@@ -85,9 +86,12 @@ public class ViewStayCreation extends JFrame {
                 System.out.println(" liste Logements : "+housings.size());
                 if(checkFieldsHousing(correctHousing)){
                     System.out.println("ici se passe ce doit se faire lorsque la validation est obtenue.");
+                    inactiveFieldsViewHousing();
                     jButtonValidate.setEnabled(false);
+                    jButtonFastImput.setEnabled(false);
                 } else {
                     activeFieldsViewHousing();
+                    jButtonFastImput.setEnabled(true); // todo retrie after
                     jButtonValidate.setEnabled(true);
                 }
             }
@@ -106,7 +110,7 @@ public class ViewStayCreation extends JFrame {
                 jFormattedTextFieldArrivalDate.setEnabled(true);
             }
         });
-        jButtonFastImput.addActionListener(new ActionListener() { // jbfi
+        jButtonFastImput.addActionListener(new ActionListener() { //todo retrieve jbfi
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonFastImput","actionPerformed()","");
@@ -137,24 +141,28 @@ public class ViewStayCreation extends JFrame {
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
+        String checkedDateStringIni = jFormattedTextFieldArrivalDate.getText();
+        String checkedDateString = jFormattedTextFieldArrivalDate.getText();
+        checkedDateString = checkedDateStringIni.trim();
+        if (checkedDateString.length()==10){
+            System.out.println("longueur "+ checkedDateString.length());
 
-        if((!jFormattedTextFieldArrivalDate.getText().isEmpty() /*&&
-                StringUtils.isNumeric(jFormattedTextFieldArrivalDate.getText())*/)){
-            String aTester = jFormattedTextFieldArrivalDate.getText();
-            if (!aTester.isEmpty()){
+            String day = checkedDateString.substring(0,2);
+            String month = checkedDateString.substring(3,5);
+            String year = checkedDateString.substring(6,10);
 
-                String day = aTester.substring(0,2);
-                String month = aTester.substring(3,5);
-                String year = aTester.substring(6,10);
-                System.out.println(day+" "+month+" "+year);// todo à supprimer
-
+            if (validationDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year))){
+                verifications[0]=true;
+                jFormattedTextFieldArrivalDate.setBackground(Color.white);
+            }else{
+                jFormattedTextFieldArrivalDate.setBackground(Color.red);
+                jFormattedTextFieldArrivalDate.setText("");
             }
-            verifications[0]=true;
-            jFormattedTextFieldArrivalDate.setBackground(Color.white);
-        } else {
+        }else{
             jFormattedTextFieldArrivalDate.setBackground(Color.red);
             jFormattedTextFieldArrivalDate.setText("");
         }
+
         if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
                 Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
@@ -165,7 +173,6 @@ public class ViewStayCreation extends JFrame {
             jTextFieldOvernightsNumber.setText("");
         }
         verifications[2] = currentHousing != null ? true:false;
-        System.out.println(this.housings.get(0).getAddress()); // todo delete this line
         if(!verifications[2])
             jComboBoxHousings.setBackground(Color.RED);
         if((!jTextFieldTravelersNumber.getText().isEmpty() &&
@@ -187,7 +194,33 @@ public class ViewStayCreation extends JFrame {
         }
         return correctHousing;
     }
+    public boolean validationDate(int iDay,int iMonth, int iYear) {
+        /**
+         * validate a date if the value of day is between 1 and 28 or 29 or 30 or 31,
+         * if the value of month is between 1 and 12
+         * if the value of year is between 2020 and 2100
+         * if the date is validated the fonction returns true othewhise false
+         */
+        int iMaxDay=0;
+            if(iMonth==2){
+                if (((iYear % 100)!=0)&&((iYear % 400)==0)||((iYear % 4)==0)){
+                    iMaxDay = 29;
+//                    System.out.println("février 29 jours");
+                }else{
+                    iMaxDay = 28;
+//                    System.out.println("février 29 jours");
+                }
+            } else if(iMonth==4 || iMonth==6 || iMonth==9 || iMonth == 11){
+                iMaxDay=30;
+            } else {
+                iMaxDay= 31;
+            }
+            if(((iDay>=1)&&(iDay<=iMaxDay))&&((iMonth>=1)&&(iMonth<=12))&&((iYear>=2020)&&(iYear<=2100)))
+                return true;
+            else
+                return false;
 
+    }
     public void fillHousingsComboItem(){
         /**
          * give combo item content
@@ -197,7 +230,7 @@ public class ViewStayCreation extends JFrame {
 //        toRemoveAfter3();
         if(housings != null){
             for(int i = 0; i< housings.size(); i++){
-               jComboBoxHousings.addItem(i+" "+ housings.get(i).getDaylyRate()+ " "+ housings.get(i).getMaxTravelersNumber());
+                jComboBoxHousings.addItem(i+" "+ housings.get(i).getDaylyRate()+ " "+ housings.get(i).getMaxTravelersNumber());
             }
         }
     }
@@ -225,7 +258,7 @@ public class ViewStayCreation extends JFrame {
                     System.out.println();
                     index = Integer.parseInt(returnFirstWord(recup));
                     currentHousing = housings.get(index);
-                    System.out.println(recup+"  " +index+ "  "+ housings.get(index).getClass().toString()+" "+ currentHousing.getAddress());
+                    System.out.println(recup+"  " +index+"  "+ housings.get(index).getClass().toString()+" "+ currentHousing.getAddress());
 
                 }
             } else {
