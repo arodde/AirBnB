@@ -1,6 +1,7 @@
 package rodde.airbnb.vues;
 
 
+import com.sun.javaws.IconUtil;
 import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
@@ -34,7 +35,6 @@ public class ViewStayCreation extends JFrame {
     public JLabel jLabelHousing;
     public JComboBox jComboBoxHousings;
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
-    private Thread tConfirmationReservation;
     public AddEltStayListener addEltStayListener;
     public JButton jButtonValidate ;
     public JButton jButtonFastImput; // todo delete this line  // jbfi
@@ -83,7 +83,7 @@ public class ViewStayCreation extends JFrame {
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonValidate","actionPerformed()","");
@@ -111,6 +111,27 @@ public class ViewStayCreation extends JFrame {
                     }
                     //
                     // todo boîte de confirmation
+                    if ( currentStay != null){
+                        JOptionPane jop = new JOptionPane();
+                        int option = jop.showConfirmDialog(
+                                null,
+                                "Accepter vous cette demande de réservation ?",
+                                "Demande de réservation",
+                                JOptionPane.YES_NO_CANCEL_OPTION,
+                                JOptionPane.QUESTION_MESSAGE);
+
+                        if(option != JOptionPane.NO_OPTION &&
+                                option != JOptionPane.CANCEL_OPTION &&
+                                option != JOptionPane.CLOSED_OPTION){
+                            Uti.mess("ici boîte de confirmation"+
+                                    "option :" + option );
+
+                                    Uti.mess(option + "ok" );
+                                    Uti.mess("nouvelle réservation");
+
+                            }
+                        }
+                    
 
                     //
                     inactiveFieldsViewHousing();
