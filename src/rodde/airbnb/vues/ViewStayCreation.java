@@ -1,15 +1,13 @@
 package rodde.airbnb.vues;
 
 
-import com.sun.javaws.IconUtil;
 import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
-import rodde.airbnb.reservations.LongStay;
-import rodde.airbnb.reservations.ShortStay;
-import rodde.airbnb.reservations.Stay;
+import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
+import rodde.airbnb.utilisateurs.Traveler;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -25,8 +23,10 @@ import java.util.ArrayList;
 public class ViewStayCreation extends JFrame {
 
     public Housing currentHousing;
+    public Traveler currentTraveler;
+    public JLabel jLabelTraveler;
+    public JComboBox jComboBoxTravelers;
     public JLabel jLabelArrivalDate;
-    public JTextField jTextFieldArrivalDate;
     public JFormattedTextField jFormattedTextFieldArrivalDate;
     public JLabel jLabelTravelersNumber;
     public JTextField jTextFieldTravelersNumber;
@@ -35,10 +35,12 @@ public class ViewStayCreation extends JFrame {
     public JLabel jLabelHousing;
     public JComboBox jComboBoxHousings;
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
-    public AddEltStayListener addEltStayListener;
+    private  ArrayList<Traveler> travelers = new ArrayList<Traveler>();
+    public AddEltHousingListener addEltHousingListener;
+    public AddEltTravelerListener addEltTravelerListener;
     public JButton jButtonValidate ;
     public JButton jButtonFastImput; // todo delete this line  // jbfi
-    public ViewStayCreation( ArrayList<Housing> housings, ArrayList<Stay> stays){
+    public ViewStayCreation( ArrayList<Traveler> travelers, ArrayList<Housing> housings, ArrayList<Stay> stays){
         /**
          * constructor of the window for Stay creation
          */
@@ -46,9 +48,10 @@ public class ViewStayCreation extends JFrame {
         setTitle("Ajouter un séjour");
         setName("window for add stay");
         setResizable(false);
-        setBounds(500,200,400,250);
+        setBounds(500,200,400,300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.housings = housings;
+        this.travelers = travelers;
         jLabelArrivalDate = new JLabel("Date d'arrivée");
         MaskFormatter maskFormatterArrivalDate= null;
         try {
@@ -58,18 +61,25 @@ public class ViewStayCreation extends JFrame {
             e.printStackTrace();
         }
         jLabelOvernightsNumber = new JLabel("Nombre de nuits");
+        jLabelTraveler = new JLabel("Voyageur");
         jTextFieldOvernightsNumber = new JTextField();
         jLabelTravelersNumber = new JLabel("Nombre de voyageurs :");
         jTextFieldTravelersNumber = new JTextField();
         jLabelHousing =new JLabel("logements");
         jComboBoxHousings = new JComboBox();
-        addEltStayListener = new AddEltStayListener();
-        jComboBoxHousings.addItemListener(addEltStayListener);
+        jComboBoxTravelers = new JComboBox();
+        addEltHousingListener = new AddEltHousingListener();
+        addEltTravelerListener = new AddEltTravelerListener();
+        jComboBoxHousings.addItemListener(addEltHousingListener);
+        jComboBoxTravelers.addItemListener(addEltTravelerListener);
         fillHousingsComboItem();
+        fillTravelersComboItem();
         jButtonValidate = new JButton("Valider");
         jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(jLabelTraveler);
+        panel.add(jComboBoxTravelers);
         panel.add(jLabelArrivalDate);
         panel.add(jFormattedTextFieldArrivalDate);
         panel.add(jLabelOvernightsNumber);
@@ -83,14 +93,13 @@ public class ViewStayCreation extends JFrame {
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonValidate","actionPerformed()","");
                 boolean correctHousing = false;
                 inactiveFieldsViewHousing();
                 System.out.println(" liste Logements : "+housings.size());
-                if(checkFieldsHousing(correctHousing)){
+                if(checkFieldsStay(correctHousing)){
                     System.out.println("ici se passe ce qui doit se faire lorsque la validation est obtenue.");
                     // stay creation
                     Stay currentStay = null;
@@ -126,12 +135,18 @@ public class ViewStayCreation extends JFrame {
                             Uti.mess("ici boîte de confirmation"+
                                     "option :" + option );
 
-                                    Uti.mess(option + "ok" );
-                                    Uti.mess("nouvelle réservation");
-
+                            Uti.mess(option + "ok" );
+                            Uti.mess("nouvelle réservation");
+                            try {
+                                Booking booking = new Booking(currentStay,travelers.get(0));
+                                booking.display();
+                                
+                            } catch (rodde.airbnb.reservations.instantiationBookingException instantiationBookingException) {
+                                instantiationBookingException.printStackTrace();
                             }
                         }
-                    
+                    }
+
 
                     //
                     inactiveFieldsViewHousing();
@@ -187,7 +202,7 @@ public class ViewStayCreation extends JFrame {
         });
     }
 
-    public Boolean checkFieldsHousing(Boolean correctHousing){
+    public Boolean checkFieldsStay(Boolean correctHousing){
         /**
          * checks the necessary fields before validation:
          * - present host
@@ -200,10 +215,14 @@ public class ViewStayCreation extends JFrame {
          * the function returns true if all checked fiels are true.
          */
         Uti.info("ViewHouseCreation","checkFieldsHouse","");
-        Boolean verifications[]= new Boolean[4];
+        Boolean verifications[]= new Boolean[5];
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
+        //****************************************************************************
+        verifications[0] = currentTraveler != null ? true:false;
+        if(!verifications[0])
+            jComboBoxTravelers.setBackground(Color.RED);
         //****************************************************************************
         String checkedDateStringIni = jFormattedTextFieldArrivalDate.getText();
         String checkedDateString = jFormattedTextFieldArrivalDate.getText();
@@ -214,7 +233,7 @@ public class ViewStayCreation extends JFrame {
             String month = checkedDateString.substring(3,5);
             String year = checkedDateString.substring(6,10);
             if (validationDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year))){
-                verifications[0]=true;
+                verifications[1]=true;
                 jFormattedTextFieldArrivalDate.setBackground(Color.white);
             }else{
                 jFormattedTextFieldArrivalDate.setBackground(Color.red);
@@ -228,21 +247,21 @@ public class ViewStayCreation extends JFrame {
         if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
                 Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
-            verifications[1]=true;
+            verifications[2]=true;
             jTextFieldOvernightsNumber.setBackground(Color.white);
         } else {
             jTextFieldOvernightsNumber.setBackground(Color.red);
             jTextFieldOvernightsNumber.setText("");
         }
         //****************************************************************************
-        verifications[2] = currentHousing != null ? true:false;
-        if(!verifications[2])
+        verifications[3] = currentHousing != null ? true:false;
+        if(!verifications[3])
             jComboBoxHousings.setBackground(Color.RED);
         //****************************************************************************
         if((!jTextFieldTravelersNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
                 Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
-            verifications[3]=true;
+            verifications[4]=true;
             jTextFieldTravelersNumber.setBackground(Color.white);
         } else {
             jTextFieldTravelersNumber.setBackground(Color.red);
@@ -270,10 +289,8 @@ public class ViewStayCreation extends JFrame {
         if(iMonth==2){
             if (((iYear % 100)!=0)&&((iYear % 400)==0)||((iYear % 4)==0)){
                 iMaxDay = 29;
-//                    System.out.println("février 29 jours");
             }else{
                 iMaxDay = 28;
-//                    System.out.println("février 29 jours");
             }
         } else if(iMonth==4 || iMonth==6 || iMonth==9 || iMonth == 11){
             iMaxDay=30;
@@ -304,9 +321,21 @@ public class ViewStayCreation extends JFrame {
             }
         }
     }
-
-
-    class AddEltStayListener implements ItemListener {
+    public void fillTravelersComboItem(){
+        /**
+         * give combo item content and distinguishes between house and appartment
+         */
+        Uti.info("ViewTravelerCreation","fillTravelersComboItem","");
+        Uti.mess("dans la liste de voyageur : "+ housings.size());
+        if(travelers != null){
+            String s ="";
+            for(int i = 0; i< travelers.size(); i++){
+                s=travelers.get(i).stringDisplay();
+                jComboBoxTravelers.addItem(i+" : "+s);
+            }
+        }
+    }
+    class AddEltHousingListener implements ItemListener {
         /**
          * @param
          */
@@ -317,7 +346,7 @@ public class ViewStayCreation extends JFrame {
              * the item's number gives the index of object in the list.
              *  the jComboBox object doesn't support the List or ArrayList Objects
              */
-            Uti.info("AddEltHostListener", "AddEltStayListener", "");
+            Uti.info("AddEltStayListener", "AddEltStayListener", "");
             // combo
             if (e.getSource() == jComboBoxHousings) {
                 jComboBoxHousings.setBackground(Color.white);
@@ -335,6 +364,47 @@ public class ViewStayCreation extends JFrame {
         }
         public String returnFirstWord(String severalWords){
             Uti.info("AddEltHostListener","returnFirstWord()","");
+            int i = severalWords.indexOf(" ");
+            String returnedWord="";
+            if(i!=-1 && i!=0){
+                returnedWord = severalWords.substring(0,i);
+                Uti.mess(returnedWord + " "+"longueur : "+returnedWord.length());
+                return returnedWord;
+            } else {
+                return severalWords;
+            }
+        }
+    }
+
+    class AddEltTravelerListener implements ItemListener {
+        /**
+         * @param
+         */
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            /**
+             * the item's number gives the index of object in the list.
+             *  the jComboBox object doesn't support the List or ArrayList Objects
+             */
+            Uti.info("AddEltTravelerListener", "AddEltTravelerListener", "");
+            // combo
+            if (e.getSource() == jComboBoxTravelers) {
+                jComboBoxTravelers.setBackground(Color.white);
+                String recup="";
+                int index = -1;
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    recup = (String) e.getItem();
+                    System.out.println();
+                    index = Integer.parseInt(returnFirstWord(recup));
+                    currentTraveler = travelers.get(index);
+                }
+            } else {
+                System.out.println("Ca ne passe pas!");
+            }
+        }
+        public String returnFirstWord(String severalWords){
+            Uti.info("AddEltTravelerListener","returnFirstWord()","");
             int i = severalWords.indexOf(" ");
             String returnedWord="";
             if(i!=-1 && i!=0){

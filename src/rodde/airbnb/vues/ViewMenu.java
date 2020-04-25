@@ -207,7 +207,7 @@ public class ViewMenu extends JFrame {
             Uti.info("ViewCreationStayListener","actionPerformed()","");
             if (stayArrayList == null)
                 Uti.mess("liste de séjour nulle.");
-            viewStayCreation = new ViewStayCreation(housingArrayList,stayArrayList);
+            viewStayCreation = new ViewStayCreation(travelerArrayList,housingArrayList,stayArrayList);
         }
     }
 }

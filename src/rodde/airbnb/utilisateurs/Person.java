@@ -32,4 +32,8 @@ public class Person {
       Uti.info("Personne", "afficher()","");
         System.out.print(firstname +" "+ surname +" ("+ age+" ans)");
     }
+    public String stringDisplay(){
+        Uti.info("Personne", "afficher()","");
+        return  firstname +" "+ surname +" ("+ age+" ans)";
+    }
 }
