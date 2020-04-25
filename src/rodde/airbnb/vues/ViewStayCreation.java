@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 //import static com.sun.deploy.util.StringUtils.*;
 public class ViewStayCreation extends JFrame {
+
     public Housing currentHousing;
     public JLabel jLabelArrivalDate;
     public JTextField jTextFieldArrivalDate;
@@ -33,10 +34,14 @@ public class ViewStayCreation extends JFrame {
     public JLabel jLabelHousing;
     public JComboBox jComboBoxHousings;
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
+    private Thread tConfirmationReservation;
     public AddEltStayListener addEltStayListener;
     public JButton jButtonValidate ;
     public JButton jButtonFastImput; // todo delete this line  // jbfi
     public ViewStayCreation( ArrayList<Housing> housings, ArrayList<Stay> stays){
+        /**
+         * constructor of the window for Stay creation
+         */
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un séjour");
         setName("window for add stay");
@@ -63,7 +68,6 @@ public class ViewStayCreation extends JFrame {
         fillHousingsComboItem();
         jButtonValidate = new JButton("Valider");
         jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
-        // ajout d'un conteneur de vues
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelArrivalDate);
@@ -79,6 +83,7 @@ public class ViewStayCreation extends JFrame {
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("jButtonValidate","actionPerformed()","");
@@ -100,10 +105,13 @@ public class ViewStayCreation extends JFrame {
                         currentStay = new LongStay(
                                 stringToLocalDate(jFormattedTextFieldArrivalDate.getText()),
                                 Integer.parseInt(jTextFieldOvernightsNumber.getText()),
-                                currentHousing, 
+                                currentHousing,
                                 Integer.parseInt(jTextFieldTravelersNumber.getText()));
 //                        Uti.mess("séjour long");
                     }
+                    //
+                    // todo boîte de confirmation
+
                     //
                     inactiveFieldsViewHousing();
                     jButtonValidate.setEnabled(false);
@@ -126,7 +134,7 @@ public class ViewStayCreation extends JFrame {
             }
             public void inactiveFieldsViewHousing(){
                 /**
-                 * this function desactivates the fiels
+                 * this function desactivates the fields
                  */
                 Uti.info("jButtonValidate","inactiveFieldsViewHousing","");
                 jComboBoxHousings.setEnabled(false);
@@ -136,7 +144,7 @@ public class ViewStayCreation extends JFrame {
             }
             public void activeFieldsViewHousing(){
                 /**
-                 * this function activates the fiels
+                 * this function activates the fields
                  */
                 Uti.info("jButtonValidate","activeFieldsViewHousing","");
                 jComboBoxHousings.setEnabled(true);
@@ -171,11 +179,11 @@ public class ViewStayCreation extends JFrame {
          * the function returns true if all checked fiels are true.
          */
         Uti.info("ViewHouseCreation","checkFieldsHouse","");
-
         Boolean verifications[]= new Boolean[4];
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
+        //****************************************************************************
         String checkedDateStringIni = jFormattedTextFieldArrivalDate.getText();
         String checkedDateString = jFormattedTextFieldArrivalDate.getText();
         checkedDateString = checkedDateStringIni.trim();
@@ -195,6 +203,7 @@ public class ViewStayCreation extends JFrame {
             jFormattedTextFieldArrivalDate.setBackground(Color.red);
             jFormattedTextFieldArrivalDate.setText("");
         }
+        //****************************************************************************
         if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
                 Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
@@ -204,9 +213,11 @@ public class ViewStayCreation extends JFrame {
             jTextFieldOvernightsNumber.setBackground(Color.red);
             jTextFieldOvernightsNumber.setText("");
         }
+        //****************************************************************************
         verifications[2] = currentHousing != null ? true:false;
         if(!verifications[2])
             jComboBoxHousings.setBackground(Color.RED);
+        //****************************************************************************
         if((!jTextFieldTravelersNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
                 Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
@@ -216,6 +227,7 @@ public class ViewStayCreation extends JFrame {
             jTextFieldTravelersNumber.setBackground(Color.red);
             jTextFieldTravelersNumber.setText("");
         }
+        //****************************************************************************
         for(int i=0; i<verifications.length;i++){
             if(verifications[i]==true)
                 correctHousing = true;
@@ -254,7 +266,7 @@ public class ViewStayCreation extends JFrame {
     }
     public void fillHousingsComboItem(){
         /**
-         * give combo item content
+         * give combo item content and distinguishes between house and appartment
          */
         Uti.info("ViewStayCreation","fillHousingsComboItem","");
         Uti.mess("dans la liste de logement : "+ housings.size());

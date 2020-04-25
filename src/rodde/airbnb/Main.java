@@ -18,19 +18,20 @@ import java.util.*;
 public class Main {
     public static Scanner sc;
 
-    public static void main3(String[] args)  {
-        Uti.info("Main","main","");
 
-        sc.close();
-    }
     public static void main(String[] args)  {
+        /**
+         * creates and opens the main window
+         */
         Uti.info("Main","main","");
         sc = new Scanner( System .in);
         ViewMenu viewMenu = new ViewMenu();
         sc.close();
     }
     public static void main2(String[] args) throws instantiationBookingException {
-
+/**
+ * main function of console airBnB application
+ */
 
         Uti.info("Main", "main", "");
         sc = new Scanner(System.in);
@@ -64,9 +65,9 @@ public class Main {
         //
         // les séjours
         //
-        LocalDate dateArrivee1 = LocalDate.of(2019, 10, 18);// date future
-        LocalDate dateArrivee2 = LocalDate.of(2019, 11, 18);
-        LocalDate dateArrivee3 = LocalDate.of(2019, 12, 18);
+        LocalDate dateArrivee1 = LocalDate.of(2021, 10, 18);// date future
+        LocalDate dateArrivee2 = LocalDate.of(2021, 11, 18);
+        LocalDate dateArrivee3 = LocalDate.of(2020, 12, 18);
         int dureeSejour1 = 9;
         int dureeSejour2 = 5;
         int dureeSejour3 = 3;
@@ -123,6 +124,9 @@ public class Main {
         sc.close();
     }
     public static void gestiondedates(){
+        /**
+         * function for study about the api date
+         */
         Uti.info("Main","gestiondedates","");
         sc = new Scanner( System .in);
 

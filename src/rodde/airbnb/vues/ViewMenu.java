@@ -41,6 +41,15 @@ public class ViewMenu extends JFrame {
     public ArrayList<Stay> stayArrayList;
 
     public void initArrayAndManagment(){
+        /**
+         * creates the lists if they don't created before
+         * created lists :
+         * - booking
+         * - Hosts
+         * - Housings
+         * - Stay
+         * - Travelers
+         */
         Uti.info("ViewMenu","initArrayAndManagment()","");
         if(travelerArrayList== null)
             travelerArrayList = new ArrayList<Traveler>();
@@ -55,6 +64,12 @@ public class ViewMenu extends JFrame {
 
     }
     public ViewMenu(){
+        /**
+         * this constructor create the main window
+         * call
+         *  - initArrayAnManagment
+         *  - initMenu
+         */
         // todo fen menu pour ajouter voyageurs,  réservations
         // add characteristics to The window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -72,6 +87,11 @@ public class ViewMenu extends JFrame {
     }
 
     private void provisoireRemplissageListes() {
+        /**
+         * this function prevents the developper to create a
+         * data set before each try of the the piece of
+         * software he is developping
+         */
 
         hostArrayList.add(new Host("aa","aaa",12,11));
         hostArrayList.add(new Host("ab","abb",13,12));
@@ -130,15 +150,21 @@ public class ViewMenu extends JFrame {
     }
 
     class ViewCreationHouseListener implements ActionListener {
+        /**
+         * creates and opens the window to add an house
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationHouseListener","actionPerformed()","");
-            if (hostArrayList == null)
-                Uti.mess("liste d'hôtes nulle.");
+            if (housingArrayList == null)
+                Uti.mess("liste de séjour nulle.");
             viewHouseCreation = new ViewHouseCreation(hostArrayList,housingArrayList);
         }
     }
     class ViewCreationAppartmentListener implements ActionListener {
+        /**
+         * creates and opens the window to add an appartement
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationAppartmentListener","actionPerformed()","");
@@ -148,6 +174,9 @@ public class ViewMenu extends JFrame {
         }
     }
     class ViewCreationHostListener implements ActionListener {
+        /**
+         * creates and opens the window to add an host
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationHostListener","actionPerformed()","");
@@ -157,6 +186,9 @@ public class ViewMenu extends JFrame {
         }
     }
     class ViewCreationTravelersListener implements ActionListener {
+        /**
+         * creates and opens the window to add a traveler
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationTravelersListener","actionPerformed()","");
@@ -166,6 +198,10 @@ public class ViewMenu extends JFrame {
         }
     }
     class ViewCreationStayListener implements ActionListener {
+
+        /**
+         * creates and opens the window to add a stay
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationStayListener","actionPerformed()","");
@@ -175,5 +211,4 @@ public class ViewMenu extends JFrame {
         }
     }
 }
-// todo vue création séjours
 // todo vue création réservation
