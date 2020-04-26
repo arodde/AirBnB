@@ -38,7 +38,6 @@ public class ViewMenu extends JFrame {
     public ArrayList<Host> hostArrayList ;
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
-    public ArrayList<Stay> stayArrayList;
 
     public void initArrayAndManagment(){
         /**
@@ -47,7 +46,6 @@ public class ViewMenu extends JFrame {
          * - booking
          * - Hosts
          * - Housings
-         * - Stay
          * - Travelers
          */
         Uti.info("ViewMenu","initArrayAndManagment()","");
@@ -57,11 +55,8 @@ public class ViewMenu extends JFrame {
             hostArrayList = new ArrayList<Host>();
         if(housingArrayList== null)
             housingArrayList = new ArrayList<Housing>();
-        if(stayArrayList== null)
-            stayArrayList  = new ArrayList<Stay>();
         if(bookingArrayList== null)
             bookingArrayList  = new ArrayList<Booking>();
-
     }
     public ViewMenu(){
         /**
@@ -205,9 +200,9 @@ public class ViewMenu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Uti.info("ViewCreationStayListener","actionPerformed()","");
-            if (stayArrayList == null)
+            if (bookingArrayList == null)
                 Uti.mess("liste de séjour nulle.");
-            viewStayCreation = new ViewStayCreation(travelerArrayList,housingArrayList,stayArrayList);
+            viewStayCreation = new ViewStayCreation(travelerArrayList,housingArrayList,bookingArrayList);
         }
     }
 }

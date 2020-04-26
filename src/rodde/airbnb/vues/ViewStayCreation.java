@@ -36,11 +36,12 @@ public class ViewStayCreation extends JFrame {
     public JComboBox jComboBoxHousings;
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     private  ArrayList<Traveler> travelers = new ArrayList<Traveler>();
+    private  ArrayList<Booking> bookings = new ArrayList<Booking>();
     public AddEltHousingListener addEltHousingListener;
     public AddEltTravelerListener addEltTravelerListener;
     public JButton jButtonValidate ;
     public JButton jButtonFastImput; // todo delete this line  // jbfi
-    public ViewStayCreation( ArrayList<Traveler> travelers, ArrayList<Housing> housings, ArrayList<Stay> stays){
+    public ViewStayCreation( ArrayList<Traveler> travelers, ArrayList<Housing> housings, ArrayList<Booking> bookings){
         /**
          * constructor of the window for Stay creation
          */
@@ -52,6 +53,7 @@ public class ViewStayCreation extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.housings = housings;
         this.travelers = travelers;
+        this.bookings = bookings;
         jLabelArrivalDate = new JLabel("Date d'arrivée");
         MaskFormatter maskFormatterArrivalDate= null;
         try {
@@ -139,8 +141,7 @@ public class ViewStayCreation extends JFrame {
                             Uti.mess("nouvelle réservation");
                             try {
                                 Booking booking = new Booking(currentStay,travelers.get(0));
-                                booking.display();
-                                
+                                bookings.add(booking);
                             } catch (rodde.airbnb.reservations.instantiationBookingException instantiationBookingException) {
                                 instantiationBookingException.printStackTrace();
                             }
@@ -154,7 +155,7 @@ public class ViewStayCreation extends JFrame {
                     jButtonFastImput.setEnabled(false);
                 } else {
                     activeFieldsViewHousing();
-                    jButtonFastImput.setEnabled(true); // todo retrie after
+                    jButtonFastImput.setEnabled(true); // todo retrieve after
                     jButtonValidate.setEnabled(true);
                 }
             }
@@ -177,6 +178,7 @@ public class ViewStayCreation extends JFrame {
                 jTextFieldTravelersNumber.setEnabled(false);
                 jTextFieldOvernightsNumber.setEnabled(false);
                 jFormattedTextFieldArrivalDate.setEnabled(false);
+                jComboBoxTravelers.setEnabled(false);
             }
             public void activeFieldsViewHousing(){
                 /**
@@ -187,6 +189,7 @@ public class ViewStayCreation extends JFrame {
                 jTextFieldTravelersNumber.setEnabled(true);
                 jTextFieldOvernightsNumber.setEnabled(true);
                 jFormattedTextFieldArrivalDate.setEnabled(true);
+                jComboBoxTravelers.setEnabled(true);
             }
         });
         jButtonFastImput.addActionListener(new ActionListener() { //todo retrieve jbfi
