@@ -7,13 +7,14 @@ import java.time.LocalDate;
 
 public class Booking {
 
-    private static int id =-1;
+    private  int id =0;
+    private static int index =-1;
     private Stay stay;
     private Traveler traveler;
     private boolean isValidated;
     private LocalDate bookingDate;
 
-    public Booking(/*int identifiant, */Stay stay, Traveler traveler ) throws instantiationBookingException {
+    public Booking(/*int identifiant,*/ Stay stay, Traveler traveler ) throws instantiationBookingException {
         Uti.info("Reservation", "Reservation()","2 p");
         // Tests de validation sur le séjour
         if((!stay.arrivalDateVerification())||(!stay.checkTravelersNumber())||(!stay.overnightsNumberVerification())){
@@ -22,7 +23,8 @@ public class Booking {
         else
         {
             // si les conditions à la créations d'un séjour sont correctes
-            Booking.id = id++;
+            this.id = index + 1;
+            index ++;
             this.stay = stay;
             this.traveler = traveler;
             this.isValidated = false;
@@ -31,6 +33,7 @@ public class Booking {
     }
     public void display(){
         Uti.info("Reservation", "display()","");
+        System.out.println("\nRéservation n° "+this.getId()+":\n");
         traveler.display();
         System.out.print(" a fait une réservation chez ");
         stay.display();
@@ -38,7 +41,7 @@ public class Booking {
 
 
     public int getId() {
-        Uti.info("Reservation", "getId()","");
+//        Uti.info("Reservation", "getId()","");
         return id;
     }
 }

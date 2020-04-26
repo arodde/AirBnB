@@ -34,6 +34,7 @@ public class ViewMenu extends JFrame {
     public ViewHouseCreation viewHouseCreation;
     public ViewAppartmentCreation viewAppartmentCreation;
     public ViewStayCreation viewStayCreation;
+    public ViewBookingDisplay viewBookingDisplay;
     public ArrayList<Traveler> travelerArrayList;
     public ArrayList<Host> hostArrayList ;
     public ArrayList<Housing> housingArrayList;
@@ -104,7 +105,7 @@ public class ViewMenu extends JFrame {
         LocalDate dateArrivee2 = LocalDate.of(2021, 11, 18);
         LocalDate dateArrivee3 = LocalDate.of(2020, 12, 18);
         int dureeSejour1 = 9;
-        int dureeSejour2 = 5;
+        int dureeSejour2 = 24;
         int dureeSejour3 = 3;
         Stay sejour1 = null;
         Stay sejour2 = null;
@@ -132,6 +133,7 @@ public class ViewMenu extends JFrame {
         sejour3 = (Stay) sejour3;
         try {
             bookingArrayList.add(new Booking(sejour1,travelerArrayList.get(0)));
+
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
@@ -175,6 +177,7 @@ public class ViewMenu extends JFrame {
         jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
         jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
         jMenuAddStay.addActionListener(new ViewCreationStayListener());
+        jMenuItemDisplayReservation.addActionListener(new ViewDisplayReservationListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
         jMenuAdd.add(jMenuAddAppartment);
@@ -237,7 +240,6 @@ public class ViewMenu extends JFrame {
         }
     }
     class ViewCreationStayListener implements ActionListener {
-
         /**
          * creates and opens the window to add a stay
          */
@@ -247,6 +249,18 @@ public class ViewMenu extends JFrame {
             if (bookingArrayList == null)
                 Uti.mess("liste de séjour nulle.");
             viewStayCreation = new ViewStayCreation(travelerArrayList,housingArrayList,bookingArrayList);
+        }
+    }
+    class ViewDisplayReservationListener implements ActionListener {
+        /**
+         * creates and opens the window to add a stay
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Uti.info("ViewDisplayReservationListener","actionPerformed()","");
+            if (bookingArrayList == null)
+                Uti.mess("liste de réservation nulle.");
+            viewBookingDisplay = new ViewBookingDisplay(bookingArrayList);
         }
     }
 }

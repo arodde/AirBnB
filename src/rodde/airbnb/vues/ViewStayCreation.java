@@ -145,6 +145,7 @@ public class ViewStayCreation extends JFrame {
                             } catch (rodde.airbnb.reservations.instantiationBookingException instantiationBookingException) {
                                 instantiationBookingException.printStackTrace();
                             }
+                            bookings.forEach(booking -> booking.display());
                         }
                     }
 
