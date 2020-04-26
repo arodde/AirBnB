@@ -31,6 +31,25 @@ public class House extends Housing {
         }
 
     }
+
+    @Override
+    public String stringDisplay() {
+        String s = host.stringDisplay();
+        s += "Le logement est une maison située "+ address +".\n";
+        s += "Superficie : "+ area +"m².\n";
+        if(gardenArea >0){
+            s +="Jardin : Oui ("+ gardenArea +"m²)\n" ;
+        } else {
+            s +="Jardin : Non\n" ;
+        }
+        if(ownSwimmingPool){
+            s+="Piscine : Oui\n";
+        } else {
+            s+="Piscine : Non\n";
+        }
+        return s;
+    }
+
     public   String shortDisplay(){
         Uti.info("House","shortDisplay()","");
         String description= " Maison (";

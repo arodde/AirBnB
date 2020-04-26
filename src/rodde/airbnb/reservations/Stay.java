@@ -56,6 +56,7 @@ public abstract class Stay implements ServiceInterface {
         this.rate = rate;
     }
     public abstract void display();
+    public abstract String stringDisplay();
 
     protected abstract int rateUpdate();
 }

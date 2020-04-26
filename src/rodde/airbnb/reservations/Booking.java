@@ -38,7 +38,17 @@ public class Booking {
         System.out.print(" a fait une réservation chez ");
         stay.display();
     }
-
+    public String stringDisplay(){
+        Uti.info("Reservation", "display()","");
+        String textOfReservation ="\nRéservation n° "+this.getId()+":\n";
+        textOfReservation += traveler.stringDisplay();
+        textOfReservation += " a fait une réservation chez ";
+        textOfReservation += stay.stringDisplay();
+        textOfReservation +=  traveler.stringDisplay();
+        textOfReservation += " a fait une réservation chez ";
+        textOfReservation += stay.stringDisplay();
+        return textOfReservation;
+    }
 
     public int getId() {
 //        Uti.info("Reservation", "getId()","");

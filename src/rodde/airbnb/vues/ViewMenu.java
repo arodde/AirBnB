@@ -28,6 +28,8 @@ public class ViewMenu extends JFrame {
     public JMenuItem jMenuAddHouse;
     public JMenuItem jMenuAddAppartment;
     public JMenuItem jMenuAddStay;
+//    public JScrollPane jScrollPane;
+//    public JTextPane jTextPane;
     //    private Menu menu;
     public ViewHostCreation viewHostCreation;
     public ViewTravelerCreation viewTravelerCreation;
@@ -190,7 +192,27 @@ public class ViewMenu extends JFrame {
         jMenuBar.add(jMenuItemClose);
         setJMenuBar(jMenuBar);
     }
-
+//    public void displayBooking(){
+//        /**
+//         * displays booking in the panel
+//         */
+//
+//        jPanel = new JPanel();
+//        jPanel.setLayout(new BorderLayout());
+//        jScrollPane = new JScrollPane(
+//                jPanel,
+//                Integer.parseInt(ScrollPaneConstants.VERTICAL_SCROLLBAR),
+//                Integer.parseInt(ScrollPaneConstants.HORIZONTAL_SCROLLBAR)
+//        );
+//        JTextPane jTextPane ;
+//        for (int i = 0 ; i < bookingArrayList.size(); i++) {
+//            jTextPane = new JTextPane();
+//            jTextPane.setText(bookingArrayList.get(i).stringDisplay());
+//            jPanel.add(jTextPane ); // todo display reservation
+//        }
+//        this.setContentPane(jPanel);
+//        setVisible(true);
+//    }
     class ViewCreationHouseListener implements ActionListener {
         /**
          * creates and opens the window to add an house
@@ -261,6 +283,7 @@ public class ViewMenu extends JFrame {
             if (bookingArrayList == null)
                 Uti.mess("liste de réservation nulle.");
             viewBookingDisplay = new ViewBookingDisplay(bookingArrayList);
+//            displayBooking();
         }
     }
 }

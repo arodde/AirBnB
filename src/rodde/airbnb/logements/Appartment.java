@@ -30,6 +30,27 @@ public class Appartment extends Housing {
             System.out.println("Balcon : Non");
         }
     }
+
+    @Override
+    public String stringDisplay() {
+        String s = host.stringDisplay();
+        s += "Le logement est un appartement situé "+ address + " au ";
+        if(floorNumber == 0){
+            s += "rez-de-chaussée.\n" ;
+        } else if (floorNumber == 1){
+            s += "1ier Etage.\n" ;
+        } else {
+            s += floorNumber +"ème Etage\n." ;
+        }
+        s += "Superficie : "+ area +"m²\n." ;
+        if(balconyArea >0){
+            s += "Balcon : Oui ("+ balconyArea +"m²)\n" ;
+        } else {
+            s += "Balcon : Non\n" ;
+        }
+        return s;
+    }
+
     public   String shortDisplay(){
         Uti.info("Appartment","shortDisplay()","");
         String description= " Appartement (";

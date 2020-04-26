@@ -44,6 +44,7 @@ public abstract class Housing {
     }
 
     public  abstract void display();
+    public  abstract String stringDisplay();
     public  abstract String shortDisplay();
     public abstract int getTotalArea();
 }

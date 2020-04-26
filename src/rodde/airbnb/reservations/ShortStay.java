@@ -57,53 +57,43 @@ public class ShortStay extends Stay {
         Month mois = arrivalDate.getMonth();
         int jour = arrivalDate.getDayOfMonth();
 
-//        // gestion arrondi
-//        String masque = new String("#0.00#");
-//        DecimalFormat form = new DecimalFormat(masque); // import java.text.DecimalFormat;
-//
-//        // le tarif bénéficie-t'il de la promotion?
-//        if (nbNuits > 5) {
-//            // ristourne
-//            System.out.println("Application de la promotion.");
-//            tarif *= 0.8;
-//        }
-        //traitements
-        // vérifie que les paramètres du séjour sont corrects
-        //les paramètres de séjour doivent comporter
-        //  une date de séjour postérieure à la date de réservation
-/*        if (!verificationDateArrivee()) {
-            System.out.println("----> date d'arrivée incorrecte");
-        } else {
-            System.out.println("----> date d'arrivée correcte.");
-        }
-        //   Un nombre de voyageurs inférieur à la capacité d'accueil du logement
-        if (!verificationNombreDeVoyageurs()) {
-            System.out.println("----> nombre de voyageurs incorrect");
-        } else {
-            System.out.println("----> nombre de voyageurs correct");
-        }
-        //   Le nombre du nuits réservé doit être compris entre 1 et 31 inclus
-        if (!verificationNombreDeNuits()) {
-            System.out.println("----> nombre de nuits incorrect");
-        } else {
-            System.out.println("----> nombre de nuits correct");
-        }*/
-        // si les 3 conditions sont vérifiées
         if (arrivalDateVerification() && overnightsNumberVerification() && checkTravelersNumber()) {
             // affichage
             housing.display();
             System.out.println("Avis de réservation");
             System.out.println("La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + overnightsNumber + " nuits.");
-//            System.out.print("Le prix de ce séjour est de " + tarif + " € ");
-//            System.out.print("Le prix de ce séjour est de " + form.format(tarif) + " € ");
-//            System.out.print("Le prix de ce séjour est de " + getTarif() + " € ");
             getRate();
-
-            System.out.println(".");
+            System.out.print("Le prix de ce séjour est de " + getRate() + " € .");
         }
         else // sinon
         {
             System.out.println("===>  Aucune réservation ne peut être prise en l'état.\\n");
         }
+    }
+    public String stringDisplay() {
+
+        Uti.info("SejourCourt", "afficher()", "");
+        String s="";
+        // gestion de la date en chaîne de caractères
+        double rate = (double) overnightsNumber * housing.getDaylyRate();
+
+        boolean bOkParamSejour = false;
+        int annee = arrivalDate.getYear();
+        Month mois = arrivalDate.getMonth();
+        int jour = arrivalDate.getDayOfMonth();
+
+        if (arrivalDateVerification() && overnightsNumberVerification() && checkTravelersNumber()) {
+            // affichage
+
+           s += housing.stringDisplay();
+           s+= "Avis de réservation";
+           s+= "La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + overnightsNumber + " nuits.";
+           s+= "Le prix de ce séjour est de " + getRate() + " € .";
+        }
+        else // sinon
+        {
+           s += "===>  Aucune réservation ne peut être prise en l'état.\\n" ;
+        }
+        return s;
     }
 }
