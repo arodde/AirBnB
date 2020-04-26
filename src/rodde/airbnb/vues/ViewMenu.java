@@ -3,8 +3,7 @@ package rodde.airbnb.vues;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
-import rodde.airbnb.reservations.Booking;
-import rodde.airbnb.reservations.Stay;
+import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 import rodde.airbnb.utilisateurs.Traveler;
@@ -13,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ViewMenu extends JFrame {
@@ -100,7 +100,51 @@ public class ViewMenu extends JFrame {
         housingArrayList.add((Housing) new House(hostArrayList.get(1),4,"3dgfsfhs",76,8,46,false));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(2),5,"3ddffffffffd3",76,8,1,23));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(3),6,"3dhhdd3",86,11,0,0));
+        LocalDate dateArrivee1 = LocalDate.of(2021, 10, 18);// date future
+        LocalDate dateArrivee2 = LocalDate.of(2021, 11, 18);
+        LocalDate dateArrivee3 = LocalDate.of(2020, 12, 18);
+        int dureeSejour1 = 9;
+        int dureeSejour2 = 5;
+        int dureeSejour3 = 3;
+        Stay sejour1 = null;
+        Stay sejour2 = null;
+        Stay sejour3 = null;
+        if (dureeSejour1 < 6) {
+            sejour1 = new ShortStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
+        } else {
+            sejour1 = new LongStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
+        }
+        if (dureeSejour2 < 6) {
 
+            sejour2 = new ShortStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
+        } else {
+
+            sejour2 = new LongStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
+        }
+        if (dureeSejour3 < 6) {
+            sejour3 = new ShortStay(dateArrivee3, dureeSejour3,housingArrayList.get(3) , 5);
+        } else {
+            sejour3 = new LongStay(dateArrivee3, dureeSejour3, housingArrayList.get(3), 5);
+        }
+// conversion en sejour du séjour court ou long pour que la réservation accepte les deux types enfants
+        sejour1 = (Stay) sejour1;
+        sejour2 = (Stay) sejour2;
+        sejour3 = (Stay) sejour3;
+        try {
+            bookingArrayList.add(new Booking(sejour1,travelerArrayList.get(0)));
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+        try {
+            bookingArrayList.add(new Booking(sejour2,travelerArrayList.get(2)));
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+        try {
+            bookingArrayList.add(new Booking(sejour3,travelerArrayList.get(3)));
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
 
     }
 
