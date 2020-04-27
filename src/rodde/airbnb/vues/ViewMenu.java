@@ -70,8 +70,8 @@ public class ViewMenu extends JFrame {
         // add characteristics to The window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("AirBnB");
-        setResizable(true);
-        setSize(300,200);
+        setResizable(false);
+        setSize(600,400);
         setLocationRelativeTo(null);
         initArrayAndManagment();
         initMenu();
@@ -205,25 +205,28 @@ public class ViewMenu extends JFrame {
     }
     public void displayBooking(){
         /**
-         * displays booking in the panel
+         * displays bookings in the panel
          */
 
 //        jPanel.setLayout(new BorderLayout());
         jScrollPane = new JScrollPane(
-                jPanel,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+                jPanel
         );
+//        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
             JPanel jPanelSon = new JPanel();
-            jPanelSon.setMinimumSize(new Dimension(jPanel.getWidth(), (jPanel.getHeight()/4)));
+
             JTextPane jTextPane ;
             jTextPane = new JTextPane();
             jTextPane.setText(bookingArrayList.get(i).stringDisplay());
+            jPanelSon.setBackground(Color.red);
             jPanelSon.add(jTextPane ); // todo display reservation
+            jTextPane.setPreferredSize(new Dimension((jPanel.getWidth()-10), (jPanel.getHeight()/2)));
+
             jPanel.add(jPanelSon);
+            this.setContentPane(jScrollPane);
         }
-        this.setContentPane(jPanel);
         setVisible(true);
     }
     class ViewCreationHouseListener implements ActionListener {
