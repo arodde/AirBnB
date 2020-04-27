@@ -208,25 +208,22 @@ public class ViewMenu extends JFrame {
          * displays bookings in the panel
          */
 
-//        jPanel.setLayout(new BorderLayout());
-        jScrollPane = new JScrollPane(
-                jPanel
-        );
-//        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        jScrollPane = new JScrollPane(jPanel);
+
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
             JPanel jPanelSon = new JPanel();
-
-            JTextPane jTextPane ;
-            jTextPane = new JTextPane();
+            jPanel.setMaximumSize(new Dimension(this.getWidth(), this.getHeight()));
+            JTextPane jTextPane = new JTextPane();
             jTextPane.setText(bookingArrayList.get(i).stringDisplay());
-            jPanelSon.setBackground(Color.red);
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             jPanelSon.add(jTextPane ); // todo display reservation
-            jTextPane.setPreferredSize(new Dimension((jPanel.getWidth()-10), (jPanel.getHeight()/2)));
-
+            jTextPane.setPreferredSize(new Dimension((jPanel.getWidth()-20), (jPanel.getHeight()/2)));
             jPanel.add(jPanelSon);
-            this.setContentPane(jScrollPane);
         }
+        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+        this.setContentPane(jScrollPane);
         setVisible(true);
     }
     class ViewCreationHouseListener implements ActionListener {
