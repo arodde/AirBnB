@@ -17,19 +17,18 @@ public class House extends Housing {
     public void display(){
         Uti.info("House","afficher","");
         host.display();
-        System.out.println("Le logement est une maison située "+ address +".");
-        System.out.println("Superficie : "+ area +"m².");
+        System.out.println("Le logement est une maison située "+ address +".\n");
+        System.out.println("Superficie : "+ area +"m².\n");
         if(gardenArea >0){
-            System.out.println("Jardin : Oui ("+ gardenArea +"m²)");
+            System.out.println("Jardin : Oui ("+ gardenArea +"m²)\n");
         } else {
-            System.out.println("Jardin : Non");
+            System.out.println("Jardin : Non\n");
         }
         if(ownSwimmingPool){
-            System.out.println("Piscine : Oui");
+            System.out.println("Piscine : Oui\n");
         } else {
-            System.out.println("Piscine : Non");
+            System.out.println("Piscine : Non\n");
         }
-
     }
 
     @Override
@@ -53,14 +52,14 @@ public class House extends Housing {
     public   String shortDisplay(){
         Uti.info("House","shortDisplay()","");
         String description= " Maison (";
-        description += area +"m²), ";
+        description += area +"m²),\n";
         if(gardenArea >0){
-            description += "avec jardin ("+ gardenArea+" m²), " ;
+            description += "avec jardin ("+ gardenArea+" m²),\n" ;
         }
         if(ownSwimmingPool){
-            description += "piscine, ";
+            description += "piscine,\n";
         }
-        description += "pour "+getMaxTravelersNumber()+" personnes";
+        description += "pour "+getMaxTravelersNumber()+" personnes\n";
         return description;
     }
     @Override

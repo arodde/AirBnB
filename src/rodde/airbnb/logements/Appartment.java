@@ -17,17 +17,17 @@ public class Appartment extends Housing {
         host.display();
         System.out.print("Le logement est un appartement situé "+ address + " au ");
         if(floorNumber == 0){
-            System.out.println("rez-de-chaussée.");
+            System.out.println("rez-de-chaussée.\n");
         } else if (floorNumber == 1){
-            System.out.println("1ier Etage.");
+            System.out.println("1ier Etage.\n");
         } else {
-            System.out.println(floorNumber +"ème Etage.");
+            System.out.println(floorNumber +"ème Etage.\n");
         }
-        System.out.println("Superficie : "+ area +"m².");
+        System.out.println("Superficie : "+ area +"m².\n");
         if(balconyArea >0){
-            System.out.println("Balcon : Oui ("+ balconyArea +"m²)");
+            System.out.println("Balcon : Oui ("+ balconyArea +"m²)\n");
         } else {
-            System.out.println("Balcon : Non");
+            System.out.println("Balcon : Non\n");
         }
     }
 
@@ -54,18 +54,18 @@ public class Appartment extends Housing {
     public   String shortDisplay(){
         Uti.info("Appartment","shortDisplay()","");
         String description= " Appartement (";
-        description += area +"m²), ";
+        description += area +"m²),\n";
         if(floorNumber == 0){
-            description += "rez-de-chaussée, ";
+            description += "rez-de-chaussée,\n";
         } else if (floorNumber == 1){
-            description += "1ier Etage, ";
+            description += "1ier Etage,\n";
         } else {
-            description += floorNumber +"ème Etage, ";
+            description += floorNumber +"ème Etage,\n";
         }
         if(floorNumber>0){
-            description += " balcon ("+balconyArea+" m²), ";
+            description += " balcon ("+balconyArea+" m²),\n";
         }
-        description += "pour "+getMaxTravelersNumber()+" personnes";
+        description += "pour "+getMaxTravelersNumber()+" personnes\n";
         return description;
 
     }

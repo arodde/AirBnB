@@ -40,10 +40,11 @@ public class Booking {
     }
     public String stringDisplay(){
         Uti.info("Reservation", "display()","");
-        String textOfReservation ="\nRéservation n° "+this.getId()+":\n";
-        textOfReservation += traveler.stringDisplay();
-        textOfReservation += " a fait une réservation chez ";
-        textOfReservation += stay.stringDisplay();
+        String textOfReservation =this.getId()+":\n";
+//        String textOfReservation ="\nRéservation n° "+this.getId()+":\n";
+//        textOfReservation += traveler.stringDisplay();
+//        textOfReservation += " a fait une réservation chez ";
+//        textOfReservation += stay.stringDisplay();
         textOfReservation +=  traveler.stringDisplay();
         textOfReservation += " a fait une réservation chez ";
         textOfReservation += stay.stringDisplay();

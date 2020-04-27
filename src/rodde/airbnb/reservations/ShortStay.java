@@ -61,7 +61,7 @@ public class ShortStay extends Stay {
             // affichage
             housing.display();
             System.out.println("Avis de réservation");
-            System.out.println("La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + overnightsNumber + " nuits.");
+            System.out.println("La date d'arrivée est le " + jour + "/" + (((mois.ordinal()+1)<10)?("0"+String.valueOf((mois.ordinal()+1))):(mois.ordinal()+1)) + "/" + annee + " pour " + overnightsNumber + " nuits.");
             getRate();
             System.out.print("Le prix de ce séjour est de " + getRate() + " € .");
         }
@@ -86,8 +86,8 @@ public class ShortStay extends Stay {
             // affichage
 
            s += housing.stringDisplay();
-           s+= "Avis de réservation";
-           s+= "La date d'arrivée est le " + jour + "/" + mois.ordinal() + "/" + annee + " pour " + overnightsNumber + " nuits.";
+           s+= "Avis de réservation:\n";
+           s+= "La date d'arrivée est le " + jour + "/" +  (((mois.ordinal()+1)<10)?("0"+String.valueOf((mois.ordinal()+1))):(mois.ordinal()+1))  + "/" + annee + " pour " + overnightsNumber + " nuits.";
            s+= "Le prix de ce séjour est de " + getRate() + " € .";
         }
         else // sinon
