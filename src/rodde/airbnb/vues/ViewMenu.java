@@ -179,12 +179,13 @@ public class ViewMenu extends JFrame {
         jMenuAddAppartment = new JMenuItem("Ajouter un appartement");
         jMenuAddStay = new JMenuItem("Ajouter un séjour");
         jMenuItemClose = new JMenuItem("Fermer");
-        jMenuItemClose.addActionListener(new ActionListener(){
-                                             @Override
-                                             public void actionPerformed(ActionEvent e) {
-                                                 System.exit(0);
-                                             }
-                                         }
+        jMenuItemClose.addActionListener(
+                new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                }
         );
         jMenuAddHost.addActionListener(new ViewCreationHostListener());
         jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
@@ -263,6 +264,9 @@ public class ViewMenu extends JFrame {
             jTextPane.setBackground(Color.white);
             jTextPane.setPreferredSize(new Dimension(580, 180));
             jPanel.add(jPanelSon);
+            if(bookingArrayList.get(i).isValidated()){
+                jTextPane.setBackground(Color.MAGENTA);
+            }
         }
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);

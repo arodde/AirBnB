@@ -1,5 +1,6 @@
 package rodde.airbnb.reservations;
 
+import org.w3c.dom.ls.LSOutput;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Traveler;
 
@@ -11,6 +12,15 @@ public class Booking {
     private static int index =-1;
     private Stay stay;
     private Traveler traveler;
+
+    public boolean isValidated() {
+        return isValidated;
+    }
+
+    public void setValidated(boolean validated) {
+        isValidated = validated;
+    }
+
     private boolean isValidated;
     private LocalDate bookingDate;
 
@@ -36,6 +46,10 @@ public class Booking {
         System.out.println("\nRéservation n° "+this.getId()+":\n");
         traveler.display();
         System.out.print(" a fait une réservation chez ");
+        if(isValidated)
+            System.out.println("RESERVATION ACCEPTEE");
+        else
+            System.out.println("RESERVATION EN ATTENTE D'ACCEPTATION");
         stay.display();
     }
     public String stringDisplay(){

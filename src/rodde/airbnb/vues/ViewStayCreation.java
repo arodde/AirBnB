@@ -123,30 +123,36 @@ public class ViewStayCreation extends JFrame {
                     //
                     // todo boîte de confirmation
                     if ( currentStay != null){
-                        JOptionPane jop = new JOptionPane();
-                        int option = jop.showConfirmDialog(
-                                null,
-                                "Accepter vous cette demande de réservation ?",
-                                "Demande de réservation",
-                                JOptionPane.YES_NO_CANCEL_OPTION,
-                                JOptionPane.QUESTION_MESSAGE);
+                        try {
+                            Booking booking = new Booking(currentStay,travelers.get(0));
+                            bookings.add(booking);
+                            JOptionPane jop = new JOptionPane();
+                            int option = jop.showConfirmDialog(
+                                    null,
+                                    "Accepter vous cette demande de réservation ?",
+                                    "Demande de réservation",
+                                    JOptionPane.YES_NO_CANCEL_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE);
 
-                        if(option != JOptionPane.NO_OPTION &&
-                                option != JOptionPane.CANCEL_OPTION &&
-                                option != JOptionPane.CLOSED_OPTION){
-                            Uti.mess("ici boîte de confirmation"+
-                                    "option :" + option );
+                            if(option != JOptionPane.NO_OPTION &&
+                                    option != JOptionPane.CANCEL_OPTION &&
+                                    option != JOptionPane.CLOSED_OPTION){
 
-                            Uti.mess(option + "ok" );
-                            Uti.mess("nouvelle réservation");
-                            try {
-                                Booking booking = new Booking(currentStay,travelers.get(0));
-                                bookings.add(booking);
-                            } catch (rodde.airbnb.reservations.instantiationBookingException instantiationBookingException) {
-                                instantiationBookingException.printStackTrace();
+                                Uti.mess("ici boîte de confirmation"+
+                                        "option :" + option );
+
+                                Uti.mess(option + "ok" );
+                                Uti.mess("nouvelle réservation");
+
+                                booking.setValidated(true);
+
                             }
-                            bookings.forEach(booking -> booking.display());
+                        } catch (rodde.airbnb.reservations.instantiationBookingException instantiationBookingException) {
+                            instantiationBookingException.printStackTrace();
                         }
+
+
+                        bookings.forEach(booking -> booking.display());
                     }
 
 
@@ -402,6 +408,7 @@ public class ViewStayCreation extends JFrame {
                     System.out.println();
                     index = Integer.parseInt(returnFirstWord(recup));
                     currentTraveler = travelers.get(index);
+                    System.out.println("!!!!!!!!!   "+index+" "+travelers.get(index).getFirstname()+" "+travelers.get(index).getFirstname()+"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
             } else {
                 System.out.println("Ca ne passe pas!");

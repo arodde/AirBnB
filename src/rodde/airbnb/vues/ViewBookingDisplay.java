@@ -12,7 +12,7 @@ public class ViewBookingDisplay extends JFrame {
     public JTextPane jTextPane;
     public ViewBookingDisplay(ArrayList<Booking> bookings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("lister les réservation");
+        setTitle("lister les réservations");
         setName("AirBnBDisplayBooking");
         setResizable(true);
         setBounds(300,100,600,500);
