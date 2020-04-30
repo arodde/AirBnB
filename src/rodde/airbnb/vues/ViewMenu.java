@@ -36,6 +36,7 @@ public class ViewMenu extends JFrame {
     public ViewAppartmentCreation viewAppartmentCreation;
     public ViewStayCreation viewStayCreation;
     public ViewBookingDisplay viewBookingDisplay;
+    public Traveler currentTraveler;
     public ArrayList<Traveler> travelerArrayList;
     public ArrayList<Host> hostArrayList ;
     public ArrayList<Housing> housingArrayList;

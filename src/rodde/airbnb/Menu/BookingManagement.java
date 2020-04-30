@@ -67,7 +67,7 @@ public class BookingManagement {
         int numeroLogement= -1;
         Traveler voyageur=null;
         Stay sejour ;
-        Booking reservationAjoutee;
+        Booking bookingAdded;
         LocalDate dateSejour = null;
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
@@ -206,9 +206,9 @@ public class BookingManagement {
 
         }
         // instanciation Réservation
-        reservationAjoutee =new Booking(sejour,voyageur);
+        bookingAdded  =new Booking(sejour,voyageur);
         // ajout d'une réservation à la liste des réservations
-        Menu.getBookingArrayList().add(reservationAjoutee);
+        Menu.getBookingArrayList().add(bookingAdded);
         // affiche la liste de tous les réservations
 
         indexOfDisplayedBooking();

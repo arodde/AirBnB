@@ -23,7 +23,7 @@ public class Booking {
 
     private boolean isValidated;
     private LocalDate bookingDate;
-
+private Booking bookingAdded;
     public Booking(/*int identifiant,*/ Stay stay, Traveler traveler ) throws instantiationBookingException {
         Uti.info("Reservation", "Reservation()","2 p");
         // Tests de validation sur le séjour
@@ -43,6 +43,7 @@ public class Booking {
     }
     public void display(){
         Uti.info("Reservation", "display()","");
+        this.bookingAdded = bookingAdded;
         System.out.println("\nRéservation n° "+this.getId()+":\n");
         traveler.display();
         System.out.print(" a fait une réservation chez ");
@@ -53,12 +54,8 @@ public class Booking {
         stay.display();
     }
     public String stringDisplay(){
-        Uti.info("Reservation", "display()","");
+        Uti.info("Reservation", "stringDisplay()","");
         String textOfReservation =this.getId()+":\n";
-//        String textOfReservation ="\nRéservation n° "+this.getId()+":\n";
-//        textOfReservation += traveler.stringDisplay();
-//        textOfReservation += " a fait une réservation chez ";
-//        textOfReservation += stay.stringDisplay();
         textOfReservation +=  traveler.stringDisplay();
         textOfReservation += " a fait une réservation chez ";
         textOfReservation += stay.stringDisplay();
