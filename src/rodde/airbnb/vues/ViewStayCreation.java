@@ -124,7 +124,7 @@ public class ViewStayCreation extends JFrame {
                     // todo boîte de confirmation
                     if ( currentStay != null){
                         try {
-                            Booking booking = new Booking(currentStay,currentTraveler/*travelers.get(0)*/);
+                            Booking booking = new Booking(currentStay,currentTraveler);
                             bookings.add(booking);
                             JOptionPane jop = new JOptionPane();
                             int option = jop.showConfirmDialog(

@@ -101,19 +101,19 @@ public class Main {
         // les réservations
         //
 
-        Booking reservation1 = new Booking(/*1,*/ sejour1, personne2);
+        Booking reservation1 = new Booking(sejour1, personne2);
         System.out.println("\nRéservation numéro " + reservation1.getId() + ":");
         reservation1.display();
         personne1.display();
 
 
-        Booking reservation2 = new Booking(/*2,*/ sejour2, personne4);
+        Booking reservation2 = new Booking(sejour2, personne4);
         System.out.println("\nRéservation numéro " + reservation2.getId() + ":");
         reservation2.display();
         personne3.display();
 
 
-        Booking reservation3 = new Booking(/*3,*/sejour3, personne4);
+        Booking reservation3 = new Booking(sejour3, personne4);
         System.out.println("\nRéservation numéro " + reservation3.getId() + ":");
         reservation3.display();
         personne5.display();
