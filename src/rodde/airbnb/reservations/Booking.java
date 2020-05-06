@@ -4,6 +4,8 @@ import org.w3c.dom.ls.LSOutput;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Traveler;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 public class Booking {
@@ -12,6 +14,8 @@ public class Booking {
     private static int index =-1;
     private Stay stay;
     private Traveler traveler;
+
+
 
     public boolean isValidated() {
         return isValidated;
@@ -66,4 +70,6 @@ private Booking bookingAdded;
 //        Uti.info("Reservation", "getId()","");
         return id;
     }
+
+
 }

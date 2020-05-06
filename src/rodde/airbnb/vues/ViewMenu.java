@@ -1,5 +1,6 @@
 package rodde.airbnb.vues;
 
+import com.sun.javaws.IconUtil;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
@@ -35,12 +36,12 @@ public class ViewMenu extends JFrame {
     public ViewHouseCreation viewHouseCreation;
     public ViewAppartmentCreation viewAppartmentCreation;
     public ViewStayCreation viewStayCreation;
-    public ViewBookingDisplay viewBookingDisplay;
-    public Traveler currentTraveler;
     public ArrayList<Traveler> travelerArrayList;
     public ArrayList<Host> hostArrayList ;
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
+    public ArrayList<ItemBooking> itemsBookingArrayList ;
+public  ItemBooking currentItemBooking;
 
     public void initArrayAndManagment(){
         /**
@@ -60,6 +61,8 @@ public class ViewMenu extends JFrame {
             housingArrayList = new ArrayList<Housing>();
         if(bookingArrayList== null)
             bookingArrayList  = new ArrayList<Booking>();
+        if(itemsBookingArrayList== null)
+            itemsBookingArrayList  = new ArrayList<ItemBooking>();
     }
     public ViewMenu(){
         /**
@@ -74,6 +77,7 @@ public class ViewMenu extends JFrame {
         setTitle("AirBnB");
         setResizable(false);
         setSize(600,400);
+        System.out.println(this.getX()+" "+this.getY());
         setLocationRelativeTo(null);
         initArrayAndManagment();
         initMenu();
@@ -83,7 +87,6 @@ public class ViewMenu extends JFrame {
         setVisible(true);
         provisoireRemplissageListes();// todo
     }
-
     private void provisoireRemplissageListes() {
         /**
          * this function prevents the developper to create a
@@ -103,68 +106,69 @@ public class ViewMenu extends JFrame {
         housingArrayList.add((Housing) new House(hostArrayList.get(1),150,"Château de Poudlard 86000 LA SORCELLERIE",2000,400,7000,false));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(2),350,"224 Boulevard de la Métropolitaine 75012 PARIS",150,8,2,40));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(3),25,"7 Tour du guet 19000 LACATAPULTE",35,8,0,0));
-//        LocalDate dateArrivee1 = LocalDate.of(2021, 1, 18);// date future
-//        LocalDate dateArrivee2 = LocalDate.of(2021, 11, 18);
-//        LocalDate dateArrivee3 = LocalDate.of(2021, 12, 18);
-//        LocalDate dateArrivee4 = LocalDate.of(2021, 05, 18);
-//        int dureeSejour1 = 9;
-//        int dureeSejour2 = 5;
-//        int dureeSejour3 = 3;
-//        int dureeSejour4 = 12;
-//        Stay sejour1 = null;
-//        Stay sejour2 = null;
-//        Stay sejour3 = null;
-//        Stay sejour4 = null;
-//        if (dureeSejour1 < 6) {
-//            sejour1 = new ShortStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
-//        } else {
-//            sejour1 = new LongStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
-//        }
-//        if (dureeSejour2 < 6) {
-//
-//            sejour2 = new ShortStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
-//        } else {
-//
-//            sejour2 = new LongStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
-//        }
-//        if (dureeSejour3 < 6) {
-//            sejour3 = new ShortStay(dateArrivee3, dureeSejour3,housingArrayList.get(3) , 5);
-//        } else {
-//            sejour3 = new LongStay(dateArrivee3, dureeSejour3, housingArrayList.get(3), 5);
-//        }
-//        if (dureeSejour4 < 6) {
-//            sejour4= new ShortStay(dateArrivee4, dureeSejour4,housingArrayList.get(1) , 9);
-//        } else {
-//            sejour4 = new LongStay(dateArrivee4, dureeSejour4, housingArrayList.get(1), 9);
-//        }
-//// conversion en sejour du séjour court ou long pour que la réservation accepte les deux types enfants
-//        sejour1 = (Stay) sejour1;
-//        sejour2 = (Stay) sejour2;
-//        sejour3 = (Stay) sejour3;
-//        sejour4 = (Stay) sejour4;
-//        try {
-//            bookingArrayList.add(new Booking(sejour1,travelerArrayList.get(0)));
-//
-//        } catch (instantiationBookingException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            bookingArrayList.add(new Booking(sejour2,travelerArrayList.get(2)));
-//        } catch (instantiationBookingException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            bookingArrayList.add(new Booking(sejour3,travelerArrayList.get(3)));
-//        } catch (instantiationBookingException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            bookingArrayList.add(new Booking(sejour4,travelerArrayList.get(1)));
-//        } catch (instantiationBookingException e) {
-//            e.printStackTrace();
-//        }
-    }
+        LocalDate dateArrivee1 = LocalDate.of(2021, 1, 18);// date future
+        LocalDate dateArrivee2 = LocalDate.of(2021, 11, 18);
+        LocalDate dateArrivee3 = LocalDate.of(2021, 12, 18);
+        LocalDate dateArrivee4 = LocalDate.of(2021, 05, 18);
+        int dureeSejour1 = 9;
+        int dureeSejour2 = 5;
+        int dureeSejour3 = 3;
+        int dureeSejour4 = 12;
+        Stay sejour1 = null;
+        Stay sejour2 = null;
+        Stay sejour3 = null;
+        Stay sejour4 = null;
+        if (dureeSejour1 < 6) {
+            sejour1 = new ShortStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
+        } else {
+            sejour1 = new LongStay(dateArrivee1, dureeSejour1, housingArrayList.get(0), 2);
+        }
+        if (dureeSejour2 < 6) {
 
+            sejour2 = new ShortStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
+        } else {
+
+            sejour2 = new LongStay(dateArrivee2, dureeSejour2, housingArrayList.get(2), 1);
+        }
+        if (dureeSejour3 < 6) {
+            sejour3 = new ShortStay(dateArrivee3, dureeSejour3,housingArrayList.get(3) , 5);
+        } else {
+            sejour3 = new LongStay(dateArrivee3, dureeSejour3, housingArrayList.get(3), 5);
+        }
+        if (dureeSejour4 < 6) {
+            sejour4= new ShortStay(dateArrivee4, dureeSejour4,housingArrayList.get(1) , 9);
+        } else {
+            sejour4 = new LongStay(dateArrivee4, dureeSejour4, housingArrayList.get(1), 9);
+        }
+// conversion en sejour du séjour court ou long pour que la réservation accepte les deux types enfants
+        sejour1 = (Stay) sejour1;
+        sejour2 = (Stay) sejour2;
+        sejour3 = (Stay) sejour3;
+        sejour4 = (Stay) sejour4;
+        try {
+            bookingArrayList.add(new Booking(sejour1,travelerArrayList.get(0)));
+
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+        try {
+            bookingArrayList.add(new Booking(sejour2,travelerArrayList.get(2)));
+            bookingArrayList.get(1).setValidated(true);
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+        try {
+            bookingArrayList.add(new Booking(sejour3,travelerArrayList.get(3)));
+            bookingArrayList.get(2).setValidated(true);
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+        try {
+            bookingArrayList.add(new Booking(sejour4,travelerArrayList.get(1)));
+        } catch (instantiationBookingException e) {
+            e.printStackTrace();
+        }
+    }
     public void initMenu(){
         /**
          * create the menu bar with all JMenu and JMenuItem with their specific action
@@ -245,35 +249,41 @@ public class ViewMenu extends JFrame {
             }
         }
 */
-//        private   JPanel jPanelTop = new JPanel();
+//      /*  private */  JPanel jPanelTop = new JPanel();
 //
 //        private    ButtonGroup bg = new ButtonGroup();
 //        private      JLabel jLabelReservationStatus = new JLabel("Afficher la réservation?");
-//        private   JRadioButton jRadioButtonYes = new JRadioButton("oui");
+//     /*   private */  JRadioButton jRadioButtonBooked = new JRadioButton("Réservé");
 //  private      JRadioButton jRadioButtonNo = new JRadioButton("non");
 
         jPanel = new JPanel();
+        jPanel.setBackground(Color.blue);
         jScrollPane = new JScrollPane(jPanel);
+
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
-            JPanel jPanelSon = new JPanel();
-            JTextPane jTextPane = new JTextPane();
-            jTextPane.setText(bookingArrayList.get(i).stringDisplay());
+            currentItemBooking = new ItemBooking(bookingArrayList.get(i));
+            itemsBookingArrayList.add(currentItemBooking);
+            Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
+            currentItemBooking.jPanelSon = new JPanel();
+            currentItemBooking.jTextPane = new JTextPane();
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            jPanelSon.add(jTextPane ); // todo display reservation
-            jPanelSon.setBackground(Color.gray);
-            jTextPane.setBackground(Color.white);
-            jTextPane.setPreferredSize(new Dimension(580, 180));
-            jPanel.add(jPanelSon);
-            if(bookingArrayList.get(i).isValidated()){
-                jTextPane.setBackground(Color.MAGENTA);
-            }
+            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
+            if(bookingArrayList.get(i).isValidated())
+                currentItemBooking.jTextPane.setBackground(Color.green);
+            else
+                currentItemBooking.jTextPane.setBackground(Color.red);
+            currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
+            jPanel.add(currentItemBooking.jPanelSon);
+            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxConfirm);
         }
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
-    }
 
+    }
     class ViewCreationHouseListener implements ActionListener {
         /**
          * creates and opens the window to add an house
@@ -348,4 +358,3 @@ public class ViewMenu extends JFrame {
         }
     }
 }
-// todo vue création réservation
