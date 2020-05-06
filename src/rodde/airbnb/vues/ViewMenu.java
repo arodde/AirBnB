@@ -41,7 +41,7 @@ public class ViewMenu extends JFrame {
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
-public  ItemBooking currentItemBooking;
+    public  ItemBooking currentItemBooking;
 
     public void initArrayAndManagment(){
         /**
@@ -266,6 +266,12 @@ public  ItemBooking currentItemBooking;
             Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
             currentItemBooking.jPanelSon = new JPanel();
             currentItemBooking.jTextPane = new JTextPane();
+            currentItemBooking.jPanelCommand = new JPanel();
+//                currentItemBooking.jPanelSon.setLayout(new BorderLayout());
+//                currentItemBooking.jPanelSon.add( currentItemBooking.jTextPane, BorderLayout.WEST);
+//                currentItemBooking.jPanelSon.add( currentItemBooking.jPanelCommand, BorderLayout.EAST);
+//                currentItemBooking.positionCheckButton();
+            currentItemBooking.organizeJPanelSon();
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
@@ -276,9 +282,9 @@ public  ItemBooking currentItemBooking;
                 currentItemBooking.jTextPane.setBackground(Color.red);
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
-            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxConfirm);
+//            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxConfirm);
+//            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxDelete);
         }
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
