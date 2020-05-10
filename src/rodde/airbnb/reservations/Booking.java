@@ -10,6 +10,10 @@ import java.time.LocalDate;
 
 public class Booking {
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private  int id =0;
     private static int index =-1;
     private Stay stay;

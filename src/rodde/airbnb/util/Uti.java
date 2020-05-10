@@ -16,15 +16,7 @@ import static java.util.Locale.*;
 
 public class Uti{
     public static void info(String sClasse, String sMethode, String sCommentaire){
-        String sLaClasse = sClasse;
-        String sLaMethode = sMethode;
-        String sLeCommentaire = sCommentaire;
-        System.out.print("====> "+sLaClasse+" ");
-        System.out.print("====> "+sLaMethode);
-        if(sLeCommentaire!=""){
-            System.out.print(" ====> "+sLeCommentaire);
-        }
-        System.out.println(".");
+//        System.out.println("====> "+sClasse+" "+"====> "+sMethode+(sCommentaire!=""?(" ====> "+sCommentaire+"."):""));
     }
     public static void mess(String message){
         System.out.println("---------->     "+message);

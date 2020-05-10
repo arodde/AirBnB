@@ -263,14 +263,12 @@ public class ViewMenu extends JFrame {
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
             currentItemBooking = new ItemBooking(bookingArrayList.get(i));
             itemsBookingArrayList.add(currentItemBooking);
+//            itemsBookingArrayList.get(i).posBooking=i;
             Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
             currentItemBooking.jPanelSon = new JPanel();
             currentItemBooking.jTextPane = new JTextPane();
             currentItemBooking.jPanelCommand = new JPanel();
-//                currentItemBooking.jPanelSon.setLayout(new BorderLayout());
-//                currentItemBooking.jPanelSon.add( currentItemBooking.jTextPane, BorderLayout.WEST);
-//                currentItemBooking.jPanelSon.add( currentItemBooking.jPanelCommand, BorderLayout.EAST);
-//                currentItemBooking.positionCheckButton();
+
             currentItemBooking.organizeJPanelSon();
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -282,8 +280,6 @@ public class ViewMenu extends JFrame {
                 currentItemBooking.jTextPane.setBackground(Color.red);
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
-//            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxConfirm);
-//            currentItemBooking.jPanelSon.add(currentItemBooking.jCheckBoxDelete);
         }
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
@@ -361,6 +357,122 @@ public class ViewMenu extends JFrame {
                 Uti.mess("liste de réservation nulle.");
 //            viewBookingDisplay = new ViewBookingDisplay(bookingArrayList);
             displayBooking();
+        }
+    }
+    public class ItemBooking {
+        public JPanel jPanelSon = new JPanel();
+        public JPanel jPanelCommand;
+        public JTextPane jTextPane ;
+        public Booking booking ;
+        public JCheckBox jCheckBoxConfirm= new JCheckBox("Réserver");
+        public JCheckBox jCheckBoxDelete= new JCheckBox("Supprimer");
+
+        public int posBooking;
+        public int posItemBooking;
+        BookingConfirmListener bookingConfirmListener = new BookingConfirmListener();
+        BookingDeleteListener bookingDeleteListener = new BookingDeleteListener();
+//        rodde.airbnb.vues.ItemBooking.BookingConfirmListener bookingConfirmListener = new rodde.airbnb.vues.ItemBooking.BookingConfirmListener();
+//        rodde.airbnb.vues.ItemBooking.BookingDeleteListener bookingDeleteListener = new rodde.airbnb.vues.ItemBooking.BookingDeleteListener();
+
+        ItemBooking(Booking booking){
+            this.booking = booking;
+            jCheckBoxConfirm.addActionListener(bookingConfirmListener);
+            jCheckBoxDelete.addActionListener(bookingDeleteListener);
+        }
+        public void organizeJPanelSon(){
+            Uti.info("ItemBooking","public void organizeJPanelSon(){\n","");
+            jPanelSon.setLayout(new BorderLayout());
+            jPanelSon.add(jTextPane, BorderLayout.WEST);
+            jPanelSon.add(jPanelCommand, BorderLayout.EAST);
+            positionCheckButton();
+        }
+        public void positionCheckButton(){
+            /**
+             * organize the position of jCheckBox
+             */
+            Uti.info("ItemBooking","positionCheckButton","");
+//        jPanelCommand.setLayout(new BorderLayout());
+//        jPanelCommand.add(jCheckBoxConfirm, BorderLayout.NORTH);
+//        jPanelCommand.add(jCheckBoxDelete, BorderLayout.SOUTH);
+            jPanelCommand.setLayout(new GridLayout(2,1));
+            jPanelCommand.add(jCheckBoxConfirm);
+            jPanelCommand.add(jCheckBoxDelete);
+        }
+
+        class BookingConfirmListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("BookingConfirmListener","actionPerformed","");
+                Uti.mess("action sur jCheckboxConfirm "+booking.getId()+" "+(booking.isValidated()?"coché":"decoché"));
+                if(!booking.isValidated())
+                {
+                    jTextPane.setBackground(Color.GREEN);
+                    System.out.println(booking.getId()+" "+booking.isValidated());
+                    booking.setValidated(true);
+                    System.out.println(booking.getId()+" "+booking.isValidated());
+                }
+                else
+                {
+                    jTextPane.setBackground(Color.red);
+                    System.out.println(booking.getId()+" "+booking.isValidated());
+                    booking.setValidated(false);
+                    System.out.println(booking.getId()+" "+booking.isValidated());
+                }
+            }
+        }
+        class BookingDeleteListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("BookingDeleteListener","actionPerformed","");
+                if(currentItemBooking.booking.isValidated()){
+                    jCheckBoxDelete.setVisible(false);
+                }
+                else {
+                    jCheckBoxDelete.setVisible(true);
+                    deleteBooking();
+                }
+            }
+            public void deleteBooking(){
+                Uti.info("BookingDeleteListener","deleteBooking","");
+                displayListItemBookingAndBooking();
+                for(int i = 0; i< bookingArrayList.size(); i++){
+                    System.out.println("itemBooking indice : "+i);
+                    if( currentItemBooking.booking.equals(bookingArrayList.get(i))){
+                        System.out.println(bookingArrayList.size()+" "+bookingArrayList.get(i).getId());
+                        bookingArrayList.remove(bookingArrayList.get(i));
+                        deleteItemBooking(i);
+                        System.out.println((currentItemBooking.booking != null)?"réservation courante détruite":"anomalie réservation subsiste");
+                        System.out.println(bookingArrayList.size());
+                        currentItemBooking= null;
+                        displayListItemBookingAndBooking();
+                        displayBooking();
+                    }
+                }
+            }
+            public void deleteItemBooking(int x){
+                Uti.info("BookingDeleteListener","deleteItemBooking","");
+                System.out.println("indice itemBooking: "+ x);
+                itemsBookingArrayList.remove(itemsBookingArrayList.get(x));
+//                for(int j=0;j<itemsBookingArrayList.size();j++){
+//                    if(currentItemBooking.equals(itemsBookingArrayList.get(j))){
+//                        System.out.println(itemsBookingArrayList.size());
+//                        itemsBookingArrayList.remove(itemsBookingArrayList.get(j));
+//                        System.out.println((currentItemBooking != null)?"élément graphique réservation courante détruit":"anomalie élément graphique réservation subsiste");
+//                        System.out.println(itemsBookingArrayList.size());
+//                    }
+//                }
+            }
+            public void displayListItemBookingAndBooking() {
+                Uti.info("BookingDeleteListener","displayListItemBookingAndBooking","");
+                if (itemsBookingArrayList.size() == bookingArrayList.size()) {
+                    System.out.println("égalité taille listes");
+                } else
+                    System.out.println("inégalité longueur listes");
+                for (int i = 0 ; i< itemsBookingArrayList.size(); i++){
+                    System.out.print("itemB : "+i+" - b : "+bookingArrayList.get(i).getId()+" ");
+                }
+                System.out.println();
+            }
         }
     }
 }
