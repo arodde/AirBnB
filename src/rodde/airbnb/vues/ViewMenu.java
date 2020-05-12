@@ -41,7 +41,16 @@ public class ViewMenu extends JFrame {
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
+
     public  ItemBooking currentItemBooking;
+    public ItemBooking getCurrentItemBooking() {
+        return currentItemBooking;
+    }
+
+    public void setCurrentItemBooking(ItemBooking currentItemBooking) {
+        this.currentItemBooking = currentItemBooking;
+    }
+
 
     public void initArrayAndManagment(){
         /**
@@ -261,7 +270,7 @@ public class ViewMenu extends JFrame {
         jScrollPane = new JScrollPane(jPanel);
 
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
-            currentItemBooking = new ItemBooking(bookingArrayList.get(i));
+            currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
             itemsBookingArrayList.add(currentItemBooking);
 //            itemsBookingArrayList.get(i).posBooking=i;
             Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
@@ -274,10 +283,18 @@ public class ViewMenu extends JFrame {
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
             currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
-            if(bookingArrayList.get(i).isValidated())
+            if(bookingArrayList.get(i).isValidated()){
                 currentItemBooking.jTextPane.setBackground(Color.green);
+                currentItemBooking.jCheckBoxConfirm.setSelected(true);
+                currentItemBooking.jCheckBoxDelete.setVisible(false);
+            }
             else
+            {
                 currentItemBooking.jTextPane.setBackground(Color.red);
+                currentItemBooking.jCheckBoxConfirm.setSelected(false);
+                currentItemBooking.jCheckBoxDelete.setVisible(true);
+            }
+
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
         }
@@ -359,6 +376,7 @@ public class ViewMenu extends JFrame {
             displayBooking();
         }
     }
+
     public class ItemBooking {
         public JPanel jPanelSon = new JPanel();
         public JPanel jPanelCommand;
@@ -366,18 +384,23 @@ public class ViewMenu extends JFrame {
         public Booking booking ;
         public JCheckBox jCheckBoxConfirm= new JCheckBox("Réserver");
         public JCheckBox jCheckBoxDelete= new JCheckBox("Supprimer");
-
-        public int posBooking;
-        public int posItemBooking;
+        public ViewMenu viewMenu;
         BookingConfirmListener bookingConfirmListener = new BookingConfirmListener();
         BookingDeleteListener bookingDeleteListener = new BookingDeleteListener();
 //        rodde.airbnb.vues.ItemBooking.BookingConfirmListener bookingConfirmListener = new rodde.airbnb.vues.ItemBooking.BookingConfirmListener();
 //        rodde.airbnb.vues.ItemBooking.BookingDeleteListener bookingDeleteListener = new rodde.airbnb.vues.ItemBooking.BookingDeleteListener();
 
-        ItemBooking(Booking booking){
+        ItemBooking(Booking booking,ViewMenu viewMenu){
             this.booking = booking;
             jCheckBoxConfirm.addActionListener(bookingConfirmListener);
             jCheckBoxDelete.addActionListener(bookingDeleteListener);
+            this.viewMenu = viewMenu;
+        }
+        public void updateItemBooking(){
+            /**
+             * the current itemBooking becomes the currentItemBooking of viewMenu.
+             */
+            viewMenu.currentItemBooking = this;
         }
         public void organizeJPanelSon(){
             Uti.info("ItemBooking","public void organizeJPanelSon(){\n","");
@@ -404,18 +427,24 @@ public class ViewMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Uti.info("BookingConfirmListener","actionPerformed","");
                 Uti.mess("action sur jCheckboxConfirm "+booking.getId()+" "+(booking.isValidated()?"coché":"decoché"));
+
+                updateItemBooking();
                 if(!booking.isValidated())
                 {
-                    jTextPane.setBackground(Color.GREEN);
                     System.out.println(booking.getId()+" "+booking.isValidated());
                     booking.setValidated(true);
+                    jTextPane.setBackground(Color.GREEN);
+                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+                    currentItemBooking.jCheckBoxConfirm.setSelected(true);
                     System.out.println(booking.getId()+" "+booking.isValidated());
                 }
                 else
                 {
-                    jTextPane.setBackground(Color.red);
                     System.out.println(booking.getId()+" "+booking.isValidated());
                     booking.setValidated(false);
+                    jTextPane.setBackground(Color.red);
+                    currentItemBooking.jCheckBoxDelete.setVisible(true);
+                    currentItemBooking.jCheckBoxConfirm.setSelected(false);
                     System.out.println(booking.getId()+" "+booking.isValidated());
                 }
             }
@@ -424,11 +453,15 @@ public class ViewMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Uti.info("BookingDeleteListener","actionPerformed","");
+                updateItemBooking();
                 if(currentItemBooking.booking.isValidated()){
-                    jCheckBoxDelete.setVisible(false);
+//                    jCheckBoxDelete.setVisible(false);
+//                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+                    System.out.println("impossible supprimer réservation confirmée");
                 }
                 else {
-                    jCheckBoxDelete.setVisible(true);
+//                    jCheckBoxDelete.setVisible(true);
+//                    currentItemBooking.jCheckBoxDelete.setVisible(false);
                     deleteBooking();
                 }
             }
