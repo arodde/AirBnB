@@ -16,7 +16,7 @@ import static java.util.Locale.*;
 
 public class Uti{
     public static void info(String sClasse, String sMethode, String sCommentaire){
-//        System.out.println("====> "+sClasse+" "+"====> "+sMethode+(sCommentaire!=""?(" ====> "+sCommentaire+"."):""));
+        System.out.println("====> "+sClasse+" "+"====> "+sMethode+(sCommentaire!=""?(" ====> "+sCommentaire+"."):""));
     }
     public static void mess(String message){
         System.out.println("---------->     "+message);

@@ -268,16 +268,14 @@ public class ViewMenu extends JFrame {
         jPanel = new JPanel();
         jPanel.setBackground(Color.blue);
         jScrollPane = new JScrollPane(jPanel);
-
+        itemsBookingArrayList.removeAll(itemsBookingArrayList);
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
             currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
             itemsBookingArrayList.add(currentItemBooking);
-//            itemsBookingArrayList.get(i).posBooking=i;
             Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
             currentItemBooking.jPanelSon = new JPanel();
             currentItemBooking.jTextPane = new JTextPane();
             currentItemBooking.jPanelCommand = new JPanel();
-
             currentItemBooking.organizeJPanelSon();
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -294,10 +292,10 @@ public class ViewMenu extends JFrame {
                 currentItemBooking.jCheckBoxConfirm.setSelected(false);
                 currentItemBooking.jCheckBoxDelete.setVisible(true);
             }
-
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
         }
+        currentItemBooking = itemsBookingArrayList.get(0);
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
@@ -373,6 +371,7 @@ public class ViewMenu extends JFrame {
             if (bookingArrayList == null)
                 Uti.mess("liste de réservation nulle.");
 //            viewBookingDisplay = new ViewBookingDisplay(bookingArrayList);
+
             displayBooking();
         }
     }
@@ -387,8 +386,6 @@ public class ViewMenu extends JFrame {
         public ViewMenu viewMenu;
         BookingConfirmListener bookingConfirmListener = new BookingConfirmListener();
         BookingDeleteListener bookingDeleteListener = new BookingDeleteListener();
-//        rodde.airbnb.vues.ItemBooking.BookingConfirmListener bookingConfirmListener = new rodde.airbnb.vues.ItemBooking.BookingConfirmListener();
-//        rodde.airbnb.vues.ItemBooking.BookingDeleteListener bookingDeleteListener = new rodde.airbnb.vues.ItemBooking.BookingDeleteListener();
 
         ItemBooking(Booking booking,ViewMenu viewMenu){
             this.booking = booking;
@@ -452,8 +449,12 @@ public class ViewMenu extends JFrame {
         class BookingDeleteListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /**
+                 deletes the booking if it has been asked by selecting
+                 checkboxConfirm but only if the checkboxDelete is
+                 unselected
+                 */
                 Uti.info("BookingDeleteListener","actionPerformed","");
-                updateItemBooking();
                 if(currentItemBooking.booking.isValidated()){
 //                    jCheckBoxDelete.setVisible(false);
 //                    currentItemBooking.jCheckBoxDelete.setVisible(false);
@@ -462,30 +463,47 @@ public class ViewMenu extends JFrame {
                 else {
 //                    jCheckBoxDelete.setVisible(true);
 //                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+
+//                    updateItemBooking();
                     deleteBooking();
+                    updateItemBooking();
                 }
             }
             public void deleteBooking(){
+                /**
+                 comparates the booking of the currentItembooking with the bookingArrayList.
+                 If the equality is found the booking is delete in the bookingArrayList.
+                 the itemBooking at the same position in tne itemBookingArrayList is
+                 deleted
+                 actualise the currentItemBooking
+                 */
                 Uti.info("BookingDeleteListener","deleteBooking","");
                 displayListItemBookingAndBooking();
                 for(int i = 0; i< bookingArrayList.size(); i++){
                     System.out.println("itemBooking indice : "+i);
                     if( currentItemBooking.booking.equals(bookingArrayList.get(i))){
                         System.out.println(bookingArrayList.size()+" "+bookingArrayList.get(i).getId());
+                        Uti.mess("Je supprime la réservation");
                         bookingArrayList.remove(bookingArrayList.get(i));
                         deleteItemBooking(i);
                         System.out.println((currentItemBooking.booking != null)?"réservation courante détruite":"anomalie réservation subsiste");
                         System.out.println(bookingArrayList.size());
                         currentItemBooking= null;
                         displayListItemBookingAndBooking();
+//                        updateItemBooking();
                         displayBooking();
                     }
                 }
             }
-            public void deleteItemBooking(int x){
+            public void deleteItemBooking(int index){
+                /**
+                 deletes the itembooking in the itemsBookingArrayList() at the position
+                 given by the first parameter
+                 */
                 Uti.info("BookingDeleteListener","deleteItemBooking","");
-                System.out.println("indice itemBooking: "+ x);
-                itemsBookingArrayList.remove(itemsBookingArrayList.get(x));
+                System.out.println("indice itemBooking: "+ index);
+                Uti.mess("je supprime l'itembooking au même rang de liste");
+                itemsBookingArrayList.remove(itemsBookingArrayList.get(index));
 //                for(int j=0;j<itemsBookingArrayList.size();j++){
 //                    if(currentItemBooking.equals(itemsBookingArrayList.get(j))){
 //                        System.out.println(itemsBookingArrayList.size());
@@ -496,11 +514,19 @@ public class ViewMenu extends JFrame {
 //                }
             }
             public void displayListItemBookingAndBooking() {
+                /**
+                 checks if the itemsBookingArrayList and the
+                 bookingArrayList have the same size and display
+                 a message displays for each itemBooking in the
+                 ArrayList the ID of the booking of the ItemBooking
+                 */
                 Uti.info("BookingDeleteListener","displayListItemBookingAndBooking","");
                 if (itemsBookingArrayList.size() == bookingArrayList.size()) {
                     System.out.println("égalité taille listes");
                 } else
                     System.out.println("inégalité longueur listes");
+                System.out.println("itemb "+itemsBookingArrayList.size());
+                System.out.println("b "+bookingArrayList.size());
                 for (int i = 0 ; i< itemsBookingArrayList.size(); i++){
                     System.out.print("itemB : "+i+" - b : "+bookingArrayList.get(i).getId()+" ");
                 }
