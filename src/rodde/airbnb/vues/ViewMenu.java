@@ -295,7 +295,7 @@ public class ViewMenu extends JFrame {
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
         }
-        currentItemBooking = itemsBookingArrayList.get(0);
+//        currentItemBooking = itemsBookingArrayList.get(0);
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
@@ -389,9 +389,9 @@ public class ViewMenu extends JFrame {
 
         ItemBooking(Booking booking,ViewMenu viewMenu){
             this.booking = booking;
+            this.viewMenu = viewMenu;
             jCheckBoxConfirm.addActionListener(bookingConfirmListener);
             jCheckBoxDelete.addActionListener(bookingDeleteListener);
-            this.viewMenu = viewMenu;
         }
         public void updateItemBooking(){
             /**
@@ -466,8 +466,8 @@ public class ViewMenu extends JFrame {
 
 //                    updateItemBooking();
                     deleteBooking();
-                    updateItemBooking();
                 }
+                updateItemBooking();
             }
             public void deleteBooking(){
                 /**
@@ -478,6 +478,7 @@ public class ViewMenu extends JFrame {
                  actualise the currentItemBooking
                  */
                 Uti.info("BookingDeleteListener","deleteBooking","");
+                updateItemBooking();
                 displayListItemBookingAndBooking();
                 for(int i = 0; i< bookingArrayList.size(); i++){
                     System.out.println("itemBooking indice : "+i);
@@ -488,10 +489,11 @@ public class ViewMenu extends JFrame {
                         deleteItemBooking(i);
                         System.out.println((currentItemBooking.booking != null)?"réservation courante détruite":"anomalie réservation subsiste");
                         System.out.println(bookingArrayList.size());
-                        currentItemBooking= null;
+//                        currentItemBooking= null;
+                        updateItemBooking();
                         displayListItemBookingAndBooking();
-//                        updateItemBooking();
                         displayBooking();
+                        break;
                     }
                 }
             }
