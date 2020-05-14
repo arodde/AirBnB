@@ -19,15 +19,6 @@ public class Booking {
     private Stay stay;
     private Traveler traveler;
     private boolean isValidated;
-
-//    public String getBookingState() {
-//        return bookingState;
-//    }
-//
-//    public void setBookingState(String bookingState) {
-//        this.bookingState = bookingState;
-//    }
-
     private String bookingState;
     private Booking bookingAdded;
     public boolean isValidated() {
@@ -60,6 +51,9 @@ public class Booking {
         }
     }
     public void display(){
+        /**
+         give the description of the booking and display it in the console
+         */
         Uti.info("Reservation", "display()","");
         this.bookingAdded = bookingAdded;
         String textOfReservation =this.getId()+":\n";
@@ -72,22 +66,24 @@ public class Booking {
         stay.display();
     }
     public void editBookingState(){
+        /**
+         * change the booking's description according to the boolean isValided
+         */
         if(isValidated)
             bookingState ="une réservation acceptée ";
         else
             bookingState ="une demande de réservation en attente de confirmation ";
     }
     public String stringDisplay(){
+        /**
+         give the description of the booking and display it in the window
+         */
         Uti.info("Reservation", "stringDisplay()","");
         String textOfReservation =this.getId()+":\n";
 
         textOfReservation +=  traveler.stringDisplay();
         textOfReservation += " a fait ";
         editBookingState();
-//        if(isValidated)
-//            bookingState +="une réservation acceptée";
-//        else
-//            bookingState +="une demande de réservation en attente de confirmation";
         textOfReservation += bookingState+"chez ";
         textOfReservation += stay.stringDisplay();
         return textOfReservation;
