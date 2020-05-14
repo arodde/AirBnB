@@ -77,9 +77,6 @@ public class LongStay extends Stay {
             System.out.println("Avis de réservation");
             System.out.println("La date d'arrivée est le " + jour + "/" +  (((mois.ordinal()+1)<10)?("0"+String.valueOf((mois.ordinal()+1))):(mois.ordinal()+1))  + "/" + annee + " pour " + overnightsNumber + " nuits.");
             System.out.print("Le prix de ce séjour est de "+ getRate() + " € ");
-
-
-
             System.out.println(".");
         }
         else // sinon
