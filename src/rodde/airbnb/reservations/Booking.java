@@ -18,29 +18,39 @@ public class Booking {
     private static int index =-1;
     private Stay stay;
     private Traveler traveler;
+    private boolean isValidated;
 
+//    public String getBookingState() {
+//        return bookingState;
+//    }
+//
+//    public void setBookingState(String bookingState) {
+//        this.bookingState = bookingState;
+//    }
 
-
+    private String bookingState;
+    private Booking bookingAdded;
     public boolean isValidated() {
         return isValidated;
     }
-
     public void setValidated(boolean validated) {
         isValidated = validated;
     }
 
-    private boolean isValidated;
     private LocalDate bookingDate;
-private Booking bookingAdded;
     public Booking(/*int identifiant,*/ Stay stay, Traveler traveler ) throws instantiationBookingException {
+        /**
+          the booking's constructor instantiates a booking if the stay respects several conditions:
+           - the arrivalDate have to be  posterior the instantiation
+           - the travelersNumber have to be equal or inferior of the maximum traveler's Number of the housing
+           - the otherNightsNumber have to be between 1 nights and the end of the month
+         */
         Uti.info("Reservation", "Reservation()","2 p");
-        // Tests de validation sur le séjour
         if((!stay.arrivalDateVerification())||(!stay.checkTravelersNumber())||(!stay.overnightsNumberVerification())){
             throw new instantiationBookingException();
         }
         else
         {
-            // si les conditions à la créations d'un séjour sont correctes
             this.id = index + 1;
             index ++;
             this.stay = stay;
@@ -52,20 +62,33 @@ private Booking bookingAdded;
     public void display(){
         Uti.info("Reservation", "display()","");
         this.bookingAdded = bookingAdded;
-        System.out.println("\nRéservation n° "+this.getId()+":\n");
-        traveler.display();
-        System.out.print(" a fait une réservation chez ");
-        if(isValidated)
-            System.out.println("RESERVATION ACCEPTEE");
-        else
-            System.out.println("RESERVATION EN ATTENTE D'ACCEPTATION");
+        String textOfReservation =this.getId()+":\n";
+        textOfReservation +=  traveler.stringDisplay();
+        textOfReservation += " a fait ";
+        editBookingState();
+        textOfReservation += bookingState+ "chez ";
+        textOfReservation += stay.stringDisplay();
+        System.out.println(textOfReservation);
         stay.display();
+    }
+    public void editBookingState(){
+        if(isValidated)
+            bookingState ="une réservation acceptée ";
+        else
+            bookingState ="une demande de réservation en attente de confirmation ";
     }
     public String stringDisplay(){
         Uti.info("Reservation", "stringDisplay()","");
         String textOfReservation =this.getId()+":\n";
+
         textOfReservation +=  traveler.stringDisplay();
-        textOfReservation += " a fait une réservation chez ";
+        textOfReservation += " a fait ";
+        editBookingState();
+//        if(isValidated)
+//            bookingState +="une réservation acceptée";
+//        else
+//            bookingState +="une demande de réservation en attente de confirmation";
+        textOfReservation += bookingState+"chez ";
         textOfReservation += stay.stringDisplay();
         return textOfReservation;
     }

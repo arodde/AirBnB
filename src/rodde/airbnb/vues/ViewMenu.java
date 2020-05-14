@@ -279,19 +279,21 @@ public class ViewMenu extends JFrame {
             currentItemBooking.organizeJPanelSon();
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
             if(bookingArrayList.get(i).isValidated()){
                 currentItemBooking.jTextPane.setBackground(Color.green);
                 currentItemBooking.jCheckBoxConfirm.setSelected(true);
                 currentItemBooking.jCheckBoxDelete.setVisible(false);
+//                currentItemBooking.booking.editBookingState();
             }
             else
             {
                 currentItemBooking.jTextPane.setBackground(Color.red);
                 currentItemBooking.jCheckBoxConfirm.setSelected(false);
                 currentItemBooking.jCheckBoxDelete.setVisible(true);
+//                currentItemBooking.booking.editBookingState();
             }
+            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
         }
@@ -430,6 +432,8 @@ public class ViewMenu extends JFrame {
                 {
                     System.out.println(booking.getId()+" "+booking.isValidated());
                     booking.setValidated(true);
+                    currentItemBooking.booking.editBookingState();
+                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
                     jTextPane.setBackground(Color.GREEN);
                     currentItemBooking.jCheckBoxDelete.setVisible(false);
                     currentItemBooking.jCheckBoxConfirm.setSelected(true);
@@ -439,6 +443,8 @@ public class ViewMenu extends JFrame {
                 {
                     System.out.println(booking.getId()+" "+booking.isValidated());
                     booking.setValidated(false);
+                    currentItemBooking.booking.editBookingState();
+                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
                     jTextPane.setBackground(Color.red);
                     currentItemBooking.jCheckBoxDelete.setVisible(true);
                     currentItemBooking.jCheckBoxConfirm.setSelected(false);
