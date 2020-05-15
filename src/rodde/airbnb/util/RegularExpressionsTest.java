@@ -8,18 +8,18 @@ import java.util.regex.Pattern;
 public class RegularExpressionsTest {
 
     public static void main(String args[]){
-        example1();
-        example2();
-        example3();
+//        example1();
+//        example2();
+//        example3();
         example4();
-        example5();
+//        example5();
     }
     public static void example1(){
         Uti.info("RegularExpressions","example1()","");
         //1st way
         Pattern p01 = Pattern.compile(".*");//. represents single character
         Pattern p02 = Pattern.compile("z*.");//. represents single character
-        Matcher m01 = p01.matcher("as");
+        Matcher m01 = p01.matcher("");
         Matcher m02 = p02.matcher("zzzzzf");
         boolean b01 = m01.matches();
         boolean b02 = m02.matches();
@@ -57,11 +57,87 @@ public class RegularExpressionsTest {
     }
     public static void example3(){
         Uti.info("RegularExpressions","example3()","");
+        Uti.sep("-",100);
+RegularExpressionsTest regularExpressionsTest = new RegularExpressionsTest();
+        String sPattern = "(\\d*)?(\\s)*(\\s)+.*(\\s)+\\d{5}(\\s)";
+        System.out.println("L'expression régulière proposée : "+ sPattern);
+        Uti.sep("-",100);
+        regularExpressionsTest.testRegex(sPattern,"69  impasse de la Chapelle Fistine 80000 DANS-L-OIGNON");
+        regularExpressionsTest.testRegex(sPattern,"Château de Poudlard 86000 LA SORCELLERIE");
+        regularExpressionsTest.testRegex(sPattern,"224 bis Boulevard de la Métropolitaine 75012 PARIS");
+        regularExpressionsTest.testRegex(sPattern,"224ter Boulevard de la Métropolitaine 75012 PARIS");
+        regularExpressionsTest.testRegex(sPattern,"7/45 Tour du guet 19000 LA CATAPULTE");
 
+        /*
+                69 impasse de la Chapelle Fistine 80000 DANS-L-OIGNON
+                Château de Poudlard 86000 LA SORCELLERIE
+                224 Boulevard de la Métropolitaine 75012 PARIS
+                7 Tour du guet 19000 LACATAPULTE
+        */
+    }
+    public  void testRegex(String sPattern,String sMatcher){
+        /*
+           this method gives a message which show if the pattern matches with the proposed string or not
+        */
+        boolean b = false;
+        Pattern pattern = Pattern.compile(sPattern);
+        Matcher matcher = pattern.matcher(sMatcher);
+        b = matcher.matches();
+        if(b){
+            System.out.print("OK :)");
+        }
+        else
+        {
+            System.out.print("KO :(");
+        }
+        System.out.println( " ---> "+sPattern+"  \""+ sMatcher+"\"");
     }
     public static void example4(){
         Uti.info("RegularExpressions","example4()","");
+        RegularExpressionsTest regularExpressionsTest = new RegularExpressionsTest();
+        Uti.sep("-",100);
+        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
+        String sPattern2 = "(\\s)+.*(\\s)";
+        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
+        String sPattern4 = "[a-zA-Z\\-\\s]+";
+        System.out.println("L'expression régulière proposée : "+ sPattern1 +" "+ sPattern2 +" "+ sPattern3 +" "+ sPattern4 );
 
+        regularExpressionsTest.testRegex( sPattern1,"69  TER");
+        regularExpressionsTest.testRegex(sPattern2," impasse de la Chapelle Fistine ");
+        regularExpressionsTest.testRegex(sPattern3,"80000");
+        regularExpressionsTest.testRegex(sPattern4,"DANS-L-OIGNON");
+        Uti.sep("-",100);
+        System.out.println("L'expression régulière proposée : "+ sPattern1 +" "+ sPattern2 +" "+ sPattern3 +" "+ sPattern4 );
+        regularExpressionsTest.testRegex( sPattern1,"  ");
+        regularExpressionsTest.testRegex(sPattern2," Château de Poudlard  ");
+        regularExpressionsTest.testRegex(sPattern3,"86000");
+        regularExpressionsTest.testRegex(sPattern4," LA SORCELLERIE ");
+        Uti.sep("-",100);
+        System.out.println("L'expression régulière proposée : "+ sPattern1 +" "+ sPattern2 +" "+ sPattern3 +" "+ sPattern4 );
+        regularExpressionsTest.testRegex( sPattern1,"224 bis");
+        regularExpressionsTest.testRegex(sPattern2," Boulevard de la Métropolitaine ");
+        regularExpressionsTest.testRegex(sPattern3,"75012 cedex12");
+        regularExpressionsTest.testRegex(sPattern4," PARIS");
+        Uti.sep("-",100);
+        System.out.println("L'expression régulière proposée : "+ sPattern1 +" "+ sPattern2 +" "+ sPattern3 +" "+ sPattern4 );
+        regularExpressionsTest.testRegex( sPattern1,"235 Appartement 45");
+        regularExpressionsTest.testRegex(sPattern2," Tour du guet ");
+        regularExpressionsTest.testRegex(sPattern3," 19000  ");
+        regularExpressionsTest.testRegex(sPattern4,"   LA CATAPULTE");
+        Uti.sep("-",100);
+        /*
+      testRegex(sPattern,"69  impasse de la Chapelle Fistine 80000 DANS-L-OIGNON");
+        testRegex(sPattern,"Château de Poudlard 86000 LA SORCELLERIE");
+        testRegex(sPattern,"224 bis Boulevard de la Métropolitaine 75012 PARIS");
+        testRegex(sPattern,"224ter Boulevard de la Métropolitaine 75012 PARIS");
+        testRegex(sPattern,"7/45 Tour du guet 19000 LA CATAPULTE");
+        */
+        /*
+                69 impasse de la Chapelle Fistine 80000 DANS-L-OIGNON
+                Château de Poudlard 86000 LA SORCELLERIE
+                224 Boulevard de la Métropolitaine 75012 PARIS
+                7 Tour du guet 19000 LACATAPULTE
+        */
     }
     public static void example5(){
         Uti.info("RegularExpressions","example5()","");
