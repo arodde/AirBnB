@@ -9,7 +9,10 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 public class Booking {
-
+    /**
+     creates a booking with a stay and a traveler if the booking is accepted by the host
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }

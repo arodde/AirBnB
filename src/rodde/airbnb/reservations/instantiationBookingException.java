@@ -3,6 +3,9 @@ package rodde.airbnb.reservations;
 import rodde.airbnb.util.Uti;
 
 public class instantiationBookingException extends Exception {
+    /**
+     return an exception if the conditions of intantiation of the  stay aren't got
+     */
     public instantiationBookingException(){
 
         Uti.info("InstanciationReservationException","InstanciationReservationException()","");

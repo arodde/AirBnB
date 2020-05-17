@@ -13,11 +13,12 @@ public abstract class Housing {
     protected int area;
     protected int maxTravelersNumber;
     public Housing(Host host, int daylyRate, String address, int area, int maxTravelersNumber) {
-        /**
-         * the control ot the address with the regular
-         * expression is moved in the checking
-         * of the field in the windows of housing creation
-         */
+     /**
+          remarque the control ot the address with the regular
+          expression is moved in the checking
+          of the field in the windows of housing creation
+
+        */
         Uti.info("Housing","Logement","");
         this.host = host;
         this.daylyRate = daylyRate;

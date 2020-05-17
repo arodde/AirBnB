@@ -4,8 +4,13 @@ import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Traveler;
 
 public class TravellersManagement {
-
+    /**
+     this class manages the menu in console menu for add, delete operations
+     */
     public static void listTravelersMenu() {
+        /**
+         displays the travelers' menu
+         */
         Uti.info("GestionVoyageurs","listerVoyageurs","");
         Uti.sep("-", 50);
         indexOfDisplayedTraveler();
@@ -13,7 +18,7 @@ public class TravellersManagement {
         System.out.println("1 : Ajouter un voyageur");
         System.out.println("2 : Supprimer un voyageur");
         System.out.println("3 : Retour");
-        switch (Menu.choice(3)) {
+        switch (Menu.choiceValueInTheList(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
@@ -39,11 +44,14 @@ public class TravellersManagement {
 
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
 
     protected static void addTraveler() throws Exception {
+        /**
+         add traveler in the list of travelers
+         */
         Uti.info("GestionVoyageurs","ajouterVoyageur()","");
 
         boolean bOk = false;
@@ -52,16 +60,11 @@ public class TravellersManagement {
         String nom = "";
         int age = -1;
         Traveler voyageurAjoute;
-        // affichage liste des hotes
-
-        //        Menu.getListeHotes().forEach(voyageur->voyageur.afficher());
         indexOfDisplayedTraveler();
-        // saisie nom et prénom
         System.out.print("Entrer le prénom: ");
         prenom = Menu.sc.nextLine();
         System.out.print("Entrer le nom: ");
         nom = Menu.sc.nextLine();
-        // saisie age
         while (!bOk) {
             try {
                 System.out.print("Entrer l'âge': ");
@@ -73,14 +76,10 @@ public class TravellersManagement {
             } catch (NumberFormatException nfe) {
                 System.out.println("il faut un age saisi en chiffre(s) et positif");
             }
-//            listerVoyageurs();
 
         }
-        // instanciation hôte
         voyageurAjoute= new Traveler(nom,prenom,age);
-        // ajout d'un voyageur à la liste des voyageurs
         Menu.getTravelerArrayList().add(voyageurAjoute);
-        // affiche la liste de tous les voyageurs
         indexOfDisplayedTraveler();
     }
     protected static void deleteTraveler() throws Exception{
@@ -107,7 +106,6 @@ public class TravellersManagement {
                     System.out.println("il faut un indice compris entre 0 et "+ (Menu.getTravelerArrayList().size()-1));
                 }
                 indexOfDisplayedTraveler();
-                //            Menu.getListeVoyageur().forEach(voyageur->voyageur.afficher());
             }
             System.out.println();
             Menu.getTravelerArrayList().remove(indiceSuppr);
@@ -121,7 +119,6 @@ public class TravellersManagement {
          * display method of this element and go to the next line
          */
         Uti.info("GestionVoyageurs","indiceVoyageurAffiche()","");
-        // affiche la liste de tous les voyageurs
         int indiceAffi=0;
         for(Traveler voyageur:Menu.getTravelerArrayList()){
             System.out.print(indiceAffi+". ");

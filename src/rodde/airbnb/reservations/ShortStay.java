@@ -8,7 +8,13 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class ShortStay extends Stay {
-
+    /**
+     the short stay hasn't price minoration
+     * @param dateArrivee
+     * @param nbNuits
+     * @param logement
+     * @param nbVoyageurs
+     */
     public ShortStay(LocalDate dateArrivee, int nbNuits, Housing logement, int nbVoyageurs) {
 
         super(dateArrivee, nbNuits, logement, nbVoyageurs);

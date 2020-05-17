@@ -12,6 +12,9 @@ public class Appartment extends Housing {
         this.balconyArea =balconyArea;
     }
     public void display(){
+        /**
+         * display in console the appartement's description
+         */
         Uti.info("Appartement","afficher()","");
 
         host.display();
@@ -33,6 +36,9 @@ public class Appartment extends Housing {
 
     @Override
     public String stringDisplay() {
+        /**
+         * returns a description of the appartment as a string
+         */
         String s = host.stringDisplay();
         s += "Le logement est un appartement situé "+ address + " au ";
         if(floorNumber == 0){
@@ -52,6 +58,9 @@ public class Appartment extends Housing {
     }
 
     public   String shortDisplay(){
+        /**
+         * returns a short appartment's description for the combo
+         */
         Uti.info("Appartment","shortDisplay()","");
         String description= " Appartement (";
         description += area +"m²),\n";

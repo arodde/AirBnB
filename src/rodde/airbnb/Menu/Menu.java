@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
+    /**
+     this class displays the list of host, Travelers, housing, and booking
+     */
     public static Scanner sc;
     private static int selectedOption;
 
@@ -30,7 +33,6 @@ public class Menu {
     private static ViewHostCreation viewHostCreation;
     private static ViewTravelerCreation viewTravelerCreation;
     private static ViewHouseCreation viewHouseCreation;
-//    private static View viewMenu;// view appartement
     public static void displayBookings(){
         if(bookingArrayList.size()>0){
             for (int i = 0; i < bookingArrayList.size(); i++){
@@ -84,57 +86,11 @@ public class Menu {
         Uti.info("Menu","airBnB","");
 
         System.out.println( "Bienvenue chez AirBnB" );
-
-//        hostArrayList = new ArrayList<Host>();
-//        travelerArrayList = new ArrayList<Traveler>();
-//        housingArrayList = new ArrayList<Housing>();
-//        bookingArrayList = new ArrayList<Booking>();
-//        hostsManagement = new HostsManagement();
-//        housingManagement = new HousingManagement();
-//        travellersManagement = new TravellersManagement();
-//        bookingManagement = new BookingManagement();
-
-/*
-//        Host h1 = new Host("zz","rr",1,12);
-//        hostArrayList.add(h1);
-//        ViewHostCreation vch = new ViewHostCreation();
-
-//        Traveler v1 = new Traveler("zo","rp",55);
-//        travelerArrayList.add(v1);
-//        ViewTravellerCreation vcv = new ViewTravellerCreation();
-
-//        ViewHouseCreation vhc = new ViewHouseCreation();
-
-//        House m1 = new House(h1,89,"ert",752,10,1700,true);
-//        Appartment a1 = new Appartment(h1,88,"ab cdefg hijk lmnopqr stu vwxyz",45,4,7,3);
-//
-//        LocalDate dateArrivee = LocalDate.of(2020, 4, 3);
-//        Stay s1 = null;
-//        int periodOfStay =3;
-//        if (periodOfStay < 6) {
-//            s1 = new ShortStay(dateArrivee, periodOfStay, m1, 5);
-//        } else {
-//            s1 = new LongStay(dateArrivee, periodOfStay, m1, 5);
-//        }
-//        try {
-//            Booking r1 = new Booking(s1,v1);
-//            bookingArrayList.add(r1);
-//        } catch (instantiationBookingException e) {
-//            System.out.println("réservation impossible à prendre!!!");
-//            e.printStackTrace();
-//        }
-//        housingArrayList.add(m1);
-//        housingArrayList.add(a1);
-//
-//        displayBookings();
-*/
-
-// ----------> this loop will be replace by the window viewMenu
         while(selectedOption <1|| selectedOption >6){
             selectedOption = 0;
 //            sc.useDelimiter("\n");
             listMenu();
-            selectedOption = choice(6);
+            selectedOption = choiceValueInTheList(6);
             switch(selectedOption){
                 case 1 :
                     hostsManagement.listHostsMenu();
@@ -185,12 +141,11 @@ public class Menu {
         System.out.println("4. Liste des réservations");
         System.out.println("5. Fermer le programme");
     }
-    static int choice(int maxValue){
+    static int choiceValueInTheList(int maxValue){
         Uti.info("Menu","choix()","");
         boolean ok= false;
         String sChoix = "";
         int iChoix=0;
-        // cette boucle permet de refaire sa saisie si l'exception ne stoppe pas le programme
         while(!ok) {
             try {
                 sChoix = sc.next();
@@ -199,17 +154,14 @@ public class Menu {
                     ok = true;
                 } else {
                     System.out.println("il faut choisir entre 1 et " + maxValue);
-//                    listerMenu();
                 }
 
             } catch (NumberFormatException nfe) {
-                // affiche un message d'erreur et poursuit le programme
                 System.out.println("NumberFormatException: " + nfe.getMessage());
                 System.out.println("Entrer un chiffre compris entre 1 et " + maxValue);
 //            } catch (InputMismatchException e) {
-//                // affiche un message d'erreur et stoppe le programme
 //                System.out.println(e);
-//                e.printStackTrace(); // donne la pile
+//                e.printStackTrace();
 //                System.out.println("Entrer un chiffre compris entre 1 et " + maxValue);
             }
         }

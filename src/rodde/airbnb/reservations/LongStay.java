@@ -7,6 +7,13 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class LongStay extends Stay {
+    /**
+     the long stay has a price minoration
+     * @param dateArrivee
+     * @param nbNuits
+     * @param logement
+     * @param nbVoyageurs
+     */
     public LongStay(LocalDate dateArrivee, int nbNuits, Housing logement, int nbVoyageurs) {
         super(dateArrivee, nbNuits, logement, nbVoyageurs);
         this.rate = rateUpdate();

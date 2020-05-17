@@ -15,6 +15,9 @@ public class House extends Housing {
 
 
     public void display(){
+        /**
+         * return a house's description for the console
+         */
         Uti.info("House","afficher","");
         host.display();
         System.out.println("Le logement est une maison située "+ address +".\n");
@@ -33,6 +36,9 @@ public class House extends Housing {
 
     @Override
     public String stringDisplay() {
+        /**
+         * returns a house's description as a string
+         */
         String s = host.stringDisplay();
         s += "Le logement est une maison située "+ address +".\n";
         s += "Superficie : "+ area +"m².\n";
@@ -50,6 +56,9 @@ public class House extends Housing {
     }
 
     public   String shortDisplay(){
+        /**
+         * gives a short house's description for the combo
+         */
         Uti.info("House","shortDisplay()","");
         String description= " Maison (";
         description += area +"m²),\n";

@@ -3,18 +3,21 @@ package rodde.airbnb.Menu;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
-import javax.swing.*;
-
 public class HostsManagement {
-
+    /**
+     this class manages the menu in console menu for add, delete operations
+     */
     public static void listHostsMenu() {
+        /**
+         displays the host' menu
+         */
         Uti.info("GestionHotes","listerHotes()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter un hôte");
         System.out.println("2 : Supprimer un hôte");
         System.out.println("3 : Retour");
-        switch (Menu.choice(3)) {
+        switch (Menu.choiceValueInTheList(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
@@ -43,7 +46,7 @@ public class HostsManagement {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
 
@@ -118,7 +121,6 @@ public class HostsManagement {
         else
         {
             indexOfDisplayedHost();
-            // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
@@ -133,9 +135,7 @@ public class HostsManagement {
 
 
 
-                // affiche la liste de tous les hôtes
                 indexOfDisplayedHost();
-//            Menu.getListeHotes().forEach(hote->hote.afficher());
             }
             System.out.println();
             Menu.getHostArrayList().remove(indiceSuppr);

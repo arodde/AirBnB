@@ -6,7 +6,9 @@ import rodde.airbnb.logements.House;
 import rodde.airbnb.util.Uti;
 
 public class HousingManagement {
-
+    /**
+     this class manages the menu in console menu for add, delete operations
+     */
     protected static void indexOfDisplayedHousing() {
         /**
          * display the list's element with index and call the
@@ -23,13 +25,16 @@ public class HousingManagement {
         }
     }
     public static void listHousingsMenu() {
+        /**
+         displays the housings' menu
+         */
         Uti.info("GestionLogements","listerLogements()","");
         Uti.sep("-", 50);
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter un logement");
         System.out.println("2 : Supprimer un logement");
         System.out.println("3 : Retour");
-        switch (Menu.choice(3)) {
+        switch (Menu.choiceValueInTheList(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
@@ -58,7 +63,7 @@ public class HousingManagement {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
 
@@ -77,9 +82,7 @@ public class HousingManagement {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
 
         } else {
-            // afficher la liste des hôtes
             HostsManagement.indexOfDisplayedHost();
-            // saisie nombre de voyageurs
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro de l'hôte': ");
@@ -92,7 +95,6 @@ public class HousingManagement {
                     System.out.println("il faut un numero d'hôte saisi en chiffre(s) et positif");
                 }
             }
-            // tarif journalier
             bOk=false;
             while (!bOk) {
                 try {
@@ -106,10 +108,8 @@ public class HousingManagement {
                     System.out.println("il faut un tarif journalier saisi en chiffre(s) et positif");
                 }
             }
-            // adresse Hôte
             System.out.println("Entrer l'adresse de l'hôte:");
             adresseHote = Menu.sc.nextLine();
-            // superficie
             bOk=false;
             while (!bOk) {
                 try {
@@ -123,7 +123,6 @@ public class HousingManagement {
                     System.out.println("il faut une superficie saisie en chiffre(s) et positive");
                 }
             }
-            // nombre voyageurs max
             bOk=false;
             while (!bOk) {
                 try {
@@ -137,7 +136,6 @@ public class HousingManagement {
                     System.out.println("il faut un nombre maximum de voyageurs saisi en chiffre(s) et positif");
                 }
             }
-            // superficie jardin
             bOk=false;
             superficieJardin = 0;
             while (!bOk) {
@@ -152,7 +150,6 @@ public class HousingManagement {
                     System.out.println("il faut une superficie du jardin saisie en chiffre(s) et positive");
                 }
             }
-            // possède piscine
             bOk= false;
             while (!bOk) {
                 if (repBoolPiscine.contains("O") /*repBoolPiscine == "O" || repBoolPiscine == "o"*/) {
@@ -167,15 +164,10 @@ public class HousingManagement {
                     System.out.println(repBoolPiscine);
                 }
             }
-            //
-            // instanciation maison
             House houseAjoute = new House(Menu.getHostArrayList().get(numeroHote), tarifJournalier,
                     adresseHote, superficie, nombreVoyageursMax,
                     superficieJardin, possedePiscine);
-            // ajout d'un hote à la liste des hotes
             Menu.getHousingArrayList().add(houseAjoute);
-            // affiche la liste de tous les logement
-//            Menu.getListeLogement().forEach(logement->logement.afficher());
             indexOfDisplayedHousing();
 
         }
@@ -194,9 +186,7 @@ public class HousingManagement {
         if (Menu.getHostArrayList().isEmpty()) {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
         } else {
-            // afficher la liste des hôtes
             HostsManagement.indexOfDisplayedHost();
-            // saisie nombre de voyageurs
             bOk = false;
             while (!bOk) {
                 try {
@@ -210,7 +200,6 @@ public class HousingManagement {
                     System.out.println("il faut un numero d'hôte saisi en chiffre(s) et positif");
                 }
             }
-            // tarif journalier
             bOk = false;
             while (!bOk) {
                 try {
@@ -224,10 +213,8 @@ public class HousingManagement {
                     System.out.println("il faut un tarif journalier saisi en chiffre(s) et positif");
                 }
             }
-            // adresse Hôte
             System.out.println("Entrer l'adresse de l'hôte:");
             adresseHote = Menu.sc.nextLine();
-            // superficie
             bOk = false;
             while (!bOk) {
                 try {
@@ -241,7 +228,6 @@ public class HousingManagement {
                     System.out.println("il faut une superficie saisie en chiffre(s) et positive");
                 }
             }
-            // nombre voyageurs max
             bOk = false;
             while (!bOk) {
                 try {
@@ -255,7 +241,6 @@ public class HousingManagement {
                     System.out.println("il faut un nombre maximum de voyageurs saisi en chiffre(s) et positif");
                 }
             }
-            // numéro etage
             bOk = false;
             numeroEtage = 0;
             while (!bOk) {
@@ -270,7 +255,6 @@ public class HousingManagement {
                     System.out.println("il faut un numéro d'étage saisie en chiffre(s) et positive");
                 }
             }
-            // superficie balcon
             bOk = false;
             superficieBalcon = 0;
             while (!bOk) {
@@ -285,16 +269,11 @@ public class HousingManagement {
                     System.out.println("il faut une superficie du balcon saisie en chiffre(s) et positive");
                 }
             }
-
-            // instanciation maison
             Appartment appartementAjoute =
                     new Appartment(Menu.getHostArrayList().get(numeroHote),
                             tarifJournalier, adresseHote, superficie,
                             nombreVoyageursMax, numeroEtage, superficieBalcon);
-            // ajout d'un hote à la liste des hotes
             Menu.getHousingArrayList().add(appartementAjoute);
-            // affiche la liste de tous les logement
-//            Menu.getListeLogement().forEach(logement->logement.afficher());
             indexOfDisplayedHousing();
 
       /*
@@ -415,7 +394,7 @@ public class HousingManagement {
         System.out.println("1 : Ajouter un maison");
         System.out.println("2 : Supprimer un appartement");
         System.out.println("3 : Retour");
-        switch (Menu.choice(3)) {
+        switch (Menu.choiceValueInTheList(3)) {
             case 1:
                 Menu.sc.nextLine();
                 addHouse();
@@ -429,7 +408,7 @@ public class HousingManagement {
                 listHousingsMenu();
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
 

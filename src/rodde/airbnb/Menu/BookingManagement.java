@@ -12,21 +12,20 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 
 public class BookingManagement {
-
+    /**
+     this class manages the menu in console menu for add, delete operations
+     */
     public static void listBookingsMenu() {
+        /**
+         displays the bookings' menu
+         */
         Uti.info("GestionReservations","listerReservations()","");
         Uti.sep("-", 50);
-
-//        System.out.println("les listes");
-//        System.out.println(Menu.getListeHotes().size());
-//        System.out.println(Menu.getListeLogements().size());
-//        System.out.println(Menu.getListeReservations().size());
-//        System.out.println(Menu.getListeVoyageurs().size());
         System.out.println("Saisir une option");
         System.out.println("1 : Ajouter une réservation");
         System.out.println("2 : Supprimer une réservation");
         System.out.println("3 : Retour");
-        switch (Menu.choice(3)) {
+        switch (Menu.choiceValueInTheList(3)) {
             case 1:
                 Menu.sc.nextLine();
                 try {
@@ -56,7 +55,7 @@ public class BookingManagement {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + Menu.choice(3));
+                throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
     protected static void addBooking() throws Exception {
@@ -72,8 +71,7 @@ public class BookingManagement {
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
         File file = null;
-        TravellersManagement gestionVoyageurs =null;
-        // voyageur affichage des voyageurs et choix de l'indice
+        TravellersManagement travellersManagement =null;
         indexOfDisplayedBooking();
         //
         if (Menu.getTravelerArrayList().isEmpty()) {
@@ -82,9 +80,7 @@ public class BookingManagement {
         }
         else
         {
-            // afficher la liste des voyageurs
             TravellersManagement.indexOfDisplayedTraveler();
-            // saisie nombre de voyageurs
             bOk=false;
             while (!bOk) {
                 try {
@@ -100,17 +96,13 @@ public class BookingManagement {
             }
             voyageur = Menu.getTravelerArrayList().get(numeroVoyageur);
         }
-
-        // détermination numéro du logement
         if (Menu.getHousingArrayList().isEmpty()) {
             System.out.println("Aucun logement enregistré, Toute séjour doit doit être rattaché à un logement.");
             Menu.listMenu();
         }
         else
         {
-            // afficher la liste des logements
             HousingManagement.indexOfDisplayedHousing();
-            // saisie nombre de logements
             bOk=false;
             while (!bOk) {
                 try {
@@ -126,10 +118,7 @@ public class BookingManagement {
             }
 
         }
-        // affichage liste des réservations
         Menu.getBookingArrayList().forEach(reservation->reservation.display());
-
-        // determination du nombre de nuits
         bOk = false;
         while (!bOk) {
             try {
@@ -143,14 +132,11 @@ public class BookingManagement {
                 System.out.println("il faut un nombre du nuit saisi en chiffre(s) et positif");
             }
         }
-        // détermination de la date du séjour
         bOk = false;
         while(!bOk){
             int annee =-1;
             int mois =-1;
             int jour =-1;
-//            while( annee < LocalDate.now().getYear()){
-            // saisie annee
             while (!bOk) {
                 try {
                     System.out.println("Année de réservation? : ");
@@ -163,11 +149,7 @@ public class BookingManagement {
                     System.out.println("il faut une année saisie en chiffre(s) et actuelle ou future.");
                 }
             }
-//            }
             bOk = false;
-//            while( mois < LocalDate.now().getMonth().ordinal()){
-
-            // saisie mois
             while (!bOk) {
                 try {
                     System.out.println("Mois de réservation? : ");
@@ -205,11 +187,8 @@ public class BookingManagement {
             sejour = new LongStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
 
         }
-        // instanciation Réservation
         bookingAdded  =new Booking(sejour,voyageur);
-        // ajout d'une réservation à la liste des réservations
         Menu.getBookingArrayList().add(bookingAdded);
-        // affiche la liste de tous les réservations
 
         indexOfDisplayedBooking();
 
