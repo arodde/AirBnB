@@ -3,6 +3,9 @@ package rodde.airbnb.logements;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class Housing {
     protected Host host;
     protected int daylyRate;
@@ -10,6 +13,11 @@ public abstract class Housing {
     protected int area;
     protected int maxTravelersNumber;
     public Housing(Host host, int daylyRate, String address, int area, int maxTravelersNumber) {
+        /**
+         * the control ot the address with the regular
+         * expression is moved in the checking
+         * of the field in the windows of housing creation
+         */
         Uti.info("Housing","Logement","");
         this.host = host;
         this.daylyRate = daylyRate;
@@ -28,10 +36,7 @@ public abstract class Housing {
         return host;
     }
 
-    public String getAddress() {
-        Uti.info("Housing","getAdresse","");
-        return address;
-    }
+
 
     public int getArea() {
         Uti.info("Housing","getSuperficie","");
@@ -44,6 +49,8 @@ public abstract class Housing {
     }
 
     public  abstract void display();
+
+
     public  abstract String stringDisplay();
     public  abstract String shortDisplay();
     public abstract int getTotalArea();
