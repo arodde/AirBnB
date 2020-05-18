@@ -9,6 +9,7 @@ import rodde.airbnb.utilisateurs.Traveler;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class BookingManagement {
@@ -59,35 +60,33 @@ public class BookingManagement {
         }
     }
     protected static void addBooking() throws Exception {
-        Uti.info("GestionReservations","ajouterReservation()","");
+        Uti.info("GestionReservations", "ajouterReservation()", "");
         boolean bOk = false;
-        int nombreNuit =-1;
-        int numeroVoyageur=-1;
-        int numeroLogement= -1;
-        Traveler voyageur=null;
-        Stay sejour ;
+        int nombreNuit = -1;
+        int numeroVoyageur = -1;
+        int numeroLogement = -1;
+        Traveler voyageur = null;
+        Stay sejour;
         Booking bookingAdded;
         LocalDate dateSejour = null;
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
         File file = null;
-        TravellersManagement travellersManagement =null;
+        TravellersManagement travellersManagement = null;
         indexOfDisplayedBooking();
         //
         if (Menu.getTravelerArrayList().isEmpty()) {
             System.out.println("Aucun voyageur enregistré, Toute réservation doit être rattachée à un voyageur");
             Menu.listMenu();
-        }
-        else
-        {
+        } else {
             TravellersManagement.indexOfDisplayedTraveler();
-            bOk=false;
+            bOk = false;
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro du voyageur dans la liste: ");
                     numeroVoyageur = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroVoyageur >= 0 && numeroVoyageur<= (Menu.getTravelerArrayList().size()-1)) {
+                    if (numeroVoyageur >= 0 && numeroVoyageur <= (Menu.getTravelerArrayList().size() - 1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -99,11 +98,9 @@ public class BookingManagement {
         if (Menu.getHousingArrayList().isEmpty()) {
             System.out.println("Aucun logement enregistré, Toute séjour doit doit être rattaché à un logement.");
             Menu.listMenu();
-        }
-        else
-        {
+        } else {
             HousingManagement.indexOfDisplayedHousing();
-            bOk=false;
+            bOk = false;
             while (!bOk) {
                 try {
                     System.out.println("Entrer le numéro du logement choisi dans la liste: ");
@@ -118,7 +115,7 @@ public class BookingManagement {
             }
 
         }
-        Menu.getBookingArrayList().forEach(reservation->reservation.display());
+        Menu.getBookingArrayList().forEach(reservation -> reservation.display());
         bOk = false;
         while (!bOk) {
             try {
@@ -133,14 +130,14 @@ public class BookingManagement {
             }
         }
         bOk = false;
-        while(!bOk){
-            int annee =-1;
-            int mois =-1;
-            int jour =-1;
+        while (!bOk) {
+            int annee = -1;
+            int mois = -1;
+            int jour = -1;
             while (!bOk) {
                 try {
                     System.out.println("Année de réservation? : ");
-                    annee =Menu.sc.nextInt();
+                    annee = Menu.sc.nextInt();
                     Menu.sc.nextLine();
                     if (annee >= LocalDate.now().getYear()) {
                         bOk = true;
@@ -153,79 +150,77 @@ public class BookingManagement {
             while (!bOk) {
                 try {
                     System.out.println("Mois de réservation? : ");
-                    mois =Menu.sc.nextInt();
+                    mois = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (mois >= 1&& mois <=12) {
+                    if (mois >= 1 && mois <= 12) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
                     System.out.println("il faut un mois saisi en chiffre(s) entre 1 et 12");
                 }
             }
-//            }
 
-            while( jour < 1 || jour > 31){
+            while (jour < 1 || jour > 31) {
                 System.out.println("Jour de réservation? : ");
                 jour = Menu.sc.nextInt();
             }
-            dateSejour= dateSejour.of(annee,mois,jour);
-            bOk=false;
-            if( dateSejour.isAfter(LocalDate.now())){
-                bOk=true;
-            }
-            else
-            {
+            dateSejour = dateSejour.of(annee, mois, jour);
+            bOk = false;
+            if (dateSejour.isAfter(LocalDate.now())) {
+                bOk = true;
+            } else {
                 System.out.println("Cette date de réservation est impossible retenir car antérieure à la date actuelle.");
             }
         }
 
 
-        // ajout du séjour court ou longs
         if (nombreNuit < 6) {
             sejour = new ShortStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
         } else {
             sejour = new LongStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
 
         }
-        bookingAdded  =new Booking(sejour,voyageur);
+        bookingAdded = new Booking(sejour, voyageur);
         Menu.getBookingArrayList().add(bookingAdded);
 
-        indexOfDisplayedBooking();
+//        indexOfDisplayedBooking();
 
-        // sauvegarde dans un fichier de la réservation
-  /*      try {
-//            String racine ="D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\";
+   /*     // sauvegarde dans un fichier de la réservation
+        try {
+            String racine ="D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\";
             // création dossier de sauvegarde
+
+
             path = Paths.get("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites");
 
-            //if directory exists?
+            if directory exists?
             if (!exists(path)) {
                 try {
                     Files.createFile(path);
-//                    createDirectories(path);
+                    createDirectories(path);
                 } catch (IOException e) {
                     //fail to create directory
                     e.printStackTrace();
                 }
-            }*/
-            ////
-
-            ////
-//Files.createDirectories("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-//            String fichier = "D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt";
-//            FileWriter fw = new FileWriter("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-
-
-
-        File doss = new File("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzdoss");
-        if (!doss.exists()) {
-            if (doss.mkdirs()) {
-                System.out.println("Multiple directories are created!");
-            } else {
-                System.out.println("Failed to create multiple directories!");
             }
-        }
-        FileWriter fw = new FileWriter("xyzmydatajava.txt",true);
+            //
+
+            //
+            Files.createDirectories("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
+            String fichier = "D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt";
+            FileWriter fw = new FileWriter("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
+
+
+
+            File doss = new File("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzdoss");
+            if (!doss.exists()) {
+                if (doss.mkdirs()) {
+                    System.out.println("Multiple directories are created!");
+                } else {
+                    System.out.println("Failed to create multiple directories!");
+                }
+            }
+            FileWriter fw = new FileWriter("xyzmydatajava.txt",true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.print("Numéro du Voyageur : " + numeroVoyageur + "\n");
@@ -234,14 +229,15 @@ public class BookingManagement {
             pw.print("Nombre de nuits : " + nombreNuit + "\n");
             pw.print("Nombre de personnes : " + sejour.getTravelersNumber() + "\n");
             pw.close();
-//        } catch (Exception e) {
-//            System.err.println("error");
-//        }
-//        } catch (FileNotFoundException e){
-//            System.out.println("=======> Impossible ouvrir fichier :"+ e.getMessage());
-//        } catch (IOException e){
-//            System.out.println("=======> Erreur lecture/écriture"+ e.getMessage());
-//        }
+        } catch (Exception e) {
+            System.err.println("error");
+        }
+    } catch (FileNotFoundException e){
+        System.out.println("=======> Impossible ouvrir fichier :"+ e.getMessage());
+    } catch (IOException e){
+        System.out.println("=======> Erreur lecture/écriture"+ e.getMessage());
+    }
+*/
     }
     protected static void indexOfDisplayedBooking(){
         /**

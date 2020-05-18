@@ -246,7 +246,7 @@ public class ViewHouseCreation extends JFrame {
         */
         boolean b = false;
         String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
-        String sPattern2 = "(\\s)+.*(\\s)";
+        String sPattern2 = "(\\s)*+([a-zA-Z\\-\\s])*(\\s)*";
         String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
         String sPattern4 = "[a-zA-Z\\-\\s]+";
         String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
