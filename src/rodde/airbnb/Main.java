@@ -2,15 +2,11 @@ package rodde.airbnb;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.reservations.*;
+import rodde.airbnb.util.LesIO;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 import rodde.airbnb.utilisateurs.Traveler;
-import rodde.airbnb.vues.ViewHostCreation;
-import rodde.airbnb.vues.ViewHouseCreation;
-import rodde.airbnb.vues.ViewMenu;
-import rodde.airbnb.vues.ViewTravelerCreation;
 
-import javax.swing.*;
 import java.time.*;
 import java.util.*;
 
@@ -19,14 +15,16 @@ public class Main {
     public static Scanner sc;
 
 
-    public static void main(String[] args)  {
+    public static void main3(String[] args)  {
         /**
          * creates and opens the main window
          */
         Uti.info("Main","main","");
-        sc = new Scanner( System .in);
-        ViewMenu viewMenu = new ViewMenu();
-        sc.close();
+//        sc = new Scanner( System .in);
+//        ViewMenu viewMenu = new ViewMenu();
+//        sc.close();
+
+
     }
     public static void main2(String[] args) throws instantiationBookingException {
 /**
@@ -224,7 +222,22 @@ public class Main {
         Uti.mess("Temps machine vers temps humain");
         sc.close();
     }
+
+    public static void main(String[] args)  {
+        /**
+         * creates and opens the main window
+         */
+        Uti.info("Main","main","");
+        LesIO lesIO = new LesIO();
+//        lesIO.mlio1a();
+//        lesIO.mlio1b();
+//        lesIO.mlio2();
+//        lesIO.mlio3();
+//        lesIO.copyFileInAnother();
+        lesIO.test();
+    }
 }
+
 
 
 

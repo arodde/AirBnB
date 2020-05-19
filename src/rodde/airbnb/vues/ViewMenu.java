@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -41,7 +43,7 @@ public class ViewMenu extends JFrame {
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
-
+public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
     public ItemBooking getCurrentItemBooking() {
         return currentItemBooking;
@@ -88,6 +90,8 @@ public class ViewMenu extends JFrame {
         setSize(600,400);
         System.out.println(this.getX()+" "+this.getY());
         setLocationRelativeTo(null);
+        persistence.createNewRealFile();
+        // persistence.load booking
         initArrayAndManagment();
         initMenu();
         jPanel = new JPanel();
@@ -197,6 +201,7 @@ public class ViewMenu extends JFrame {
                 new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        // persistence save
                         System.exit(0);
                     }
                 }
@@ -224,51 +229,12 @@ public class ViewMenu extends JFrame {
          * displays bookings in the panel
          */
 
- /*
-            private JPanel container = new JPanel();
-            private JRadioButton jr1 = new JRadioButton("Radio 1");
-            private JRadioButton jr2 = new JRadioButton("Radio 2");
-            private ButtonGroup bg = new ButtonGroup();
-
-        public FenetreCFBoutonsRadio(){
-            Uti.info("FenetreCFBoutonsRadio","FenetreCFBoutonsRadio","");
-            this.setSize(300, 300);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setLocationRelativeTo(null);
-            container.setBackground(Color.white);
-            container.setLayout(new BorderLayout());
-            JPanel top = new JPanel();
-            jr1.addActionListener(new StateListener());
-            jr2.addActionListener(new StateListener());
-            // ajout des boutons au groupe et dans le top
-            bg.add(jr1);
-            bg.add(jr2);
-            top.add(jr1);
-            top.add(jr2);
-            container.add(top, BorderLayout.NORTH);
-            this.setContentPane(container);
-            this.setVisible(true);
-        }
-
-        class StateListener implements ActionListener{
-            public void actionPerformed(ActionEvent e) {
-               // System.out.println("source : " + ((JRadioButton)e.getSource()).getText() + " - état : " + ((JRadioButton)e.getSource()).isSelected());
-                System.out.println("source : " + jr1.getText() + " - état : " + jr1.isSelected());
-                System.out.println("source : " + jr2.getText() + " - état : " + jr2.isSelected());
-            }
-        }
-*/
-//      /*  private */  JPanel jPanelTop = new JPanel();
-//
-//        private    ButtonGroup bg = new ButtonGroup();
-//        private      JLabel jLabelReservationStatus = new JLabel("Afficher la réservation?");
-//     /*   private */  JRadioButton jRadioButtonBooked = new JRadioButton("Réservé");
-//  private      JRadioButton jRadioButtonNo = new JRadioButton("non");
 
         jPanel = new JPanel();
         jPanel.setBackground(Color.blue);
         jScrollPane = new JScrollPane(jPanel);
         itemsBookingArrayList.removeAll(itemsBookingArrayList);
+
         for (int i = 0 ; i < bookingArrayList.size(); i++) {
             currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
             itemsBookingArrayList.add(currentItemBooking);
@@ -377,7 +343,30 @@ public class ViewMenu extends JFrame {
             displayBooking();
         }
     }
+    public class Persistence{
+        public File parentFile = new File("C:\\Users\\demon\\IdeaProjects\\AirBnB\\miscelleanous\\");
+        String fileName ="bookings.txt";
 
+        public void createNewRealFile(){
+            /**
+             creates a new file if the file doesn't exist in the path.
+             the path is composed of rootProject and the additionalPath.
+             */
+            String s="";
+            try {
+                s = parentFile.getPath()+fileName;
+                File f = new File(s);
+                if (f.createNewFile())
+                    System.out.println("File created");
+                else
+                    System.out.println("File already exists");
+            } catch (Exception e) {
+                System.out.println("Chemin : "+ s );
+                System.err.println(e);
+            }
+        }
+
+    }
     public class ItemBooking {
         public JPanel jPanelSon = new JPanel();
         public JPanel jPanelCommand;
@@ -413,9 +402,6 @@ public class ViewMenu extends JFrame {
              * organize the position of jCheckBox
              */
             Uti.info("ItemBooking","positionCheckButton","");
-//        jPanelCommand.setLayout(new BorderLayout());
-//        jPanelCommand.add(jCheckBoxConfirm, BorderLayout.NORTH);
-//        jPanelCommand.add(jCheckBoxDelete, BorderLayout.SOUTH);
             jPanelCommand.setLayout(new GridLayout(2,1));
             jPanelCommand.add(jCheckBoxConfirm);
             jPanelCommand.add(jCheckBoxDelete);
