@@ -185,59 +185,7 @@ public class BookingManagement {
 
 //        indexOfDisplayedBooking();
 
-   /*     // sauvegarde dans un fichier de la réservation
-        try {
-            String racine ="D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\";
-            // création dossier de sauvegarde
 
-
-            path = Paths.get("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites");
-
-            if directory exists?
-            if (!exists(path)) {
-                try {
-                    Files.createFile(path);
-                    createDirectories(path);
-                } catch (IOException e) {
-                    //fail to create directory
-                    e.printStackTrace();
-                }
-            }
-            //
-
-            //
-            Files.createDirectories("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-            String fichier = "D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt";
-            FileWriter fw = new FileWriter("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-
-
-
-            File doss = new File("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzdoss");
-            if (!doss.exists()) {
-                if (doss.mkdirs()) {
-                    System.out.println("Multiple directories are created!");
-                } else {
-                    System.out.println("Failed to create multiple directories!");
-                }
-            }
-            FileWriter fw = new FileWriter("xyzmydatajava.txt",true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            pw.print("Numéro du Voyageur : " + numeroVoyageur + "\n");
-            pw.print("Numéro du logement : " + numeroLogement + "\n");
-            pw.print("Date d'arrivée (DD/MM/YYYY) : " + dateSejour + "\n");
-            pw.print("Nombre de nuits : " + nombreNuit + "\n");
-            pw.print("Nombre de personnes : " + sejour.getTravelersNumber() + "\n");
-            pw.close();
-        } catch (Exception e) {
-            System.err.println("error");
-        }
-    } catch (FileNotFoundException e){
-        System.out.println("=======> Impossible ouvrir fichier :"+ e.getMessage());
-    } catch (IOException e){
-        System.out.println("=======> Erreur lecture/écriture"+ e.getMessage());
-    }
-*/
     }
     protected static void indexOfDisplayedBooking(){
         /**

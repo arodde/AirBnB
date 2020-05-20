@@ -6,6 +6,7 @@ import rodde.airbnb.util.LesIO;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 import rodde.airbnb.utilisateurs.Traveler;
+import rodde.airbnb.vues.ViewMenu;
 
 import java.time.*;
 import java.util.*;
@@ -15,14 +16,14 @@ public class Main {
     public static Scanner sc;
 
 
-    public static void main3(String[] args)  {
+    public static void main(String[] args)  {
         /**
          * creates and opens the main window
          */
         Uti.info("Main","main","");
-//        sc = new Scanner( System .in);
-//        ViewMenu viewMenu = new ViewMenu();
-//        sc.close();
+        sc = new Scanner( System .in);
+        ViewMenu viewMenu = new ViewMenu();
+        sc.close();
 
 
     }
@@ -223,7 +224,7 @@ public class Main {
         sc.close();
     }
 
-    public static void main(String[] args)  {
+    public static void main3(String[] args)  {
         /**
          * creates and opens the main window
          */
