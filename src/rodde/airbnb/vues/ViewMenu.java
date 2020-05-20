@@ -13,7 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class ViewMenu extends JFrame {
     public ArrayList<Housing> housingArrayList;
     public ArrayList<Booking> bookingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
-public Persistence persistence = new Persistence();
+    public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
     public ItemBooking getCurrentItemBooking() {
         return currentItemBooking;
@@ -347,7 +350,7 @@ public Persistence persistence = new Persistence();
         }
     }
     public class Persistence{
-//        public File parentFile = new File("C:\\Users\\demon\\IdeaProjects\\AirBnB\\miscelleanous\\");
+        //        public File parentFile = new File("C:\\Users\\demon\\IdeaProjects\\AirBnB\\miscelleanous\\");
         public File parentFile = new File("miscelleanous/");
         String fileName ="bookings.txt";
 
@@ -372,60 +375,20 @@ public Persistence persistence = new Persistence();
             }
         }
         public void saveBookings(){
-Uti.info("Persistence","saveBookings","");
-               /*     // sauvegarde dans un fichier de la réservation
-        try {
-            String racine ="D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\";
-            // création dossier de sauvegarde
-
-
-            path = Paths.get("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites");
-
-            if directory exists?
-            if (!exists(path)) {
-                try {
-                    Files.createFile(path);
-                    createDirectories(path);
-                } catch (IOException e) {
-                    //fail to create directory
-                    e.printStackTrace();
+            Uti.info("Persistence","saveBookings","");
+            try {
+                FileWriter fw = new FileWriter(parentFile.getPath()+"/"+fileName);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.print("Réservations");
+                for(int i =0; i<bookingArrayList.size();i++){
+                    pw.print(bookingArrayList.get(i).stringDisplay());
                 }
+                pw.print("\nFin du fichier");
+                pw.close();
+            } catch (Exception e) {
+                System.err.println("error");
             }
-            //
-
-            //
-            Files.createDirectories("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-            String fichier = "D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt";
-            FileWriter fw = new FileWriter("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzreservationsfaites\\xyzmydatajava.txt");
-
-
-
-            File doss = new File("D:\\Users\\demon\\Documents\\cdsm_cours\\peter_bardu\\java\\TPs\\TP 6 - Le menu\\xyzdoss");
-            if (!doss.exists()) {
-                if (doss.mkdirs()) {
-                    System.out.println("Multiple directories are created!");
-                } else {
-                    System.out.println("Failed to create multiple directories!");
-                }
-            }
-            FileWriter fw = new FileWriter("xyzmydatajava.txt",true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            pw.print("Numéro du Voyageur : " + numeroVoyageur + "\n");
-            pw.print("Numéro du logement : " + numeroLogement + "\n");
-            pw.print("Date d'arrivée (DD/MM/YYYY) : " + dateSejour + "\n");
-            pw.print("Nombre de nuits : " + nombreNuit + "\n");
-            pw.print("Nombre de personnes : " + sejour.getTravelersNumber() + "\n");
-            pw.close();
-        } catch (Exception e) {
-            System.err.println("error");
-        }
-    } catch (FileNotFoundException e){
-        System.out.println("=======> Impossible ouvrir fichier :"+ e.getMessage());
-    } catch (IOException e){
-        System.out.println("=======> Erreur lecture/écriture"+ e.getMessage());
-    }
-*/
         }
     }
     public class ItemBooking {

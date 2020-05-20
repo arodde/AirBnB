@@ -34,10 +34,10 @@ public class Booking {
     private LocalDate bookingDate;
     public Booking(/*int identifiant,*/ Stay stay, Traveler traveler ) throws instantiationBookingException {
         /**
-          the booking's constructor instantiates a booking if the stay respects several conditions:
-           - the arrivalDate have to be  posterior the instantiation
-           - the travelersNumber have to be equal or inferior of the maximum traveler's Number of the housing
-           - the otherNightsNumber have to be between 1 nights and the end of the month
+         the booking's constructor instantiates a booking if the stay respects several conditions:
+         - the arrivalDate have to be  posterior the instantiation
+         - the travelersNumber have to be equal or inferior of the maximum traveler's Number of the housing
+         - the otherNightsNumber have to be between 1 nights and the end of the month
          */
         Uti.info("Reservation", "Reservation()","2 p");
         if((!stay.arrivalDateVerification())||(!stay.checkTravelersNumber())||(!stay.overnightsNumberVerification())){
@@ -82,12 +82,12 @@ public class Booking {
          give the description of the booking and display it in the window
          */
         Uti.info("Reservation", "stringDisplay()","");
-        String textOfReservation =this.getId()+":\n";
-
+        editBookingState();
+        String textOfReservation ="\n\n"+this.getId()+" ";
+        textOfReservation +="("+ this.bookingState.toUpperCase()+"):\n";
         textOfReservation +=  traveler.stringDisplay();
         textOfReservation += " a fait ";
-        editBookingState();
-        textOfReservation += bookingState+"chez ";
+        textOfReservation += bookingState+" chez ";
         textOfReservation += stay.stringDisplay();
         return textOfReservation;
     }
