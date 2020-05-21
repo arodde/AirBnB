@@ -3,6 +3,10 @@ package rodde.airbnb.utilisateurs;
 import rodde.airbnb.util.Uti;
 
 public class Person {
+
+    protected String surname;
+    protected String firstname;
+    protected int age;
     public String getSurname() {
         return surname;
     }
@@ -19,9 +23,6 @@ public class Person {
         this.firstname = firstname;
     }
 
-    protected String surname;
-    protected String firstname;
-    protected int age;
     public Person(String surname, String firstname, int age){
 //       Uti.info("Personne", "Personne()","3 paramètres");
         this.surname = surname;
@@ -36,4 +37,5 @@ public class Person {
         Uti.info("Personne", "afficher()","");
         return  firstname +" "+ surname +" ("+ age+" ans)";
     }
+
 }

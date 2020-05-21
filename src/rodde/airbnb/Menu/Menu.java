@@ -19,8 +19,6 @@ public class Menu {
      */
     public static Scanner sc;
     private static int selectedOption;
-
-
     private static ArrayList<Host> hostArrayList;
     private static ArrayList<Traveler> travelerArrayList;
     private static ArrayList<Housing> housingArrayList;

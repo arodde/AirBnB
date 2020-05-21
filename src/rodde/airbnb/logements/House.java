@@ -55,6 +55,11 @@ public class House extends Housing {
         return s;
     }
 
+    @Override
+    public String stringItemDisplay() {
+        return this.id +" "+ shortDisplay();
+    }
+
     public   String shortDisplay(){
         /**
          * gives a short house's description for the combo
@@ -71,6 +76,7 @@ public class House extends Housing {
         description += "pour "+getMaxTravelersNumber()+" personnes\n";
         return description;
     }
+
     @Override
     public int getTotalArea() {
         Uti.info("House","getSuperficieTotale","");

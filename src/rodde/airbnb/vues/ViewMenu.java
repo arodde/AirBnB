@@ -1,6 +1,5 @@
 package rodde.airbnb.vues;
 
-import com.sun.javaws.IconUtil;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
@@ -17,7 +16,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -48,6 +46,7 @@ public class ViewMenu extends JFrame {
     public ArrayList<ItemBooking> itemsBookingArrayList ;
     public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
+//    public  ItemHost currentItemHost;
     public ItemBooking getCurrentItemBooking() {
         return currentItemBooking;
     }
@@ -552,4 +551,164 @@ public class ViewMenu extends JFrame {
             }
         }
     }
+
+//    public class ItemHost {
+//        public JPanel jPanelSon = new JPanel();
+//        public JPanel jPanelCommand;
+//        public JTextPane jTextPane ;
+//        public Host host ;
+//        public JCheckBox jCheckBoxConfirm= new JCheckBox("Réserver");
+//        public JCheckBox jCheckBoxDelete= new JCheckBox("Supprimer");
+//        public ViewMenu viewMenu;
+////        BookingConfirmListener bookingConfirmListener = new BookingConfirmListener();
+//        HostDeleteListener hostDeleteListener = new BookingDeleteListener();
+//
+//        ItemHost(Host host, ViewMenu viewMenu){
+//            this.host = host;
+//            this.viewMenu = viewMenu;
+////            jCheckBoxConfirm.addActionListener(bookingConfirmListener);
+//            jCheckBoxDelete.addActionListener(hostDeleteListener);
+//        }
+//        public void updateItemHost(){
+//            /**
+//             * the current ItemHost becomes the currentItemHost of viewMenu.
+//             */
+//            viewMenu.currentItemHost = this;
+//        }
+//        public void organizeJPanelSon(){
+//            Uti.info("ItemHost","public void organizeJPanelSon(){\n","");
+//            jPanelSon.setLayout(new BorderLayout());
+//            jPanelSon.add(jTextPane, BorderLayout.WEST);
+//            jPanelSon.add(jPanelCommand, BorderLayout.EAST);
+//            positionCheckButton();
+//        }
+//        public void positionCheckButton(){
+//            /**
+//             * organize the position of jCheckBox
+//             */
+//            Uti.info("ItemHost","positionCheckButton","");
+//            jPanelCommand.setLayout(new GridLayout(2,1));
+//            jPanelCommand.add(jCheckBoxConfirm);
+//            jPanelCommand.add(jCheckBoxDelete);
+//        }
+//
+////        class BookingConfirmListener implements ActionListener {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                Uti.info("BookingConfirmListener","actionPerformed","");
+////                Uti.mess("action sur jCheckboxConfirm "+host.getId()+" "+(host.isValidated()?"coché":"decoché"));
+////
+////                updateItemHost();
+////                if(!host.isValidated())
+////                {
+////                    System.out.println(host.getId()+" "+host.isValidated());
+////                    host.setValidated(true);
+////                    currentItemBooking.booking.editBookingState();
+////                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+////                    jTextPane.setBackground(Color.GREEN);
+////                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+////                    currentItemBooking.jCheckBoxConfirm.setSelected(true);
+////                    System.out.println(host.getId()+" "+host.isValidated());
+////                }
+////                else
+////                {
+////                    System.out.println(host.getId()+" "+host.isValidated());
+////                    host.setValidated(false);
+////                    currentItemBooking.booking.editBookingState();
+////                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+////                    jTextPane.setBackground(Color.red);
+////                    currentItemBooking.jCheckBoxDelete.setVisible(true);
+////                    currentItemBooking.jCheckBoxConfirm.setSelected(false);
+////                    System.out.println(host.getId()+" "+host.isValidated());
+////                }
+////            }
+////        }
+//        class HostDeleteListener implements ActionListener {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                /**
+//                 delete the host in the list
+//                 */
+//                Uti.info("HostDeleteListener","actionPerformed","");
+//                if(currentItemHost.host.isValidated()){
+////                    jCheckBoxDelete.setVisible(false);
+////                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+//                    System.out.println("impossible supprimer réservation confirmée");
+//                }
+//                else {
+////                    jCheckBoxDelete.setVisible(true);
+////                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+//
+////                    updateItemBooking();
+//                    deleteHost();
+//                }
+//                updateItemHost();
+//            }
+//            public void deleteHost(){
+//                /**
+//                 comparates the booking of the currentItembooking with the bookingArrayList.
+//                 If the equality is found the booking is delete in the bookingArrayList.
+//                 the itemBooking at the same position in tne itemBookingArrayList is
+//                 deleted
+//                 actualise the currentItemBooking
+//                 */
+//                Uti.info("BookingDeleteListener","deleteBooking","");
+//                updateItemHost();
+//                displayListItemBookingAndBooking();
+//                for(int i = 0; i< bookingArrayList.size(); i++){
+//                    System.out.println("itemBooking indice : "+i);
+//                    if( currentItemBooking.booking.equals(bookingArrayList.get(i))){
+//                        System.out.println(bookingArrayList.size()+" "+bookingArrayList.get(i).getId());
+//                        Uti.mess("Je supprime la réservation");
+//                        bookingArrayList.remove(bookingArrayList.get(i));
+//                        deleteItemHost(i);
+//                        System.out.println((currentItemBooking.booking != null)?"réservation courante détruite":"anomalie réservation subsiste");
+//                        System.out.println(bookingArrayList.size());
+////                        currentItemBooking= null;
+//                        updateItemHost();
+//                        displayListItemBookingAndBooking();
+//                        displayBooking();
+//                        break;
+//                    }
+//                }
+//            }
+//            public void deleteItemHost(int index){
+//                /**
+//                 deletes the itemHost in the itemsBookingArrayList() at the position
+//                 given by the first parameter
+//                 */
+//                Uti.info("HostDeleteListener","deleteItemHost","");
+//                System.out.println("indice itemHost: "+ index);
+//                Uti.mess("je supprime l'itemHost au même rang de liste");
+//                itemsHostArrayList.remove(itemsHostArrayList.get(index));
+////                for(int j=0;j<itemsBookingArrayList.size();j++){
+////                    if(currentItemHost.equals(itemsHostArrayList.get(j))){
+////                        System.out.println(itemsHostArrayList.size());
+////                        itemsHostArrayList.remove(itemsHostArrayList.get(j));
+////                        System.out.println((currentItemHost != null)?"élément graphique hôte courante détruit":"anomalie élément graphique réservation subsiste");
+////                        System.out.println(itemsHostArrayList.size());
+////                    }
+////                }
+//            }
+//            public void displayListItemHostAndBooking() {
+//                /**
+//                 checks if the itemsHostArrayList and the
+//                 HostArrayList have the same size and display
+//                 a message displays for each itemHost in the
+//                 ArrayList the ID of the Host of the ItemHost
+//                 */
+//                Uti.info("HostDeleteListener","displayListItemHostAndHost","");
+//                if (itemsHostArrayList.size() == HostArrayList.size()) {
+//                    System.out.println("égalité taille listes");
+//                } else
+//                    System.out.println("inégalité longueur listes");
+//                System.out.println("itemH "+itemsHostBookingArrayList.size());
+//                System.out.println("h "+HostArrayList.size());
+//                for (int i = 0 ; i< itemsHostArrayList.size(); i++){
+//                    System.out.print("itemH : "+i+" - h : "+HostArrayList.get(i).getId()+" ");
+//                }
+//                System.out.println();
+//            }
+//        }
+//    }
 }

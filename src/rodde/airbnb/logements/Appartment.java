@@ -57,6 +57,11 @@ public class Appartment extends Housing {
         return s;
     }
 
+    @Override
+    public String stringItemDisplay() {
+        return this.id+ " "+shortDisplay();
+    }
+
     public   String shortDisplay(){
         /**
          * returns a short appartment's description for the combo

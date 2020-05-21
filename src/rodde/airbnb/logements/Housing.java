@@ -7,6 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Housing {
+    protected  int id =0;
+    private static int index =-1;
     protected Host host;
     protected int daylyRate;
     protected String address;
@@ -20,6 +22,8 @@ public abstract class Housing {
 
         */
         Uti.info("Housing","Logement","");
+        this.id = index + 1;
+        index ++;
         this.host = host;
         this.daylyRate = daylyRate;
         this.address = address;
@@ -27,6 +31,9 @@ public abstract class Housing {
         this.maxTravelersNumber = maxTravelersNumber;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public int getDaylyRate() {
         Uti.info("Housing","getTarifJournalier","");
         return daylyRate;
@@ -53,6 +60,7 @@ public abstract class Housing {
 
 
     public  abstract String stringDisplay();
+    public  abstract String stringItemDisplay();
     public  abstract String shortDisplay();
     public abstract int getTotalArea();
 }
