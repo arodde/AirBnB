@@ -55,19 +55,19 @@ public class HostsManagement {
         Uti.info("GestionHotes","ajouterHote()","");
         boolean bOk = false;
 
-        String prenom = "";
-        String nom = "";
+        String firstname = "";
+        String surname = "";
         int age = -1;
-        Host hoteAjoute;
+        Host addedHost;
         // affichage liste des hotes
 
         Menu.getHostArrayList().forEach(hote->hote.display());
 
         // saisie nom et prénom
         System.out.print("Entrer le prénom: ");
-        prenom = Menu.sc.nextLine();
+        firstname = Menu.sc.nextLine();
         System.out.print("Entrer le nom: ");
-        nom = Menu.sc.nextLine();
+        surname = Menu.sc.nextLine();
 
         // saisie age
         while (!bOk) {
@@ -84,9 +84,9 @@ public class HostsManagement {
             indexOfDisplayedHost();
         }
         // instanciation hôte
-        hoteAjoute= new Host(nom,prenom,age,48);
+        addedHost= new Host(surname,firstname,age,48);
         // ajout d'un hote à la liste des hotes
-        Menu.getHostArrayList().add(hoteAjoute);
+        Menu.getHostArrayList().add(addedHost);
         // affiche la liste de tous les hôtes
 //            Menu.getListeHotes().forEach(hote->hote.afficher());
         indexOfDisplayedHost();
@@ -98,12 +98,12 @@ public class HostsManagement {
          */
         Uti.info("GestionHotes","indiceHoteAffiche()","");
         // affiche la liste de tous les hôtes
-        int indiceAffi=0;
+        int displayedIndex=0;
         for(Host hote:Menu.getHostArrayList()){
-            System.out.print("n° "+indiceAffi+" : ");
+            System.out.print("n° "+displayedIndex+" : ");
             hote.display();
             System.out.println();
-            indiceAffi++;
+            displayedIndex++;
         }
     }
 
@@ -113,7 +113,7 @@ public class HostsManagement {
 
         boolean bOk = false;
 
-        int indiceSuppr=0;
+        int deleteIndex=0;
 //        Menu.getListeHotes().forEach(hote -> hote.afficher());
         if(Menu.getHostArrayList().isEmpty()){
             System.out.println("Aucun hôte à supprimer, la liste est vide.");
@@ -124,9 +124,9 @@ public class HostsManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
-                    indiceSuppr = Menu.sc.nextInt();
+                    deleteIndex = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getHostArrayList().size()-1)) {
+                    if (deleteIndex >= 0 && deleteIndex <= (Menu.getHostArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -138,7 +138,7 @@ public class HostsManagement {
                 indexOfDisplayedHost();
             }
             System.out.println();
-            Menu.getHostArrayList().remove(indiceSuppr);
+            Menu.getHostArrayList().remove(deleteIndex);
             indexOfDisplayedHost();
 
         }

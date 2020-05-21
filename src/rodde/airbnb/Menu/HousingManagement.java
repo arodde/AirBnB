@@ -15,13 +15,12 @@ public class HousingManagement {
          * display method of this element and go to the next line
          */
         Uti.info("GestionLogements","indiceLogementAffiche()","");
-        // affiche la liste de tous les logements
-        int indiceAffi = 0;
-        for (Housing logement : Menu.getHousingArrayList()) {
-            System.out.print(indiceAffi + ". ");
-            logement.display();            System.out.println();
-
-            indiceAffi++;
+        int displayedIndex = 0;
+        for (Housing housing : Menu.getHousingArrayList()) {
+            System.out.print(displayedIndex + ". ");
+            housing.display();
+            System.out.println();
+            displayedIndex++;
         }
     }
     public static void listHousingsMenu() {
@@ -70,14 +69,14 @@ public class HousingManagement {
     protected static void addHouse() {
         Uti.info("GestionLogements","ajouterMaison()","");
         boolean bOk = false;
-        int numeroHote = -1;
-        int tarifJournalier = 0;
-        int superficie = 0;
-        int superficieJardin = 0;
-        int nombreVoyageursMax = 0;
-        boolean possedePiscine = false;
+        int numberHost = -1;
+        int daylyTarif = 0;
+        int area = 0;
+        int gardenArea = 0;
+        int maxTravelersNumber = 0;
+        boolean ownSwimmingPool = false;
         String repBoolPiscine = "";
-        String adresseHote = "";
+        String addressHost = "";
         if (Menu.getHostArrayList().isEmpty()) {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
 
@@ -86,9 +85,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro de l'hôte': ");
-                    numeroHote = Menu.sc.nextInt();
+                    numberHost = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroHote >= 0 && numeroHote <= (Menu.getHostArrayList().size()-1)) {
+                    if (numberHost >= 0 && numberHost <= (Menu.getHostArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -99,9 +98,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le tarif journalier': ");
-                    tarifJournalier = Menu.sc.nextInt();
+                    daylyTarif = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (tarifJournalier >= 0) {
+                    if (daylyTarif >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -109,14 +108,14 @@ public class HousingManagement {
                 }
             }
             System.out.println("Entrer l'adresse de l'hôte:");
-            adresseHote = Menu.sc.nextLine();
+            addressHost = Menu.sc.nextLine();
             bOk=false;
             while (!bOk) {
                 try {
                     System.out.print("Entrer la superficie de la maison': ");
-                    superficie = Menu.sc.nextInt();
+                    area = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (superficie >= 0) {
+                    if (area >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -127,9 +126,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le nombre maximum de voyageurs': ");
-                    nombreVoyageursMax = Menu.sc.nextInt();
+                    maxTravelersNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (nombreVoyageursMax >= 0) {
+                    if (maxTravelersNumber >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -137,13 +136,13 @@ public class HousingManagement {
                 }
             }
             bOk=false;
-            superficieJardin = 0;
+            gardenArea = 0;
             while (!bOk) {
                 try {
                     System.out.print("Entrer la superficie du jardin': ");
-                    superficieJardin = Menu.sc.nextInt();
+                    gardenArea = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (superficieJardin >= 0) {
+                    if (gardenArea >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -153,10 +152,10 @@ public class HousingManagement {
             bOk= false;
             while (!bOk) {
                 if (repBoolPiscine.contains("O") /*repBoolPiscine == "O" || repBoolPiscine == "o"*/) {
-                    possedePiscine = true;
+                    ownSwimmingPool = true;
                     bOk = true;
                 } else if (repBoolPiscine.contains("N") /*repBoolPiscine == "N" || repBoolPiscine == "n"*/){
-                    possedePiscine = false;
+                    ownSwimmingPool = false;
                     bOk = true;
                 } else {
                     System.out.println("La maison a t'elle une piscine? (O/N)");
@@ -164,9 +163,9 @@ public class HousingManagement {
                     System.out.println(repBoolPiscine);
                 }
             }
-            House houseAjoute = new House(Menu.getHostArrayList().get(numeroHote), tarifJournalier,
-                    adresseHote, superficie, nombreVoyageursMax,
-                    superficieJardin, possedePiscine);
+            House houseAjoute = new House(Menu.getHostArrayList().get(numberHost), daylyTarif,
+                    addressHost, area, maxTravelersNumber,
+                    gardenArea, ownSwimmingPool);
             Menu.getHousingArrayList().add(houseAjoute);
             indexOfDisplayedHousing();
 
@@ -176,13 +175,13 @@ public class HousingManagement {
     protected static void addAppartment() {
         Uti.info("GestionLogements", "ajouterAppartement()", "");
         boolean bOk = false;
-        int numeroHote = -1;
-        int tarifJournalier = 0;
-        int superficie = 0;
-        int numeroEtage = 0;
-        int superficieBalcon = 0;
-        int nombreVoyageursMax = 0;
-        String adresseHote = "";
+        int hostNumber = -1;
+        int daylyTarif = 0;
+        int area = 0;
+        int floorNumber = 0;
+        int balconyArea = 0;
+        int maxTravelersNumber = 0;
+        String hostAddress = "";
         if (Menu.getHostArrayList().isEmpty()) {
             System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
         } else {
@@ -191,9 +190,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro de l'hôte': ");
-                    numeroHote = Menu.sc.nextInt();
+                    hostNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroHote >= 0) {
+                    if (hostNumber >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -204,9 +203,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le tarif journalier': ");
-                    tarifJournalier = Menu.sc.nextInt();
+                    daylyTarif = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (tarifJournalier >= 0) {
+                    if (daylyTarif >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -214,14 +213,14 @@ public class HousingManagement {
                 }
             }
             System.out.println("Entrer l'adresse de l'hôte:");
-            adresseHote = Menu.sc.nextLine();
+            hostAddress = Menu.sc.nextLine();
             bOk = false;
             while (!bOk) {
                 try {
                     System.out.print("Entrer la superficie de l'appartement': ");
-                    superficie = Menu.sc.nextInt();
+                    area = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (superficie >= 0) {
+                    if (area >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -232,9 +231,9 @@ public class HousingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le nombre maximum de voyageurs': ");
-                    nombreVoyageursMax = Menu.sc.nextInt();
+                    maxTravelersNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (nombreVoyageursMax >= 0) {
+                    if (maxTravelersNumber >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -242,13 +241,13 @@ public class HousingManagement {
                 }
             }
             bOk = false;
-            numeroEtage = 0;
+            floorNumber = 0;
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro de l'étage: ");
-                    numeroEtage = Menu.sc.nextInt();
+                    floorNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroEtage >= 0) {
+                    if (floorNumber >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -256,134 +255,27 @@ public class HousingManagement {
                 }
             }
             bOk = false;
-            superficieBalcon = 0;
+            balconyArea = 0;
             while (!bOk) {
                 try {
                     System.out.print("Entrer la superficie du balcon: ");
-                    superficieBalcon = Menu.sc.nextInt();
+                    balconyArea = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (superficieBalcon >= 0) {
+                    if (balconyArea >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
                     System.out.println("il faut une superficie du balcon saisie en chiffre(s) et positive");
                 }
             }
-            Appartment appartementAjoute =
-                    new Appartment(Menu.getHostArrayList().get(numeroHote),
-                            tarifJournalier, adresseHote, superficie,
-                            nombreVoyageursMax, numeroEtage, superficieBalcon);
-            Menu.getHousingArrayList().add(appartementAjoute);
+            Appartment addedAppartment =
+                    new Appartment(Menu.getHostArrayList().get(hostNumber),
+                            daylyTarif, hostAddress, area,
+                            maxTravelersNumber, floorNumber, balconyArea);
+            Menu.getHousingArrayList().add(addedAppartment);
             indexOfDisplayedHousing();
 
-      /*
-        }if (Menu.getListeHotes().isEmpty()) {
-            System.out.println("Aucun hôte enregistré, Tout logement doit être rattaché à un hôte");
-        } else {
-            // afficher la liste des hôtes
-            GestionHotes.indiceHoteAffiche();
-            // saisie nombre de voyageurs
-            bOk=false;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer le numéro de l'hôte': ");
-                    numeroHote = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (numeroHote >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un numero d'hôte saisi en chiffre(s) et positif");
-                }
-            }
-            // tarif journalier
-            bOk=false;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer le tarif journalier': ");
-                    tarifJournalier = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (tarifJournalier >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un tarif journalier saisi en chiffre(s) et positif");
-                }
-            }
-            // adresse Hôte
-            adresseHote = Menu.sc.nextLine();
-            // superficie
-            bOk=false;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer la superficie': ");
-                    superficie = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (superficie >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut une superficie saisie en chiffre(s) et positive");
-                }
-            }
-            // nombre voyageurs max
-            bOk=false;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer le nombre maximum de voyageurs': ");
-                    nombreVoyageursMax = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (nombreVoyageursMax >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un nombre maximum de voyageurs saisi en chiffre(s) et positif");
-                }
-            }
-            // numéro etage
-            bOk=false;
-            numeroEtage = 0;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer la superficie': ");
-                    numeroEtage = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (numeroEtage >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut un numéro d'étage saisie en chiffre(s) et positive");
-                }
-            }
-            // superficie balcon
-            bOk=false;
-            superficieBalcon = 0;
-            while (!bOk) {
-                try {
-                    System.out.print("Entrer la superficie': ");
-                    superficieBalcon = Menu.sc.nextInt();
-                    Menu.sc.nextLine();
-                    if (superficieBalcon >= 0) {
-                        bOk = true;
-                    }
-                } catch (NumberFormatException nfe) {
-                    System.out.println("il faut une superficie du balcon saisie en chiffre(s) et positive");
-                }
-            }
 
-            // instanciation maison
-            Appartement appartementAjoute =
-                    new Appartement(Menu.getListeHotes().get(numeroHote),
-                            tarifJournalier, adresseHote, superficie,
-                            nombreVoyageursMax, numeroEtage, superficieBalcon);
-            // ajout d'un hote à la liste des hotes
-            Menu.getListeLogements().add(appartementAjoute);
-            // affiche la liste de tous les logement
-//            Menu.getListeLogement().forEach(logement->logement.afficher());
-            indiceLogementAffiche();
-
-        }
-        */
         }
     }
     protected static void addHousing() {

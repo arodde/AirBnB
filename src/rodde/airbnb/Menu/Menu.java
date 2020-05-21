@@ -144,13 +144,13 @@ public class Menu {
     static int choiceValueInTheList(int maxValue){
         Uti.info("Menu","choix()","");
         boolean ok= false;
-        String sChoix = "";
-        int iChoix=0;
+        String sChoice = "";
+        int indexChoice=0;
         while(!ok) {
             try {
-                sChoix = sc.next();
-                iChoix = Integer.parseInt(sChoix);
-                if (iChoix >= 1 && iChoix <= maxValue) {
+                sChoice = sc.next();
+                indexChoice = Integer.parseInt(sChoice);
+                if (indexChoice >= 1 && indexChoice <= maxValue) {
                     ok = true;
                 } else {
                     System.out.println("il faut choisir entre 1 et " + maxValue);
@@ -165,7 +165,7 @@ public class Menu {
 //                System.out.println("Entrer un chiffre compris entre 1 et " + maxValue);
             }
         }
-        return iChoix;
+        return indexChoice;
     }
     // ------------------------------- getter and setter ---------------------------- //
     public static ArrayList<Host> getHostArrayList() {

@@ -55,16 +55,15 @@ public class TravellersManagement {
         Uti.info("GestionVoyageurs","ajouterVoyageur()","");
 
         boolean bOk = false;
-
-        String prenom = "";
-        String nom = "";
+        String firstname = "";
+        String surname = "";
         int age = -1;
-        Traveler voyageurAjoute;
+        Traveler travelerAdded;
         indexOfDisplayedTraveler();
         System.out.print("Entrer le prénom: ");
-        prenom = Menu.sc.nextLine();
+        firstname = Menu.sc.nextLine();
         System.out.print("Entrer le nom: ");
-        nom = Menu.sc.nextLine();
+        surname = Menu.sc.nextLine();
         while (!bOk) {
             try {
                 System.out.print("Entrer l'âge': ");
@@ -78,8 +77,8 @@ public class TravellersManagement {
             }
 
         }
-        voyageurAjoute= new Traveler(nom,prenom,age);
-        Menu.getTravelerArrayList().add(voyageurAjoute);
+        travelerAdded= new Traveler(surname,firstname,age);
+        Menu.getTravelerArrayList().add(travelerAdded);
         indexOfDisplayedTraveler();
     }
     protected static void deleteTraveler() throws Exception{
@@ -90,16 +89,16 @@ public class TravellersManagement {
         else
         {
             boolean bOk = false;
-            int indiceSuppr=0;
+            int deletedIndex=0;
             //        Menu.getListeVoyageurs().forEach(voyageur -> voyageur.afficher());
             indexOfDisplayedTraveler();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice': ");
-                    indiceSuppr = Menu.sc.nextInt();
+                    deletedIndex = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getTravelerArrayList().size()-1)) {
+                    if (deletedIndex >= 0 && deletedIndex <= (Menu.getTravelerArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -108,7 +107,7 @@ public class TravellersManagement {
                 indexOfDisplayedTraveler();
             }
             System.out.println();
-            Menu.getTravelerArrayList().remove(indiceSuppr);
+            Menu.getTravelerArrayList().remove(deletedIndex);
             indexOfDisplayedTraveler();
         }
 
@@ -119,12 +118,12 @@ public class TravellersManagement {
          * display method of this element and go to the next line
          */
         Uti.info("GestionVoyageurs","indiceVoyageurAffiche()","");
-        int indiceAffi=0;
+        int displayedIndex=0;
         for(Traveler voyageur:Menu.getTravelerArrayList()){
-            System.out.print(indiceAffi+". ");
+            System.out.print(displayedIndex+". ");
             voyageur.display();
             System.out.println();
-            indiceAffi++;
+            displayedIndex++;
         }
     }
 }

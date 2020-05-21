@@ -31,13 +31,11 @@ public class BookingManagement {
                 Menu.sc.nextLine();
                 try {
                     addBooking();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     listBookingsMenu();
                 }
-
                 break;
             case 2:
                 Menu.sc.nextLine();
@@ -48,27 +46,24 @@ public class BookingManagement {
                 } finally {
                     listBookingsMenu();
                 }
-
                 break;
             case 3:
                 Menu.sc.nextLine();
-
                 break;
-
             default:
                 throw new IllegalStateException("Unexpected value: " + Menu.choiceValueInTheList(3));
         }
     }
     protected static void addBooking() throws Exception {
-        Uti.info("GestionReservations", "ajouterReservation()", "");
+        Uti.info("GestionReservations", "addBooking()", "");
         boolean bOk = false;
-        int nombreNuit = -1;
-        int numeroVoyageur = -1;
-        int numeroLogement = -1;
-        Traveler voyageur = null;
-        Stay sejour;
+        int numbersOfOvernights = -1;
+        int travelersNumber = -1;
+        int housingsNumber = -1;
+        Traveler traveler  = null;
+        Stay stay;
         Booking bookingAdded;
-        LocalDate dateSejour = null;
+        LocalDate dateOfStay = null;
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
         File file = null;
@@ -84,16 +79,16 @@ public class BookingManagement {
             while (!bOk) {
                 try {
                     System.out.print("Entrer le numéro du voyageur dans la liste: ");
-                    numeroVoyageur = Menu.sc.nextInt();
+                    travelersNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroVoyageur >= 0 && numeroVoyageur <= (Menu.getTravelerArrayList().size() - 1)) {
+                    if (travelersNumber >= 0 && travelersNumber <= (Menu.getTravelerArrayList().size() - 1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
                     System.out.println("il faut un numero de voyageur saisi en chiffre(s) et positif");
                 }
             }
-            voyageur = Menu.getTravelerArrayList().get(numeroVoyageur);
+            traveler = Menu.getTravelerArrayList().get(travelersNumber);
         }
         if (Menu.getHousingArrayList().isEmpty()) {
             System.out.println("Aucun logement enregistré, Toute séjour doit doit être rattaché à un logement.");
@@ -104,9 +99,9 @@ public class BookingManagement {
             while (!bOk) {
                 try {
                     System.out.println("Entrer le numéro du logement choisi dans la liste: ");
-                    numeroLogement = Menu.sc.nextInt();
+                    housingsNumber = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (numeroLogement >= 0) {
+                    if (housingsNumber >= 0) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -120,9 +115,9 @@ public class BookingManagement {
         while (!bOk) {
             try {
                 System.out.print("Entrer le nombre de nuits : ");
-                nombreNuit = Menu.sc.nextInt();
+                numbersOfOvernights = Menu.sc.nextInt();
                 Menu.sc.nextLine();
-                if (nombreNuit >= 0) {
+                if (numbersOfOvernights >= 0) {
                     bOk = true;
                 }
             } catch (NumberFormatException nfe) {
@@ -131,15 +126,15 @@ public class BookingManagement {
         }
         bOk = false;
         while (!bOk) {
-            int annee = -1;
-            int mois = -1;
-            int jour = -1;
+            int year = -1;
+            int month = -1;
+            int day = -1;
             while (!bOk) {
                 try {
                     System.out.println("Année de réservation? : ");
-                    annee = Menu.sc.nextInt();
+                    year = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (annee >= LocalDate.now().getYear()) {
+                    if (year >= LocalDate.now().getYear()) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -150,9 +145,9 @@ public class BookingManagement {
             while (!bOk) {
                 try {
                     System.out.println("Mois de réservation? : ");
-                    mois = Menu.sc.nextInt();
+                    month = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (mois >= 1 && mois <= 12) {
+                    if (month >= 1 && month <= 12) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -160,13 +155,13 @@ public class BookingManagement {
                 }
             }
 
-            while (jour < 1 || jour > 31) {
+            while (day < 1 || day > 31) {
                 System.out.println("Jour de réservation? : ");
-                jour = Menu.sc.nextInt();
+                day = Menu.sc.nextInt();
             }
-            dateSejour = dateSejour.of(annee, mois, jour);
+            dateOfStay = dateOfStay.of(year, month, day);
             bOk = false;
-            if (dateSejour.isAfter(LocalDate.now())) {
+            if (dateOfStay.isAfter(LocalDate.now())) {
                 bOk = true;
             } else {
                 System.out.println("Cette date de réservation est impossible retenir car antérieure à la date actuelle.");
@@ -174,13 +169,13 @@ public class BookingManagement {
         }
 
 
-        if (nombreNuit < 6) {
-            sejour = new ShortStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
+        if (numbersOfOvernights < 6) {
+            stay = new ShortStay(dateOfStay, numbersOfOvernights, Menu.getHousingArrayList().get(housingsNumber), Menu.getHousingArrayList().get(housingsNumber).getMaxTravelersNumber());
         } else {
-            sejour = new LongStay(dateSejour, nombreNuit, Menu.getHousingArrayList().get(numeroLogement), Menu.getHousingArrayList().get(numeroLogement).getMaxTravelersNumber());
+            stay = new LongStay(dateOfStay, numbersOfOvernights, Menu.getHousingArrayList().get(housingsNumber), Menu.getHousingArrayList().get(housingsNumber).getMaxTravelersNumber());
 
         }
-        bookingAdded = new Booking(sejour, voyageur);
+        bookingAdded = new Booking(stay, traveler);
         Menu.getBookingArrayList().add(bookingAdded);
 
 //        indexOfDisplayedBooking();
@@ -194,12 +189,12 @@ public class BookingManagement {
          */
         Uti.info("GestionReservations","indiceReservationAffiche()","");
         // affiche la liste de tous les hôtes
-        int indiceAffi=0;
-        for(Booking reservation:Menu.getBookingArrayList()){
-            System.out.print("n° "+indiceAffi+" : ");
-            reservation.display();
+        int displayedIndex=0;
+        for(Booking booking:Menu.getBookingArrayList()){
+            System.out.print("n° "+displayedIndex+" : ");
+            booking.display();
             System.out.println();
-            indiceAffi++;
+            displayedIndex++;
         }
     }
 
@@ -212,15 +207,15 @@ public class BookingManagement {
         {
             boolean bOk = false;
 
-            int indiceSuppr=0;
+            int deletedIndex=0;
             indexOfDisplayedBooking();
             // saisie indice
             while (!bOk) {
                 try {
                     System.out.print("Entrer l'indice : ");
-                    indiceSuppr = Menu.sc.nextInt();
+                    deletedIndex = Menu.sc.nextInt();
                     Menu.sc.nextLine();
-                    if (indiceSuppr >= 0 && indiceSuppr <= (Menu.getBookingArrayList().size()-1)) {
+                    if (deletedIndex >= 0 && deletedIndex <= (Menu.getBookingArrayList().size()-1)) {
                         bOk = true;
                     }
                 } catch (NumberFormatException nfe) {
@@ -230,7 +225,7 @@ public class BookingManagement {
                 indexOfDisplayedBooking();
             }
             System.out.println();
-            Menu.getBookingArrayList().remove(indiceSuppr);
+            Menu.getBookingArrayList().remove(deletedIndex);
             indexOfDisplayedBooking();
         }
 
