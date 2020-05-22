@@ -7,7 +7,6 @@ import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Traveler;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 public class ViewStayCreation extends JFrame {
 
     public Housing currentHousing;
-    public Traveler currentTraveler;
+    public rodde.airbnb.utilisateurs.Traveler currentTraveler;
     public JLabel jLabelTraveler;
     public JComboBox jComboBoxTravelers;
     public JLabel jLabelArrivalDate;
@@ -35,13 +34,13 @@ public class ViewStayCreation extends JFrame {
     public JLabel jLabelHousing;
     public JComboBox jComboBoxHousings;
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
-    private  ArrayList<Traveler> travelers = new ArrayList<Traveler>();
+    private  ArrayList<rodde.airbnb.utilisateurs.Traveler> travelers = new ArrayList<rodde.airbnb.utilisateurs.Traveler>();
     private  ArrayList<Booking> bookings = new ArrayList<Booking>();
     public AddEltHousingListener addEltHousingListener;
     public AddEltTravelerListener addEltTravelerListener;
     public JButton jButtonValidate ;
     public JButton jButtonFastImput; // todo delete this line  // jbfi
-    public ViewStayCreation( ArrayList<Traveler> travelers, ArrayList<Housing> housings, ArrayList<Booking> bookings){
+    public ViewStayCreation(ArrayList<rodde.airbnb.utilisateurs.Traveler> travelers, ArrayList<Housing> housings, ArrayList<Booking> bookings){
         /**
          * constructor of the window for Stay creation
          */

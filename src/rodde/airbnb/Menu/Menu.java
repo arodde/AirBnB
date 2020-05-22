@@ -4,7 +4,6 @@ import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
-import rodde.airbnb.utilisateurs.Traveler;
 import rodde.airbnb.vues.ViewHostCreation;
 import rodde.airbnb.vues.ViewHouseCreation;
 import rodde.airbnb.vues.ViewMenu;
@@ -20,7 +19,7 @@ public class Menu {
     public static Scanner sc;
     private static int selectedOption;
     private static ArrayList<Host> hostArrayList;
-    private static ArrayList<Traveler> travelerArrayList;
+    private static ArrayList<rodde.airbnb.utilisateurs.Traveler> travelerArrayList;
     private static ArrayList<Housing> housingArrayList;
     private static ArrayList<Booking> bookingArrayList;
     private static BookingManagement bookingManagement;
@@ -214,11 +213,11 @@ public class Menu {
         Uti.info("Menu","setGestionVoyageurs","");
         Menu.travellersManagement = travellersManagement;
     }
-    public static ArrayList<Traveler> getTravelerArrayList() {
+    public static ArrayList<rodde.airbnb.utilisateurs.Traveler> getTravelerArrayList() {
         Uti.info("Menu","getListeVoyageurs","");
         return travelerArrayList;
     }
-    public static void setTravelerArrayList(ArrayList<Traveler> travelerArrayList)    {
+    public static void setTravelerArrayList(ArrayList<rodde.airbnb.utilisateurs.Traveler> travelerArrayList)    {
         Uti.info("Menu","setListeVoyageurs","");
         Menu.travelerArrayList = travelerArrayList;
     }

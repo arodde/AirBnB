@@ -5,7 +5,6 @@ import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.LesIO;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
-import rodde.airbnb.utilisateurs.Traveler;
 import rodde.airbnb.vues.ViewMenu;
 
 import java.time.*;
@@ -43,9 +42,9 @@ public class Main {
         //
         Host personne1 = new Host("RODDE", "Alain", 37, 12);
         Host personne5 = new Host("RODDE", "Léon", 72, 24);
-        Traveler personne2 = new Traveler("LESDEMA", "Fabien", 37);
+        rodde.airbnb.utilisateurs.Traveler personne2 = new rodde.airbnb.utilisateurs.Traveler("LESDEMA", "Fabien", 37);
         Host personne3 = new Host("Commençais", "Sabrina", 39, 15);
-        Traveler personne4 = new Traveler("Boureaud", "Nicolas", 37);
+        rodde.airbnb.utilisateurs.Traveler personne4 = new rodde.airbnb.utilisateurs.Traveler("Boureaud", "Nicolas", 37);
         //
         // les logements
         //

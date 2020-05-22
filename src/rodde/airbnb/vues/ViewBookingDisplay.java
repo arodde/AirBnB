@@ -3,7 +3,6 @@ package rodde.airbnb.vues;
 import rodde.airbnb.reservations.Booking;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ViewBookingDisplay extends JFrame {

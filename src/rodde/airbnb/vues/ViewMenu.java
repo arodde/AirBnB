@@ -27,7 +27,10 @@ public class ViewMenu extends JFrame {
     public JMenu jMenuAdd ;
     public JMenu jMenuDisplay ;
     public JMenuItem jMenuItemClose ;
-    public JMenuItem jMenuItemDisplayReservation ;
+    public JMenuItem jMenuItemDisplayTraveler;
+    public JMenuItem jMenuItemDisplayHost;
+    public JMenuItem jMenuItemDisplayHousing;
+    public JMenuItem jMenuItemDisplayBooking;
     public JMenuItem jMenuAddHost;
     public JMenuItem jMenuAddTraveler;
     public JMenuItem jMenuAddHouse;
@@ -40,20 +43,35 @@ public class ViewMenu extends JFrame {
     public ViewAppartmentCreation viewAppartmentCreation;
     public ViewStayCreation viewStayCreation;
     public ArrayList<Traveler> travelerArrayList;
+    public ArrayList<Booking> bookingArrayList;
     public ArrayList<Host> hostArrayList ;
     public ArrayList<Housing> housingArrayList;
-    public ArrayList<Booking> bookingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
+    public ArrayList<ItemTraveler> itemsTravelerArrayList ;
+    //    public ArrayList<ItemHost> itemsHostArrayList ;
+//    public ArrayList<ItemHousing> itemsHousingArrayList ;
     public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
+    public  ItemTraveler currentItemTraveler;
+    //    public  ItemHost currentItemHost;
+//    public  ItemHousing currentItemHousing;
 //    public  ItemHost currentItemHost;
     public ItemBooking getCurrentItemBooking() {
         return currentItemBooking;
     }
-
-    public void setCurrentItemBooking(ItemBooking currentItemBooking) {
-        this.currentItemBooking = currentItemBooking;
+    public ItemTraveler getCurrentItemTraveler() {
+        return currentItemTraveler;
     }
+//    public ItemHost getCurrentItemHost() {
+//        return currentItemHost;
+//    }
+//    public ItemHousing getCurrentItemHousing() {
+//        return currentItemHousing;
+//    }
+
+//    public void setCurrentItemBooking(ItemBooking currentItemBooking) {
+//        this.currentItemBooking = currentItemBooking;
+//    }
 
 
     public void initArrayAndManagment(){
@@ -66,7 +84,7 @@ public class ViewMenu extends JFrame {
          * - Travelers
          */
         Uti.info("ViewMenu","initArrayAndManagment()","");
-        if(travelerArrayList== null)
+        if(travelerArrayList == null)
             travelerArrayList = new ArrayList<Traveler>();
         if(hostArrayList== null)
             hostArrayList = new ArrayList<Host>();
@@ -74,6 +92,12 @@ public class ViewMenu extends JFrame {
             housingArrayList = new ArrayList<Housing>();
         if(bookingArrayList== null)
             bookingArrayList  = new ArrayList<Booking>();
+        if(itemsTravelerArrayList== null)
+            itemsTravelerArrayList  = new ArrayList<ItemTraveler>();
+//        if(itemsHostArrayList== null)
+//            itemsHostArrayList  = new ArrayList<ItemHost>();
+//        if(itemsHousingArrayList== null)
+//            itemsHousingArrayList  = new ArrayList<ItemHousing>();
         if(itemsBookingArrayList== null)
             itemsBookingArrayList  = new ArrayList<ItemBooking>();
     }
@@ -161,25 +185,25 @@ public class ViewMenu extends JFrame {
         sejour3 = (Stay) sejour3;
         sejour4 = (Stay) sejour4;
         try {
-            bookingArrayList.add(new Booking(sejour1,travelerArrayList.get(0)));
+            bookingArrayList.add(new Booking(sejour1, travelerArrayList.get(0)));
 
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
         try {
-            bookingArrayList.add(new Booking(sejour2,travelerArrayList.get(2)));
+            bookingArrayList.add(new Booking(sejour2, travelerArrayList.get(2)));
             bookingArrayList.get(1).setValidated(true);
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
         try {
-            bookingArrayList.add(new Booking(sejour3,travelerArrayList.get(3)));
+            bookingArrayList.add(new Booking(sejour3, travelerArrayList.get(3)));
             bookingArrayList.get(2).setValidated(true);
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
         try {
-            bookingArrayList.add(new Booking(sejour4,travelerArrayList.get(1)));
+            bookingArrayList.add(new Booking(sejour4, travelerArrayList.get(1)));
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
@@ -192,7 +216,10 @@ public class ViewMenu extends JFrame {
         jMenuBar = new JMenuBar();
         jMenuAdd = new JMenu("Ajouter");
         jMenuDisplay = new JMenu("Afficher");
-        jMenuItemDisplayReservation = new JMenuItem("Afficher les réservations");
+        jMenuItemDisplayTraveler = new JMenuItem("Afficher les voyageurs");
+        jMenuItemDisplayHost = new JMenuItem("Afficher les hôtes");
+        jMenuItemDisplayHousing = new JMenuItem("Afficher les logements");
+        jMenuItemDisplayBooking = new JMenuItem("Afficher les réservations");
         jMenuAddHost = new JMenuItem("Ajouter un hôte");
         jMenuAddTraveler = new JMenuItem("Ajouter un voyageur");
         jMenuAddHouse = new JMenuItem("Ajouter une maison");
@@ -216,19 +243,146 @@ public class ViewMenu extends JFrame {
         jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
         jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
         jMenuAddStay.addActionListener(new ViewCreationStayListener());
-        jMenuItemDisplayReservation.addActionListener(new ViewDisplayReservationListener());
+        jMenuItemDisplayTraveler.addActionListener(new ViewDisplayTravelerListener());
+//        jMenuItemDisplayHost.addActionListener(new ViewDisplayHostListener());
+//        jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
+        jMenuItemDisplayBooking.addActionListener(new ViewDisplayBookingListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
         jMenuAdd.add(jMenuAddAppartment);
         jMenuAdd.add(jMenuAddTraveler);
         jMenuAdd.add(jMenuAddStay);
         jMenuAdd.add(jMenuAdd);
-        jMenuDisplay.add(jMenuItemDisplayReservation);
+        jMenuDisplay.add(jMenuItemDisplayTraveler);
+        jMenuDisplay.add(jMenuItemDisplayHost);
+        jMenuDisplay.add(jMenuItemDisplayHousing);
+        jMenuDisplay.add(jMenuItemDisplayBooking);
         jMenuBar.add(jMenuAdd);
         jMenuBar.add(jMenuDisplay);
         jMenuBar.add(jMenuItemClose);
         setJMenuBar(jMenuBar);
     }
+    public void displayTraveler(){
+        /**
+         * displays travelers in the panel
+         */
+        jPanel = new JPanel();
+        jPanel.setBackground(Color.blue);
+        jScrollPane = new JScrollPane(jPanel);
+        itemsTravelerArrayList.removeAll(itemsTravelerArrayList);
+        for (int i = 0; i < travelerArrayList.size(); i++) {
+            currentItemTraveler = new ItemTraveler(travelerArrayList.get(i),this);
+            itemsTravelerArrayList.add(currentItemTraveler);
+            Uti.mess("Longueur liste itemTravelers : "+ itemsTravelerArrayList.size());
+            currentItemTraveler.jPanelSon = new JPanel();
+            currentItemTraveler.jTextPane = new JTextPane();
+            currentItemTraveler.jPanelCommand = new JPanel();
+            currentItemTraveler.organizeJPanelSon();
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            currentItemTraveler.jTextPane.setBackground(Color.white);
+            currentItemTraveler.jCheckBoxDelete.setVisible(true);
+            currentItemTraveler.jTextPane.setText(currentItemTraveler.traveler.getId()+" "+ currentItemTraveler.traveler.stringDisplay());
+            currentItemTraveler.jPanelSon.add(currentItemTraveler.jTextPane );
+            currentItemTraveler.jTextPane.setPreferredSize(new Dimension(480, 5));
+            jPanel.add(currentItemTraveler.jPanelSon);
+        }
+//        currentItemTraveler = itemsTravelerArrayList.get(0);
+        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+        this.setContentPane(jScrollPane);
+        setVisible(true);
+
+    }
+    //    public void displayBooking(){
+//        /**
+//         * displays bookings in the panel
+//         */
+//
+//
+//        jPanel = new JPanel();
+//        jPanel.setBackground(Color.blue);
+//        jScrollPane = new JScrollPane(jPanel);
+//        itemsBookingArrayList.removeAll(itemsBookingArrayList);
+//
+//        for (int i = 0 ; i < bookingArrayList.size(); i++) {
+//            currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
+//            itemsBookingArrayList.add(currentItemBooking);
+//            Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
+//            currentItemBooking.jPanelSon = new JPanel();
+//            currentItemBooking.jTextPane = new JTextPane();
+//            currentItemBooking.jPanelCommand = new JPanel();
+//            currentItemBooking.organizeJPanelSon();
+//            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//            if(bookingArrayList.get(i).isValidated()){
+//                currentItemBooking.jTextPane.setBackground(Color.green);
+//                currentItemBooking.jCheckBoxConfirm.setSelected(true);
+//                currentItemBooking.jCheckBoxDelete.setVisible(false);
+////                currentItemBooking.booking.editBookingState();
+//            }
+//            else
+//            {
+//                currentItemBooking.jTextPane.setBackground(Color.red);
+//                currentItemBooking.jCheckBoxConfirm.setSelected(false);
+//                currentItemBooking.jCheckBoxDelete.setVisible(true);
+////                currentItemBooking.booking.editBookingState();
+//            }
+//            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+//            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
+//            currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
+//            jPanel.add(currentItemBooking.jPanelSon);
+//        }
+////        currentItemBooking = itemsBookingArrayList.get(0);
+//        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+//        this.setContentPane(jScrollPane);
+//        setVisible(true);
+//
+//    }
+//    public void displayBooking(){
+//        /**
+//         * displays bookings in the panel
+//         */
+//
+//
+//        jPanel = new JPanel();
+//        jPanel.setBackground(Color.blue);
+//        jScrollPane = new JScrollPane(jPanel);
+//        itemsBookingArrayList.removeAll(itemsBookingArrayList);
+//
+//        for (int i = 0 ; i < bookingArrayList.size(); i++) {
+//            currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
+//            itemsBookingArrayList.add(currentItemBooking);
+//            Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
+//            currentItemBooking.jPanelSon = new JPanel();
+//            currentItemBooking.jTextPane = new JTextPane();
+//            currentItemBooking.jPanelCommand = new JPanel();
+//            currentItemBooking.organizeJPanelSon();
+//            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//            if(bookingArrayList.get(i).isValidated()){
+//                currentItemBooking.jTextPane.setBackground(Color.green);
+//                currentItemBooking.jCheckBoxConfirm.setSelected(true);
+//                currentItemBooking.jCheckBoxDelete.setVisible(false);
+////                currentItemBooking.booking.editBookingState();
+//            }
+//            else
+//            {
+//                currentItemBooking.jTextPane.setBackground(Color.red);
+//                currentItemBooking.jCheckBoxConfirm.setSelected(false);
+//                currentItemBooking.jCheckBoxDelete.setVisible(true);
+////                currentItemBooking.booking.editBookingState();
+//            }
+//            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+//            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
+//            currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
+//            jPanel.add(currentItemBooking.jPanelSon);
+//        }
+////        currentItemBooking = itemsBookingArrayList.get(0);
+//        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+//        this.setContentPane(jScrollPane);
+//        setVisible(true);
+//
+//    }
     public void displayBooking(){
         /**
          * displays bookings in the panel
@@ -254,14 +408,12 @@ public class ViewMenu extends JFrame {
                 currentItemBooking.jTextPane.setBackground(Color.green);
                 currentItemBooking.jCheckBoxConfirm.setSelected(true);
                 currentItemBooking.jCheckBoxDelete.setVisible(false);
-//                currentItemBooking.booking.editBookingState();
             }
             else
             {
                 currentItemBooking.jTextPane.setBackground(Color.red);
                 currentItemBooking.jCheckBoxConfirm.setSelected(false);
                 currentItemBooking.jCheckBoxDelete.setVisible(true);
-//                currentItemBooking.booking.editBookingState();
             }
             currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
             currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
@@ -272,7 +424,6 @@ public class ViewMenu extends JFrame {
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
-
     }
     class ViewCreationHouseListener implements ActionListener {
         /**
@@ -334,17 +485,51 @@ public class ViewMenu extends JFrame {
             viewStayCreation = new ViewStayCreation(travelerArrayList,housingArrayList,bookingArrayList);
         }
     }
-    class ViewDisplayReservationListener implements ActionListener {
+    class ViewDisplayTravelerListener implements ActionListener {
         /**
-         * creates and opens the window to add a stay
+         * creates and opens the window to see the travelers
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            Uti.info("ViewDisplayReservationListener","actionPerformed()","");
+            Uti.info("ViewDisplayTravelerListener","actionPerformed()","");
+            if (travelerArrayList == null)
+                Uti.mess("liste de Voyageurs nulle.");
+            displayTraveler();
+        }
+    }
+    //    class ViewDisplayHostListener implements ActionListener {
+//        /**
+//         * creates and opens the window to see the hosts
+//         */
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            Uti.info("ViewDisplayHostListener","actionPerformed()","");
+//            if (hostArrayList == null)
+//                Uti.mess("liste d'hôtes nulle.");
+//            displayHost();
+//        }
+//    }
+//    class ViewDisplayHousingListener implements ActionListener {
+//        /**
+//         * creates and opens the window to see the Housing
+//         */
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            Uti.info("ViewDisplayHousingListener","actionPerformed()","");
+//            if (housingArrayList == null)
+//                Uti.mess("liste de logements nulle.");
+//            displayHousing();
+//        }
+//    }
+    class ViewDisplayBookingListener implements ActionListener {
+        /**
+         * creates and opens the window to see the bookings
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Uti.info("ViewDisplayBookingListener","actionPerformed()","");
             if (bookingArrayList == null)
                 Uti.mess("liste de réservation nulle.");
-//            viewBookingDisplay = new ViewBookingDisplay(bookingArrayList);
-
             displayBooking();
         }
     }
@@ -401,7 +586,11 @@ public class ViewMenu extends JFrame {
         BookingConfirmListener bookingConfirmListener = new BookingConfirmListener();
         BookingDeleteListener bookingDeleteListener = new BookingDeleteListener();
 
-        ItemBooking(Booking booking,ViewMenu viewMenu){
+        ItemBooking(Booking booking, ViewMenu viewMenu){
+            /**
+             connects the booking provides by parameter with the checkBoxs
+             and the actions of confirmation and deletion
+             */
             this.booking = booking;
             this.viewMenu = viewMenu;
             jCheckBoxConfirm.addActionListener(bookingConfirmListener);
@@ -414,6 +603,10 @@ public class ViewMenu extends JFrame {
             viewMenu.currentItemBooking = this;
         }
         public void organizeJPanelSon(){
+            /**
+             defines jTextPane's position and te jPanelCommand's
+             position in the jPanelSon.
+             */
             Uti.info("ItemBooking","public void organizeJPanelSon(){\n","");
             jPanelSon.setLayout(new BorderLayout());
             jPanelSon.add(jTextPane, BorderLayout.WEST);
@@ -422,17 +615,26 @@ public class ViewMenu extends JFrame {
         }
         public void positionCheckButton(){
             /**
-             * organize the position of jCheckBox
+             * organize the position of jCheckBox in the jPanelCommand
              */
             Uti.info("ItemBooking","positionCheckButton","");
             jPanelCommand.setLayout(new GridLayout(2,1));
             jPanelCommand.add(jCheckBoxConfirm);
             jPanelCommand.add(jCheckBoxDelete);
         }
-
         class BookingConfirmListener implements ActionListener {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+            /**
+             an event creates for validate the confirmation of a specific
+             booking or cancell the confirmation.
+             the confirmation change the apparence of the graphical item
+             and the boolean in the booking. this boolean precises if the
+             booking is or not  confirmed. the booking is a property of
+             the itemBooking object
+             * @param e
+             */
                 Uti.info("BookingConfirmListener","actionPerformed","");
                 Uti.mess("action sur jCheckboxConfirm "+booking.getId()+" "+(booking.isValidated()?"coché":"decoché"));
 
@@ -550,6 +752,173 @@ public class ViewMenu extends JFrame {
                 System.out.println();
             }
         }
+    }
+    public class ItemTraveler {
+        /**
+         an instance of this class represents a graphical item of traveler displayed in a list.
+         each item is linked to a traveler
+         */
+        //todo vérifier pourquoi les fonctions ne sont pas identiques entre itemtraveler et itembooking
+        public JPanel jPanelSon = new JPanel();
+        public JPanel jPanelCommand;
+        public JTextPane jTextPane ;
+        public Traveler traveler;
+        public JCheckBox jCheckBoxDelete= new JCheckBox("Supprimer");
+        public ViewMenu viewMenu;
+        TravelerDeleteListener travelerDeleteListener = new TravelerDeleteListener();
+
+        ItemTraveler(rodde.airbnb.utilisateurs.Traveler traveler, ViewMenu viewMenu){
+            /**
+             connects the traveler provides by parameter with the checkBox
+             and the travelerDeleteListener
+             */
+            this.traveler = traveler;
+            this.viewMenu = viewMenu;
+            jCheckBoxDelete.addActionListener(travelerDeleteListener);
+        }
+
+        public void organizeJPanelSon(){
+            /**
+             defines jTextPane's position and te jPanelCommand's
+             position in the jPanelSon.
+             */
+            Uti.info("ItemTraveler","public void organizeJPanelSon(){\n","");
+            jPanelSon.setLayout(new BorderLayout());
+            jPanelSon.add(jTextPane, BorderLayout.WEST);
+            jPanelSon.add(jPanelCommand, BorderLayout.EAST);
+            positionCheckButton();
+        }
+        public void positionCheckButton(){
+            /**
+             * organize the position of jCheckBox in the jPanelCommand
+             */
+            Uti.info("ItemTraveler","positionCheckButton","");
+            jPanelCommand.setLayout(new GridLayout(2,1));
+            jPanelCommand.add(jCheckBoxDelete);
+        }
+
+        //        class BookingConfirmListener implements ActionListener {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("BookingConfirmListener","actionPerformed","");
+//                Uti.mess("action sur jCheckboxConfirm "+ traveler.getId()+" "+(traveler.isValidated()?"coché":"decoché"));
+//
+//                updateItemBooking();
+//                if(!traveler.isValidated())
+//                {
+//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
+//                    traveler.setValidated(true);
+//                    currentItemBooking.booking.editBookingState();
+//                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+//                    jTextPane.setBackground(Color.GREEN);
+//                    currentItemBooking.jCheckBoxDelete.setVisible(false);
+//                    currentItemBooking.jCheckBoxConfirm.setSelected(true);
+//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
+//                }
+//                else
+//                {
+//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
+//                    traveler.setValidated(false);
+//                    currentItemBooking.booking.editBookingState();
+//                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
+//                    jTextPane.setBackground(Color.red);
+//                    currentItemBooking.jCheckBoxDelete.setVisible(true);
+//                    currentItemBooking.jCheckBoxConfirm.setSelected(false);
+//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
+//                }
+//            }
+//        }
+        class TravelerDeleteListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /**
+                 deletes the traveler if it has been asked by selecting
+                 checkboxConfirm but only if the checkboxDelete is
+                 unselected
+                 */
+                Uti.info("TravelerDeleteListener","actionPerformed","");
+
+//                    jCheckBoxDelete.setVisible(true);
+//                    currentItemTraveler.jCheckBoxDelete.setVisible(false);
+
+//                    updateItemTraveler();
+                deleteTraveler();
+                updateItemTraveler();
+            }
+
+        public void deleteTraveler(){
+            /**
+             comparates the Traveler of the currentItemTraveler with the TravelerArrayList.
+             If the equality is found the Traveler is delete in the TravelerArrayList.
+             the itemTraveler at the same position in tne itemTravelerArrayList is
+             deleted
+             actualise the currentItemTraveler
+             */
+            Uti.info("TravelerDeleteListener","deleteTraveler","");
+            updateItemTraveler();
+            displayListItemTravelerAndTraveler();
+            for(int i = 0; i< travelerArrayList.size(); i++){
+                System.out.println("itemTraveler indice : "+i);
+                if( currentItemTraveler.traveler.equals(travelerArrayList.get(i))){
+                    System.out.println(travelerArrayList.size()+" "+travelerArrayList.get(i).getId());
+                    Uti.mess("Je supprime le voyageur");
+                    travelerArrayList.remove(travelerArrayList.get(i));
+                    deleteItemTraveler(i);
+                    System.out.println((currentItemTraveler.traveler != null)?"Voyageur courant détruit":"anomalie voyageur subsiste");
+                    System.out.println(travelerArrayList.size());
+//                        currentItemTraveler= null;
+                    updateItemTraveler();
+                    displayListItemTravelerAndTraveler();
+                    displayTraveler();
+                    break;
+                }
+            }
+        }
+            public void deleteItemTraveler(int index){
+                /**
+                 deletes the itemTraveler in the itemsTravelerArrayList() at the position
+                 given by the first parameter
+                 */
+                Uti.info("TravelerDeleteListener","deleteItemTraveler","");
+                System.out.println("indice itemTraveler: "+ index);
+                Uti.mess("je supprime l'itemTraveler au même rang de liste");
+                itemsTravelerArrayList.remove(itemsTravelerArrayList.get(index));
+//                for(int j=0;j<itemsTravelerArrayList.size();j++){
+//                    if(currentItemTraveler.equals(itemsTravelerArrayList.get(j))){
+//                        System.out.println(itemsTravelerArrayList.size());
+//                        itemsTravelerArrayList.remove(itemsTravelerArrayList.get(j));
+//                        System.out.println((currentItemTraveler != null)?"élément graphique voyageur courant détruit":"anomalie élément graphique voyageur subsiste");
+//                        System.out.println(itemsTravelerArrayList.size());
+//                    }
+//                }
+            }
+            public void displayListItemTravelerAndTraveler() {
+                /**
+                 checks if the itemsTravelerArrayList and the
+                 TravelerArrayList have the same size and display
+                 a message displays for each itemTraveler in the
+                 ArrayList the ID of the Traveler of the ItemTraveler
+                 */
+                Uti.info("TravelerDeleteListener","displayListItemTravelerAndTraveler","");
+                if (itemsTravelerArrayList.size() == bookingArrayList.size()) {
+                    System.out.println("égalité taille listes");
+                } else
+                    System.out.println("inégalité longueur listes");
+                System.out.println("itemb "+itemsTravelerArrayList.size());
+                System.out.println("b "+ travelerArrayList.size());
+                for (int i = 0 ; i< itemsTravelerArrayList.size(); i++){
+                    System.out.print("itemB : "+i+" - b : "+ travelerArrayList.get(i).getId()+" ");
+                }
+                System.out.println();
+            }
+        }
+        public void updateItemTraveler(){
+            /**
+             * the current itemTraveler becomes the currentItemTraveler of viewMenu.
+             */
+            viewMenu.currentItemTraveler = this;
+        }
+
     }
 
 //    public class ItemHost {

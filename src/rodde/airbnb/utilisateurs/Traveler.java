@@ -3,7 +3,11 @@ package rodde.airbnb.utilisateurs;
 import rodde.airbnb.util.Uti;
 
 public class Traveler extends Person {
-    private  int id =0;
+    public int getId() {
+        return id;
+    }
+
+    protected  int id =0;
     private static int index =-1;
     public Traveler(String surname, String firstname, int age){
         super(surname,firstname,age);

@@ -5,11 +5,9 @@ import rodde.airbnb.reservations.Stay;
 import rodde.airbnb.reservations.ShortStay;
 import rodde.airbnb.reservations.LongStay;
 import rodde.airbnb.util.Uti;
-import rodde.airbnb.utilisateurs.Traveler;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class BookingManagement {
@@ -60,7 +58,7 @@ public class BookingManagement {
         int numbersOfOvernights = -1;
         int travelersNumber = -1;
         int housingsNumber = -1;
-        Traveler traveler  = null;
+        rodde.airbnb.utilisateurs.Traveler traveler  = null;
         Stay stay;
         Booking bookingAdded;
         LocalDate dateOfStay = null;
