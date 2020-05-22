@@ -7,6 +7,10 @@ public class Host extends Person {
     private  int id =0;
     private static int index =-1;
     private int responseTime;
+    public int getId() {
+        return id;
+    }
+
     public int getResponseTime() {
         Uti.info("Hote","getDelaiReponse()","");
         return responseTime;
