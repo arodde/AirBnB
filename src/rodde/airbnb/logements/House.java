@@ -57,7 +57,7 @@ public class House extends Housing {
 
     @Override
     public String stringItemDisplay() {
-        return this.id +" "+ shortDisplay();
+        return  shortDisplay();
     }
 
     public   String shortDisplay(){

@@ -45,7 +45,7 @@ public class Host extends Person {
     }
     public String stringItemDisplay(){
         Uti.info("Personne", "afficher()","");
-        return this.id +" "+ super.stringDisplay();
+        return super.stringDisplay();
     }
 }
 

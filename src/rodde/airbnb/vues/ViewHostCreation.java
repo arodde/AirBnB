@@ -20,7 +20,7 @@ public class ViewHostCreation extends JFrame {
     public JLabel jLabelResponseTime;
     public JTextField jTextFieldResponseTime;
     public JButton jButtonValidate;
-//    public JButton jButtonFastInput;// todo remove this line
+    public JButton jButtonFastInput;// todo remove this line
     public ViewHostCreation(ArrayList<Host> hosts){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un hôte");
@@ -40,7 +40,7 @@ public class ViewHostCreation extends JFrame {
         jTextFieldAge = new JTextField();
         jLabelResponseTime = new JLabel("Délai de réponse :");
         jTextFieldResponseTime = new JTextField();
-        jButtonValidate = new JButton("Valider");// todo remove this line
+        jButtonValidate = new JButton("Valider");
 //        jButtonFastInput = new JButton("saisie rapide");// todo remove this line
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -173,21 +173,21 @@ public class ViewHostCreation extends JFrame {
                     jTextFieldResponseTime.setEnabled(false);
                 } else {
                     jButtonValidate.setEnabled(false);
-//                    jButtonFastInput.setEnabled(true); //todo remove this line
+                    jButtonFastInput.setEnabled(true); //todo remove this line
                 }
             }
         });
-//        jButtonFastInput.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Uti.info("jButtonFastImput","actionPerformed","a retirer");
-//                jTextFieldSurname.setText("BUR");
-//                jTextFieldFirstName.setText("Max");
-//                jTextFieldAge.setText("51");
-//                jTextFieldResponseTime.setText("48");
-//                jButtonValidate.setEnabled(true);
-//                jButtonFastInput.setEnabled(false);
-//            }
-//        });
+        jButtonFastInput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+                jTextFieldSurname.setText("BUR");
+                jTextFieldFirstName.setText("Max");
+                jTextFieldAge.setText("51");
+                jTextFieldResponseTime.setText("48");
+                jButtonValidate.setEnabled(true);
+                jButtonFastInput.setEnabled(false);
+            }
+        });
     }
 }

@@ -7,6 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Housing {
+    public int getId() {
+        return id;
+    }
+
     protected  int id =0;
     private static int index =-1;
     protected Host host;

@@ -76,7 +76,7 @@ public class ViewStayCreation extends JFrame {
         fillHousingsComboItem();
         fillTravelersComboItem();
         jButtonValidate = new JButton("Valider");
-        jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
+//        jButtonFastImput = new JButton("Saisie Rapide"); // jbfi
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(jLabelTraveler);

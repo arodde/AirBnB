@@ -42,7 +42,7 @@ public class ViewHouseCreation extends JFrame {
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
     public JButton jButtonValidate ;
-//    public JButton jButtonFastImput; // todo delete this line  // jbfi
+    public JButton jButtonFastImput; // todo delete this line  // jbfi
     public ViewHouseCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une maison");
@@ -91,7 +91,7 @@ public class ViewHouseCreation extends JFrame {
         panel.add(jLabelSwimmingPool);
         panel.add(jCheckBoxMenuItemGardenArea);
         panel.add(jButtonValidate);
-//        panel.add(jButtonFastImput); // jbfi
+        panel.add(jButtonFastImput); // jbfi
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
@@ -140,19 +140,19 @@ public class ViewHouseCreation extends JFrame {
                 jCheckBoxMenuItemGardenArea.setEnabled(true);
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() { // jbfi
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                jTextFieldDailyRate.setText("5");
-//                jTextFieldAddress.setText("21 rue de la couille 23000 GUERET");//("");
-//                jTextFieldArea.setText("27");
-//                jTextFieldTravelersNumber.setText("4");
-//                jTextFieldGardenArea.setText("125");
-//                jCheckBoxMenuItemGardenArea.setState(true);
-////                jButtonValidate.setEnabled(false);
-//                jButtonFastImput.setEnabled(false);
-//            }
-//        });
+        jButtonFastImput.addActionListener(new ActionListener() { // jbfi
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextFieldDailyRate.setText("5");
+                jTextFieldAddress.setText("21 rue de la couille 23000 GUERET");//("");
+                jTextFieldArea.setText("27");
+                jTextFieldTravelersNumber.setText("4");
+                jTextFieldGardenArea.setText("125");
+                jCheckBoxMenuItemGardenArea.setState(true);
+//                jButtonValidate.setEnabled(false);
+                jButtonFastImput.setEnabled(false);
+            }
+        });
     }
 
     public Boolean checkFieldsHouse(Boolean correctHouse){

@@ -49,27 +49,12 @@ public class ViewMenu extends JFrame {
     public ArrayList<ItemBooking> itemsBookingArrayList ;
     public ArrayList<ItemTraveler> itemsTravelerArrayList ;
         public ArrayList<ItemHost> itemsHostArrayList ;
-//    public ArrayList<ItemHousing> itemsHousingArrayList ;
+    public ArrayList<ItemHousing> itemsHousingArrayList ;
     public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
     public  ItemTraveler currentItemTraveler;
         public  ItemHost currentItemHost;
-//    public  ItemHousing currentItemHousing;
-    public ItemBooking getCurrentItemBooking() {
-        return currentItemBooking;
-    }
-    public ItemTraveler getCurrentItemTraveler() {
-        return currentItemTraveler;
-    }
-    public ItemHost getCurrentItemHost() {
-        return currentItemHost;
-    }
-//    public ItemHousing getCurrentItemHousing() {
-//        return currentItemHousing;
-//    }
-
-
-
+    public  ItemHousing currentItemHousing;
 
     public void initArrayAndManagment(){
         /**
@@ -93,8 +78,8 @@ public class ViewMenu extends JFrame {
             itemsTravelerArrayList  = new ArrayList<ItemTraveler>();
         if(itemsHostArrayList== null)
             itemsHostArrayList  = new ArrayList<ItemHost>();
-//        if(itemsHousingArrayList== null)
-//            itemsHousingArrayList  = new ArrayList<ItemHousing>();
+        if(itemsHousingArrayList== null)
+            itemsHousingArrayList  = new ArrayList<ItemHousing>();
         if(itemsBookingArrayList== null)
             itemsBookingArrayList  = new ArrayList<ItemBooking>();
     }
@@ -105,8 +90,6 @@ public class ViewMenu extends JFrame {
          *  - initArrayAnManagment
          *  - initMenu
          */
-        // todo fen menu pour ajouter voyageurs,  réservations
-        // add characteristics to The window
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setTitle("AirBnB");
         setResizable(false);
@@ -114,14 +97,13 @@ public class ViewMenu extends JFrame {
         System.out.println(this.getX()+" "+this.getY());
         setLocationRelativeTo(null);
         persistence.createNewRealFile();
-        // persistence.load booking
         initArrayAndManagment();
         initMenu();
         jPanel = new JPanel();
         jPanel.setBackground(Color.blue);
         this.setContentPane(jPanel);
         setVisible(true);
-        provisoireRemplissageListes();// todo
+        provisoireRemplissageListes();
     }
     private void provisoireRemplissageListes() {
         /**
@@ -130,7 +112,7 @@ public class ViewMenu extends JFrame {
          * software he is developping
          */
 
-        hostArrayList.add(new Host("Martial","CLOCHETTE",35,12));
+        hostArrayList.add(new Host("Martial","GRELOT",35,12));
         hostArrayList.add(new Host("Pénélope","FUYONS",70,96));
         hostArrayList.add(new Host("Thierry","BRUME",14,13));
         hostArrayList.add(new Host("Albus Percival Wulferic Brian","DUMBLEDORE",450,1));
@@ -176,7 +158,6 @@ public class ViewMenu extends JFrame {
         } else {
             sejour4 = new LongStay(dateArrivee4, dureeSejour4, housingArrayList.get(1), 9);
         }
-// conversion en sejour du séjour court ou long pour que la réservation accepte les deux types enfants
         sejour1 = (Stay) sejour1;
         sejour2 = (Stay) sejour2;
         sejour3 = (Stay) sejour3;
@@ -227,9 +208,10 @@ public class ViewMenu extends JFrame {
                 new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        /**
+                         * Saves bookings in a file text before closing application
+                         */
                         Uti.info("ViewMenu", "initMenu","");
-                        //persistence save
-
                         persistence.saveBookings();
                         System.exit(0);
                     }
@@ -242,7 +224,7 @@ public class ViewMenu extends JFrame {
         jMenuAddStay.addActionListener(new ViewCreationStayListener());
         jMenuItemDisplayTraveler.addActionListener(new ViewDisplayTravelerListener());
         jMenuItemDisplayHost.addActionListener(new ViewDisplayHostListener());
-//        jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
+        jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
         jMenuItemDisplayBooking.addActionListener(new ViewDisplayBookingListener());
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
@@ -279,12 +261,11 @@ public class ViewMenu extends JFrame {
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             currentItemTraveler.jTextPane.setBackground(Color.white);
             currentItemTraveler.jCheckBoxDelete.setVisible(true);
-            currentItemTraveler.jTextPane.setText(currentItemTraveler.traveler.getId()+" "+ currentItemTraveler.traveler.stringDisplay());
+            currentItemTraveler.jTextPane.setText(currentItemTraveler.traveler.stringDisplay());
             currentItemTraveler.jPanelSon.add(currentItemTraveler.jTextPane );
             currentItemTraveler.jTextPane.setPreferredSize(new Dimension(480, 5));
             jPanel.add(currentItemTraveler.jPanelSon);
         }
-//        currentItemTraveler = itemsTravelerArrayList.get(0);
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
@@ -310,107 +291,48 @@ public class ViewMenu extends JFrame {
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             currentItemHost.jTextPane.setBackground(Color.white);
             currentItemHost.jCheckBoxDelete.setVisible(true);
-            currentItemHost.jTextPane.setText(currentItemHost.host.getId()+" "+ currentItemHost.host.stringDisplay());
+            currentItemHost.jTextPane.setText( currentItemHost.host.stringDisplay());
             currentItemHost.jPanelSon.add(currentItemHost.jTextPane );
             currentItemHost.jTextPane.setPreferredSize(new Dimension(480, 15));
             jPanel.add(currentItemHost.jPanelSon);
         }
-//        currentItemHost = itemsHostArrayList.get(0);
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
 
     }
-    //    public void displayBooking(){
-//        /**
-//         * displays bookings in the panel
-//         */
-//
-//
-//        jPanel = new JPanel();
-//        jPanel.setBackground(Color.blue);
-//        jScrollPane = new JScrollPane(jPanel);
-//        itemsBookingArrayList.removeAll(itemsBookingArrayList);
-//
-//        for (int i = 0 ; i < bookingArrayList.size(); i++) {
-//            currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
-//            itemsBookingArrayList.add(currentItemBooking);
-//            Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
-//            currentItemBooking.jPanelSon = new JPanel();
-//            currentItemBooking.jTextPane = new JTextPane();
-//            currentItemBooking.jPanelCommand = new JPanel();
-//            currentItemBooking.organizeJPanelSon();
-//            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//            if(bookingArrayList.get(i).isValidated()){
-//                currentItemBooking.jTextPane.setBackground(Color.green);
-//                currentItemBooking.jCheckBoxConfirm.setSelected(true);
-//                currentItemBooking.jCheckBoxDelete.setVisible(false);
-////                currentItemBooking.booking.editBookingState();
-//            }
-//            else
-//            {
-//                currentItemBooking.jTextPane.setBackground(Color.red);
-//                currentItemBooking.jCheckBoxConfirm.setSelected(false);
-//                currentItemBooking.jCheckBoxDelete.setVisible(true);
-////                currentItemBooking.booking.editBookingState();
-//            }
-//            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-//            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
-//            currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
-//            jPanel.add(currentItemBooking.jPanelSon);
-//        }
-////        currentItemBooking = itemsBookingArrayList.get(0);
-//        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
-//        this.setContentPane(jScrollPane);
-//        setVisible(true);
-//
-//    }
-//    public void displayBooking(){
-//        /**
-//         * displays bookings in the panel
-//         */
-//
-//
-//        jPanel = new JPanel();
-//        jPanel.setBackground(Color.blue);
-//        jScrollPane = new JScrollPane(jPanel);
-//        itemsBookingArrayList.removeAll(itemsBookingArrayList);
-//
-//        for (int i = 0 ; i < bookingArrayList.size(); i++) {
-//            currentItemBooking = new ItemBooking(bookingArrayList.get(i),this);
-//            itemsBookingArrayList.add(currentItemBooking);
-//            Uti.mess("Longueur liste itemBooking : "+ itemsBookingArrayList.size());
-//            currentItemBooking.jPanelSon = new JPanel();
-//            currentItemBooking.jTextPane = new JTextPane();
-//            currentItemBooking.jPanelCommand = new JPanel();
-//            currentItemBooking.organizeJPanelSon();
-//            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//            if(bookingArrayList.get(i).isValidated()){
-//                currentItemBooking.jTextPane.setBackground(Color.green);
-//                currentItemBooking.jCheckBoxConfirm.setSelected(true);
-//                currentItemBooking.jCheckBoxDelete.setVisible(false);
-////                currentItemBooking.booking.editBookingState();
-//            }
-//            else
-//            {
-//                currentItemBooking.jTextPane.setBackground(Color.red);
-//                currentItemBooking.jCheckBoxConfirm.setSelected(false);
-//                currentItemBooking.jCheckBoxDelete.setVisible(true);
-////                currentItemBooking.booking.editBookingState();
-//            }
-//            currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-//            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
-//            currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
-//            jPanel.add(currentItemBooking.jPanelSon);
-//        }
-////        currentItemBooking = itemsBookingArrayList.get(0);
-//        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
-//        this.setContentPane(jScrollPane);
-//        setVisible(true);
-//
-//    }
+    public void displayHousing(){
+        /**
+         * displays hosts in the panel
+         */
+        jPanel = new JPanel();
+        jPanel.setBackground(Color.blue);
+        jScrollPane = new JScrollPane(jPanel);
+        itemsHousingArrayList.removeAll(itemsHousingArrayList);
+        for (int i = 0; i < housingArrayList.size(); i++) {
+            currentItemHousing = new ItemHousing(housingArrayList.get(i),this);
+            itemsHousingArrayList.add(currentItemHousing);
+            Uti.mess("Longueur liste itemHost : "+ itemsHousingArrayList.size());
+            currentItemHousing.jPanelSon = new JPanel();
+            currentItemHousing.jTextPane = new JTextPane();
+            currentItemHousing.jPanelCommand = new JPanel();
+            currentItemHousing.organizeJPanelSon();
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            currentItemHousing.jTextPane.setBackground(Color.white);
+            currentItemHousing.jCheckBoxDelete.setVisible(true);
+            currentItemHousing.jTextPane.setText(currentItemHousing.housing.stringDisplay());
+            currentItemHousing.jPanelSon.add(currentItemHousing.jTextPane );
+            currentItemHousing.jTextPane.setPreferredSize(new Dimension(480, 15));
+            jPanel.add(currentItemHousing.jPanelSon);
+        }
+        currentItemHousing = itemsHousingArrayList.get(0);
+        jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
+        this.setContentPane(jScrollPane);
+        setVisible(true);
+
+    }
+
     public void displayBooking(){
         /**
          * displays bookings in the panel
@@ -444,7 +366,7 @@ public class ViewMenu extends JFrame {
                 currentItemBooking.jCheckBoxDelete.setVisible(true);
             }
             currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane ); // todo display reservation
+            currentItemBooking.jPanelSon.add(currentItemBooking.jTextPane );
             currentItemBooking.jTextPane.setPreferredSize(new Dimension(480, 180));
             jPanel.add(currentItemBooking.jPanelSon);
         }
@@ -537,18 +459,18 @@ public class ViewMenu extends JFrame {
             displayHost();
         }
     }
-//    class ViewDisplayHousingListener implements ActionListener {
-//        /**
-//         * creates and opens the window to see the Housing
-//         */
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            Uti.info("ViewDisplayHousingListener","actionPerformed()","");
-//            if (housingArrayList == null)
-//                Uti.mess("liste de logements nulle.");
-//            displayHousing();
-//        }
-//    }
+    class ViewDisplayHousingListener implements ActionListener {
+        /**
+         * creates and opens the window to see the Housing
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Uti.info("ViewDisplayHousingListener","actionPerformed()","");
+            if (housingArrayList == null)
+                Uti.mess("liste de logements nulle.");
+            displayHousing();
+        }
+    }
     class ViewDisplayBookingListener implements ActionListener {
         /**
          * creates and opens the window to see the bookings
@@ -562,7 +484,6 @@ public class ViewMenu extends JFrame {
         }
     }
     public class Persistence{
-        //        public File parentFile = new File("C:\\Users\\demon\\IdeaProjects\\AirBnB\\miscelleanous\\");
         public File parentFile = new File("miscelleanous/");
         String fileName ="bookings.txt";
 
@@ -825,38 +746,9 @@ public class ViewMenu extends JFrame {
             jPanelCommand.add(jCheckBoxDelete);
         }
 
-        //        class BookingConfirmListener implements ActionListener {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Uti.info("BookingConfirmListener","actionPerformed","");
-//                Uti.mess("action sur jCheckboxConfirm "+ traveler.getId()+" "+(traveler.isValidated()?"coché":"decoché"));
-//
-//                updateItemBooking();
-//                if(!traveler.isValidated())
-//                {
-//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
-//                    traveler.setValidated(true);
-//                    currentItemBooking.booking.editBookingState();
-//                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-//                    jTextPane.setBackground(Color.GREEN);
-//                    currentItemBooking.jCheckBoxDelete.setVisible(false);
-//                    currentItemBooking.jCheckBoxConfirm.setSelected(true);
-//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
-//                }
-//                else
-//                {
-//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
-//                    traveler.setValidated(false);
-//                    currentItemBooking.booking.editBookingState();
-//                    currentItemBooking.jTextPane.setText(currentItemBooking.booking.stringDisplay());
-//                    jTextPane.setBackground(Color.red);
-//                    currentItemBooking.jCheckBoxDelete.setVisible(true);
-//                    currentItemBooking.jCheckBoxConfirm.setSelected(false);
-//                    System.out.println(traveler.getId()+" "+ traveler.isValidated());
-//                }
-//            }
-//        }
+
         class TravelerDeleteListener implements ActionListener {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 /**
@@ -865,11 +757,6 @@ public class ViewMenu extends JFrame {
                  unselected
                  */
                 Uti.info("TravelerDeleteListener","actionPerformed","");
-
-//                    jCheckBoxDelete.setVisible(true);
-//                    currentItemTraveler.jCheckBoxDelete.setVisible(false);
-
-//                    updateItemTraveler();
                 deleteTraveler();
                 updateItemTraveler();
             }
@@ -911,14 +798,6 @@ public class ViewMenu extends JFrame {
                 System.out.println("indice itemTraveler: "+ index);
                 Uti.mess("je supprime l'itemTraveler au même rang de liste");
                 itemsTravelerArrayList.remove(itemsTravelerArrayList.get(index));
-//                for(int j=0;j<itemsTravelerArrayList.size();j++){
-//                    if(currentItemTraveler.equals(itemsTravelerArrayList.get(j))){
-//                        System.out.println(itemsTravelerArrayList.size());
-//                        itemsTravelerArrayList.remove(itemsTravelerArrayList.get(j));
-//                        System.out.println((currentItemTraveler != null)?"élément graphique voyageur courant détruit":"anomalie élément graphique voyageur subsiste");
-//                        System.out.println(itemsTravelerArrayList.size());
-//                    }
-//                }
             }
             public void displayListItemTravelerAndTraveler() {
                 /**
@@ -948,6 +827,122 @@ public class ViewMenu extends JFrame {
         }
 
     }
+    public class ItemHousing {
+        public JPanel jPanelSon = new JPanel();
+        public JPanel jPanelCommand;
+        public JTextPane jTextPane ;
+        public Housing housing ;
+        public JCheckBox jCheckBoxDelete= new JCheckBox("Supprimer");
+        public ViewMenu viewMenu;
+        HousingDeleteListener housingDeleteListener = new HousingDeleteListener();
+
+        ItemHousing(Housing housing, ViewMenu viewMenu){
+            /**
+             connects the housing provides by parameter with the checkBox
+             and the housingDeleteListener
+             */
+            this.housing = housing;
+            this.viewMenu = viewMenu;
+            jCheckBoxDelete.addActionListener(housingDeleteListener);
+        }
+        public void updateItemHousing(){
+            /**
+             * the current ItemHousing becomes the currentItemHousing of viewMenu.
+             */
+            viewMenu.currentItemHousing = this;
+        }
+        public void organizeJPanelSon(){
+            Uti.info("ItemHousing","public void organizeJPanelSon(){\n","");
+            jPanelSon.setLayout(new BorderLayout());
+            jPanelSon.add(jTextPane, BorderLayout.WEST);
+            jPanelSon.add(jPanelCommand, BorderLayout.EAST);
+            positionCheckButton();
+        }
+        public void positionCheckButton(){
+            /**
+             * organize the position of jCheckBox
+             */
+            Uti.info("ItemHousing","positionCheckButton","");
+            jPanelCommand.setLayout(new GridLayout(2,1));
+            jPanelCommand.add(jCheckBoxDelete);
+        }
+
+
+        class HousingDeleteListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /**
+                 delete the host in the list
+                 */
+
+                Uti.info("HousingDeleteListener","actionPerformed","");
+                deleteHousing();
+                updateItemHousing();
+            }
+            public void deleteHousing(){
+                /**
+                 comparates the housing of the currentItemhousing with the housingArrayList.
+                 If the equality is found the housing is delete in the housingArrayList.
+                 the itemHousing at the same position in tne itemHousingArrayList is
+                 deleted
+                 actualise the currentItemHousing
+                 */
+                Uti.info("HousingDeleteListener","deleteHousing","");
+                displayListItemHousingAndHousing();
+                for(int i = 0; i< housingArrayList.size(); i++){
+                    System.out.println("itemBooking indice : "+i);
+                    if( currentItemHousing.housing.equals(housingArrayList.get(i))){
+                        System.out.println(housingArrayList.size()+" "+housingArrayList.get(i).getId());
+                        housingArrayList.remove(housingArrayList.get(i));
+                        deleteItemHousing(i);
+                        System.out.println((currentItemHousing.housing != null)?"logement courant détruit":"anomalie logement subsiste");
+                        System.out.println(housingArrayList.size());
+                        updateItemHousing();
+                        displayListItemHousingAndHousing();
+                        displayHousing();
+                        break;
+                    }
+                }
+            }
+            public void deleteItemHousing(int index){
+                /**
+                 deletes the itemHousing in the itemsHousingArrayList() at the position
+                 given by the first parameter
+                 */
+                Uti.info("HousingDeleteListener","deleteItemHousing","");
+                System.out.println("indice itemHousing: "+ index);
+                Uti.mess("je supprime l'itemHousing au même rang de liste");
+                itemsHousingArrayList.remove(itemsHousingArrayList.get(index));
+//                for(int j=0;j<itemsHousingArrayList.size();j++){
+//                    if(currentItemHousing.equals(itemsHousingArrayList.get(j))){
+//                        System.out.println(itemsHousingArrayList.size());
+//                        itemsHousingArrayList.remove(itemsHousingArrayList.get(j));
+//                        System.out.println((currentItemHousing != null)?"élément graphique logement courantZ détruit":"anomalie élément graphique réservation subsiste");
+//                        System.out.println(itemsHostArrayList.size());
+//                    }
+//                }
+            }
+            public void displayListItemHousingAndHousing() {
+                /**
+                 checks if the itemsHousingArrayList and the
+                 HousingArrayList have the same size and display
+                 a message displays for each itemHousing in the
+                 ArrayList the ID of the Housing of the ItemHousing
+                 */
+                Uti.info("HousingDeleteListener","displayListItemHousingAndHousing","");
+                if (itemsHousingArrayList.size() == housingArrayList.size()) {
+                    System.out.println("égalité taille listes");
+                } else
+                    System.out.println("inégalité longueur listes");
+                System.out.println("itemH "+itemsHousingArrayList.size());
+                System.out.println("h "+housingArrayList.size());
+                for (int i = 0 ; i< itemsHousingArrayList.size(); i++){
+                    System.out.print("itemH : "+i+" - h : "+housingArrayList.get(i).getId()+" ");
+                }
+                System.out.println();
+            }
+        }
+    }
 
     public class ItemHost {
         public JPanel jPanelSon = new JPanel();
@@ -959,6 +954,10 @@ public class ViewMenu extends JFrame {
         HostDeleteListener hostDeleteListener = new HostDeleteListener();
 
         ItemHost(Host host, ViewMenu viewMenu){
+            /**
+             connects the host provides by parameter with the checkBoxs
+             and the actions of confirmation and deletion
+             */
             this.host = host;
             this.viewMenu = viewMenu;
             jCheckBoxDelete.addActionListener(hostDeleteListener);

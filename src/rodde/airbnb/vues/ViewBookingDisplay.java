@@ -24,7 +24,7 @@ public class ViewBookingDisplay extends JFrame {
         for (int i = 0 ; i < bookings.size(); i++) {
             jTextPane = new JTextPane();
             jTextPane.setText(bookings.get(i).stringDisplay());
-            jPanel.add(jTextPane ); // todo display reservation
+            jPanel.add(jTextPane );
         }
 //        jPanel.add(jTextPane);
         this.setContentPane(jPanel);

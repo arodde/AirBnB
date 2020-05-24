@@ -40,9 +40,9 @@ public class ViewAppartmentCreation extends JFrame {
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
     public JButton jButtonValidate;
-//    public JButton jButtonFastImput;
+    public JButton jButtonFastImput;
     public ViewAppartmentCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
-        // todo à cleaner
+
         Uti.info("ViewAppartmentCreation","ViewAppartmentCreation","");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter une appartement");
@@ -52,7 +52,6 @@ public class ViewAppartmentCreation extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.hosts = hosts;
         this.housings = housings;
-//        toRemoveAfter3(); // todo delete this line
         jLabelHost = new JLabel("Hôte :");
         jComboBoxHosts = new JComboBox();
         addEltHost = new AddEltHostListener();
@@ -89,7 +88,7 @@ public class ViewAppartmentCreation extends JFrame {
         panel.add(jLabelBalconyArea);
         panel.add(jTextFieldBalconyArea);
         panel.add(jButtonValidate);
-//        panel.add(jButtonFastImput);
+        panel.add(jButtonFastImput);
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
@@ -114,7 +113,7 @@ public class ViewAppartmentCreation extends JFrame {
                     Uti.mess("L'appartement ne peut être créé.");
                     activeFieldsViewAppartment();
                     jButtonValidate.setEnabled(true);
-				//	 jButtonFastImput.setEnabled(false);
+					 jButtonFastImput.setEnabled(false);
                 }
             }
             public void inactiveFieldsViewAppartment(){
@@ -138,25 +137,26 @@ public class ViewAppartmentCreation extends JFrame {
                 jTextFieldBalconyArea.setEnabled(true);
             }
         });
-//        jButtonFastImput.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Uti.info("ActionListener","actionPerforme","");
-//                jTextFieldDailyRate.setText("7");
-//                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
-//                jTextFieldArea.setText("27");
-//                jTextFieldTravelersNumber.setText("4");
-//                jTextFieldFloorNumber.setText("0");
-////                jTextFieldFloorNumber.setText("1");
-////                jTextFieldFloorNumber.setText("2");
-//                jTextFieldBalconyArea.setText("4");
-//                jButtonValidate.setEnabled(true);
-//                jButtonFastImput.setEnabled(false);
-//            }
-//        });
+        jButtonFastImput.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Uti.info("ActionListener","actionPerforme","");
+                jTextFieldDailyRate.setText("7");
+                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
+                jTextFieldArea.setText("27");
+                jTextFieldTravelersNumber.setText("4");
+                jTextFieldFloorNumber.setText("0");
+//                jTextFieldFloorNumber.setText("1");
+//                jTextFieldFloorNumber.setText("2");
+                jTextFieldBalconyArea.setText("4");
+                jButtonValidate.setEnabled(true);
+                jButtonFastImput.setEnabled(false);
+            }
+        });
     }
     public  String stringTestRegex(String sMatcher){
         /*
+           the regular expression below is for a french address.
            this method gives a message which show if the
            pattern matches with the proposed string or not.
            the pattern is composed of four pattern:
@@ -322,7 +322,6 @@ public class ViewAppartmentCreation extends JFrame {
                     recup = (String) e.getItem();
                     index = Integer.parseInt(returnFirstWord(recup));
                     currentHost = hosts.get(index);
-                    System.out.println("ZOUZOUZOU");// todo à retirer
                 }
             }
         }

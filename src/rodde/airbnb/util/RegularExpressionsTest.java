@@ -49,11 +49,6 @@ public class RegularExpressionsTest {
         String address3 = "13ter Rue de la marinère 37000 TOURS appartement 7";
         List<String> addresses= new ArrayList<String>();
         addresses.add(address1);
-        //todo retrouver la bonne expression régulière mais plus c'est pas urgent
-        // todo regarder cette video de you tube https://www.youtube.com/watch?v=XdDPEkyiRTs
-//        Pattern address = Pattern.compile("\\d*\\s{1}\\D{3}\\s{1}[\\s([A-Za-z0-9])+\\d{5}[\\s[A-Za-z]+); //. represents single character
-//        Matcher testedaddress = frenchPostalCode.matcher(addresses.get(0));
-//        boolean b02 = testedaddress.matches();
     }
     public static void example3(){
         Uti.info("RegularExpressions","example3()","");
