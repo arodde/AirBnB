@@ -228,55 +228,15 @@ public class ViewStayCreation extends JFrame {
         for(int i = 0; i<verifications.length;i++){
             verifications[i]=false;
         }
-        //****************************************************************************
         verifications[0] = currentTraveler != null ? true:false;
         if(!verifications[0])
             jComboBoxTravelers.setBackground(Color.RED);
-        //****************************************************************************
-        String checkedDateStringIni = jFormattedTextFieldArrivalDate.getText();
-        String checkedDateString = jFormattedTextFieldArrivalDate.getText();
-        checkedDateString = checkedDateStringIni.trim();
-        if (checkedDateString.length()==10){
-            System.out.println("longueur "+ checkedDateString.length());
-            String day = checkedDateString.substring(0,2);
-            String month = checkedDateString.substring(3,5);
-            String year = checkedDateString.substring(6,10);
-            if (validationDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year))){
-                verifications[1]=true;
-                jFormattedTextFieldArrivalDate.setBackground(Color.white);
-            }else{
-                jFormattedTextFieldArrivalDate.setBackground(Color.red);
-                jFormattedTextFieldArrivalDate.setText("");
-            }
-        }else{
-            jFormattedTextFieldArrivalDate.setBackground(Color.red);
-            jFormattedTextFieldArrivalDate.setText("");
-        }
-        //****************************************************************************
-        if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
-                Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
-            verifications[2]=true;
-            jTextFieldOvernightsNumber.setBackground(Color.white);
-        } else {
-            jTextFieldOvernightsNumber.setBackground(Color.red);
-            jTextFieldOvernightsNumber.setText("");
-        }
-        //****************************************************************************
+        verifications[1]= checkFieldStayArrivalDate();
+        verifications[2]= checkFieldStayOvernightsNumber();
         verifications[3] = currentHousing != null ? true:false;
         if(!verifications[3])
             jComboBoxHousings.setBackground(Color.RED);
-        //****************************************************************************
-        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
-                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
-            verifications[4]=true;
-            jTextFieldTravelersNumber.setBackground(Color.white);
-        } else {
-            jTextFieldTravelersNumber.setBackground(Color.red);
-            jTextFieldTravelersNumber.setText("");
-        }
-        //****************************************************************************
+        verifications[4]= checkFieldStayTravelersNumber();
         for(int i=0; i<verifications.length;i++){
             if(verifications[i]==true)
                 correctHousing = true;
@@ -286,6 +246,54 @@ public class ViewStayCreation extends JFrame {
             }
         }
         return correctHousing;
+    }
+
+    public boolean checkFieldStayArrivalDate(){
+        String checkedDateStringIni = jFormattedTextFieldArrivalDate.getText();
+        String checkedDateString = jFormattedTextFieldArrivalDate.getText();
+        checkedDateString = checkedDateStringIni.trim();
+        if (checkedDateString.length()==10){
+            System.out.println("longueur "+ checkedDateString.length());
+            String day = checkedDateString.substring(0,2);
+            String month = checkedDateString.substring(3,5);
+            String year = checkedDateString.substring(6,10);
+            if (validationDate(Integer.parseInt(day),Integer.parseInt(month),Integer.parseInt(year))){
+                jFormattedTextFieldArrivalDate.setBackground(Color.white);
+                return true;
+            }else{
+                jFormattedTextFieldArrivalDate.setBackground(Color.red);
+                jFormattedTextFieldArrivalDate.setText("");
+                return false;
+            }
+        }else{
+            jFormattedTextFieldArrivalDate.setBackground(Color.red);
+            jFormattedTextFieldArrivalDate.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldStayOvernightsNumber(){
+        if((!jTextFieldOvernightsNumber.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldOvernightsNumber.getText()) &&
+                Integer.parseInt(jTextFieldOvernightsNumber.getText())>0)){
+            jTextFieldOvernightsNumber.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldOvernightsNumber.setBackground(Color.red);
+            jTextFieldOvernightsNumber.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldStayTravelersNumber(){
+        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
+                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
+            jTextFieldTravelersNumber.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldTravelersNumber.setBackground(Color.red);
+            jTextFieldTravelersNumber.setText("");
+            return false;
+        }
     }
     public boolean validationDate(int iDay,int iMonth, int iYear) {
         /**

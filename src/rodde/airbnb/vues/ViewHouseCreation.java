@@ -174,56 +174,10 @@ public class ViewHouseCreation extends JFrame {
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
         verifications[1]= checkFieldsHouseDailyRate();
-//        if((!jTextFieldDailyRate.getText().isEmpty() &&
-//                StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
-//                Integer.parseInt(jTextFieldDailyRate.getText())>0)){
-//            verifications[1]=true;
-//            jTextFieldDailyRate.setBackground(Color.white);
-//        } else {
-//            jTextFieldDailyRate.setBackground(Color.red);
-//            jTextFieldDailyRate.setText("");
-//        }
-
         verifications[2]= checkFieldsHouseAddress();
-//        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
-//            verifications[2]=true;
-//            jTextFieldAddress.setBackground(Color.white);
-//        } else {
-//            jTextFieldAddress.setBackground(Color.red);
-//            jTextFieldAddress.setText("");
-//        }
-
         verifications[3]= checkFieldsHouseArea();
-//        if((!jTextFieldArea.getText().isEmpty() &&
-//                StringUtils.isNumeric(jTextFieldArea.getText()) &&
-//                Integer.parseInt(jTextFieldArea.getText())>0)){
-//            verifications[3]=true;
-//            jTextFieldArea.setBackground(Color.white);
-//        } else {
-//            jTextFieldArea.setBackground(Color.red);
-//            jTextFieldArea.setText("");
-//        }
-
         verifications[4]= checkFieldsHouseTravelersNumber();
-//        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
-//                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
-//                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
-//            verifications[4]=true;
-//            jTextFieldTravelersNumber.setBackground(Color.white);
-//        } else {
-//            jTextFieldTravelersNumber.setBackground(Color.red);
-//            jTextFieldTravelersNumber.setText("");
-//        }
         verifications[5]= checkFieldsHouseGarderArea();
-//        if((!jTextFieldGardenArea.getText().isEmpty() &&
-//                StringUtils.isNumeric(jTextFieldGardenArea.getText()) &&
-//                Integer.parseInt(jTextFieldGardenArea.getText())>0)){
-//            verifications[5]=true;
-//            jTextFieldGardenArea.setBackground(Color.white);
-//        } else {
-//            jTextFieldGardenArea.setBackground(Color.red);
-//            jTextFieldGardenArea.setText("");
-//        }
         for(int i=0; i<verifications.length;i++){
             if(verifications[i]==true){
                 correctHouse = true;
