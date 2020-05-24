@@ -7,7 +7,6 @@ import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +39,7 @@ public class ViewAppartmentCreation extends JFrame {
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
     public JButton jButtonValidate;
-    public JButton jButtonFastImput;
+//    public JButton jButtonFastImput;
     public ViewAppartmentCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
 
         Uti.info("ViewAppartmentCreation","ViewAppartmentCreation","");
@@ -88,15 +87,16 @@ public class ViewAppartmentCreation extends JFrame {
         panel.add(jLabelBalconyArea);
         panel.add(jTextFieldBalconyArea);
         panel.add(jButtonValidate);
-        panel.add(jButtonFastImput);
+//        panel.add(jButtonFastImput);
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean correctAppartment = false;
-                inactiveFieldsViewAppartment();
                 if(checkFieldsAppartment(correctAppartment)){
+                    inactiveFieldsViewAppartment();
+                    jButtonValidate.setEnabled(false);
                     currentAppartment = new Appartment(
                             currentHost,
                             Integer.parseInt(jTextFieldDailyRate.getText()) ,
@@ -107,13 +107,12 @@ public class ViewAppartmentCreation extends JFrame {
                             Integer.parseInt(jTextFieldBalconyArea.getText())
                     );
                     housings.add(currentAppartment);
-                    jButtonValidate.setEnabled(false);
                     Uti.mess("longueur liste appartements : "+housings.size());
                 } else {
                     Uti.mess("L'appartement ne peut être créé.");
                     activeFieldsViewAppartment();
                     jButtonValidate.setEnabled(true);
-					 jButtonFastImput.setEnabled(false);
+//					 jButtonFastImput.setEnabled(false);
                 }
             }
             public void inactiveFieldsViewAppartment(){
@@ -137,22 +136,22 @@ public class ViewAppartmentCreation extends JFrame {
                 jTextFieldBalconyArea.setEnabled(true);
             }
         });
-        jButtonFastImput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Uti.info("ActionListener","actionPerforme","");
-                jTextFieldDailyRate.setText("7");
-                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
-                jTextFieldArea.setText("27");
-                jTextFieldTravelersNumber.setText("4");
-                jTextFieldFloorNumber.setText("0");
-//                jTextFieldFloorNumber.setText("1");
-//                jTextFieldFloorNumber.setText("2");
-                jTextFieldBalconyArea.setText("4");
-                jButtonValidate.setEnabled(true);
-                jButtonFastImput.setEnabled(false);
-            }
-        });
+//        jButtonFastImput.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("ActionListener","actionPerforme","");
+//                jTextFieldDailyRate.setText("7");
+//                jTextFieldAddress.setText("215 rue de la vulve 75000 PARIS");
+//                jTextFieldArea.setText("27");
+//                jTextFieldTravelersNumber.setText("4");
+//                jTextFieldFloorNumber.setText("0");
+////                jTextFieldFloorNumber.setText("1");
+////                jTextFieldFloorNumber.setText("2");
+//                jTextFieldBalconyArea.setText("4");
+//                jButtonValidate.setEnabled(true);
+//                jButtonFastImput.setEnabled(false);
+//            }
+//        });
     }
     public  String stringTestRegex(String sMatcher){
         /*
@@ -170,7 +169,7 @@ public class ViewAppartmentCreation extends JFrame {
         */
         boolean b = false;
         String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
-        String sPattern2 = "(\\s)*+([a-zA-Z\\-\\s])*(\\s)*";
+        String sPattern2 = "(\\s)+.*(\\s)";
         String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
         String sPattern4 = "[a-zA-Z\\-\\s]+";
         String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
@@ -187,6 +186,87 @@ public class ViewAppartmentCreation extends JFrame {
             return "";
         }
     }
+    public boolean checkFieldsAppartmentDailyRate(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentDailyRate","");
+        if((!jTextFieldDailyRate.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
+                Integer.parseInt(jTextFieldDailyRate.getText())>0)){
+            jTextFieldDailyRate.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldDailyRate.setBackground(Color.red);
+            jTextFieldDailyRate.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldsAppartmentAddress(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentAddress","");
+        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+            jTextFieldAddress.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldAddress.setBackground(Color.red);
+            jTextFieldAddress.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldsAppartmentFieldArea(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentFieldArea","");
+        if((!jTextFieldArea.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldArea.getText()) &&
+                Integer.parseInt(jTextFieldArea.getText())>0)){
+            jTextFieldArea.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldArea.setBackground(Color.red);
+            jTextFieldArea.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldsAppartmentTravelersNumber(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentTravelersNumber","");
+        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
+                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
+            jTextFieldTravelersNumber.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldTravelersNumber.setBackground(Color.red);
+            jTextFieldTravelersNumber.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldsAppartmentFloorNumber(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentFloorNumber","");
+        if((!jTextFieldFloorNumber.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldFloorNumber.getText()) &&
+                (( Integer.parseInt(jTextFieldFloorNumber.getText())>=0) &&
+                        ( Integer.parseInt(jTextFieldFloorNumber.getText())<3)))){
+            jTextFieldFloorNumber.setBackground(Color.white);
+            if (Integer.parseInt(jTextFieldFloorNumber.getText())==0){
+                jTextFieldBalconyArea.setText("0");
+            }
+            return true;
+        } else {
+            jTextFieldFloorNumber.setBackground(Color.red);
+            jTextFieldFloorNumber.setText("");
+            return false;
+        }
+    }
+    public boolean checkFieldsAppartmentBalconyArea(){
+        Uti.info("ViewAppartementCreation","checkFieldsAppartmentBalconyArea","");
+        if((!jTextFieldBalconyArea.getText().isEmpty() &&
+                StringUtils.isNumeric(jTextFieldBalconyArea.getText()) &&
+                Integer.parseInt(jTextFieldBalconyArea.getText())>=0)){
+            jTextFieldBalconyArea.setBackground(Color.white);
+            return true;
+        } else {
+            jTextFieldBalconyArea.setBackground(Color.red);
+            jTextFieldBalconyArea.setText("");
+            return false;
+        }
+    }
+
     public Boolean checkFieldsAppartment(Boolean correctAppartment){
         /**
          * checks the necessary fields before validation:
@@ -208,85 +288,87 @@ public class ViewAppartmentCreation extends JFrame {
         verifications[0] = currentHost != null ? true:false;
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
-        if((!jTextFieldDailyRate.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
-                Integer.parseInt(jTextFieldDailyRate.getText())>0)){
-            verifications[1]=true;
-            jTextFieldDailyRate.setBackground(Color.white);
-        } else {
-            jTextFieldDailyRate.setBackground(Color.red);
-            jTextFieldDailyRate.setText("");
-        }
-        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
-            verifications[2]=true;
-            jTextFieldAddress.setBackground(Color.white);
-        } else {
-            jTextFieldAddress.setBackground(Color.red);
-            jTextFieldAddress.setText("");
-        }
-        if((!jTextFieldArea.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldArea.getText()) &&
-                Integer.parseInt(jTextFieldArea.getText())>0)){
-            verifications[3]=true;
-            jTextFieldArea.setBackground(Color.white);
-        } else {
-            jTextFieldArea.setBackground(Color.red);
-            jTextFieldArea.setText("");
-        }
-        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
-                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
-            verifications[4]=true;
-            jTextFieldTravelersNumber.setBackground(Color.white);
-        } else {
-            jTextFieldTravelersNumber.setBackground(Color.red);
-            jTextFieldTravelersNumber.setText("");
-        }
-        if((!jTextFieldFloorNumber.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldFloorNumber.getText()) &&
-                (( Integer.parseInt(jTextFieldFloorNumber.getText())>=0) &&
-                        ( Integer.parseInt(jTextFieldFloorNumber.getText())<3)))){
-            verifications[5]=true;
-            jTextFieldFloorNumber.setBackground(Color.white);
-            if (Integer.parseInt(jTextFieldFloorNumber.getText())==0){
-                jTextFieldBalconyArea.setText("0");
-                verifications[6]  = false;//Integer.parseInt(jTextFieldBalconyArea.getText()) > 0 ? true : false;
-            }
-        } else {
-            jTextFieldFloorNumber.setBackground(Color.red);
-            jTextFieldFloorNumber.setText("");
-        }
-        if((!jTextFieldBalconyArea.getText().isEmpty() &&
-                StringUtils.isNumeric(jTextFieldBalconyArea.getText()) &&
-                Integer.parseInt(jTextFieldBalconyArea.getText())>=0)){
-
-            verifications[6]=true;
-            jTextFieldBalconyArea.setBackground(Color.white);
-        } else {
-            jTextFieldBalconyArea.setBackground(Color.red);
-            jTextFieldBalconyArea.setText("");
-        }
+      verifications[1]= checkFieldsAppartmentDailyRate();
+//        if((!jTextFieldDailyRate.getText().isEmpty() &&
+//                StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
+//                Integer.parseInt(jTextFieldDailyRate.getText())>0)){
+//            verifications[1]=true;
+//            jTextFieldDailyRate.setBackground(Color.white);
+//        } else {
+//            jTextFieldDailyRate.setBackground(Color.red);
+//            jTextFieldDailyRate.setText("");
+//        }
+        verifications[2]= checkFieldsAppartmentAddress();
+//        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+//            verifications[2]=true;
+//            jTextFieldAddress.setBackground(Color.white);
+//        } else {
+//            jTextFieldAddress.setBackground(Color.red);
+//            jTextFieldAddress.setText("");
+//        }
+        verifications[3]= checkFieldsAppartmentFieldArea();
+//        if((!jTextFieldArea.getText().isEmpty() &&
+//                StringUtils.isNumeric(jTextFieldArea.getText()) &&
+//                Integer.parseInt(jTextFieldArea.getText())>0)){
+//            verifications[3]=true;
+//            jTextFieldArea.setBackground(Color.white);
+//        } else {
+//            jTextFieldArea.setBackground(Color.red);
+//            jTextFieldArea.setText("");
+//        }
+        verifications[4]= checkFieldsAppartmentTravelersNumber();
+//        if((!jTextFieldTravelersNumber.getText().isEmpty() &&
+//                StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
+//                Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
+//            verifications[4]=true;
+//            jTextFieldTravelersNumber.setBackground(Color.white);
+//        } else {
+//            jTextFieldTravelersNumber.setBackground(Color.red);
+//            jTextFieldTravelersNumber.setText("");
+//        }
+        verifications[5]= checkFieldsAppartmentFloorNumber();
+//        if((!jTextFieldFloorNumber.getText().isEmpty() &&
+//                StringUtils.isNumeric(jTextFieldFloorNumber.getText()) &&
+//                (( Integer.parseInt(jTextFieldFloorNumber.getText())>=0) &&
+//                        ( Integer.parseInt(jTextFieldFloorNumber.getText())<3)))){
+//            verifications[5]=true;
+//            jTextFieldFloorNumber.setBackground(Color.white);
+//            if (Integer.parseInt(jTextFieldFloorNumber.getText())==0){
+//                jTextFieldBalconyArea.setText("0");
+//                verifications[6]  = false;//Integer.parseInt(jTextFieldBalconyArea.getText()) > 0 ? true : false;
+//            }
+//        } else {
+//            jTextFieldFloorNumber.setBackground(Color.red);
+//            jTextFieldFloorNumber.setText("");
+//        }
+        verifications[6]= checkFieldsAppartmentBalconyArea();
+//        if((!jTextFieldBalconyArea.getText().isEmpty() &&
+//                StringUtils.isNumeric(jTextFieldBalconyArea.getText()) &&
+//                Integer.parseInt(jTextFieldBalconyArea.getText())>=0)){
+//
+//            verifications[6]=true;
+//            jTextFieldBalconyArea.setBackground(Color.white);
+//        } else {
+//            jTextFieldBalconyArea.setBackground(Color.red);
+//            jTextFieldBalconyArea.setText("");
+//        }
         for(int i=0; i<(verifications.length);i++){
             if(verifications[i]==true){
                 correctAppartment = true;
                 jButtonValidate.setEnabled(true);
+                System.out.println(verifications[i]);
             }
             else{
                 i=verifications.length;
                 correctAppartment = false;
                 jButtonValidate.setEnabled(false);
+                System.out.println(verifications[i]);
             }
         }
         return correctAppartment;
     }
 
-    public void toRemoveAfter3(){
-        Uti.info("jButtonValidate","toRemoveAfter3","");
-        hosts.add(new Host("DUPEUBLE","Aladdin",17,19));
-        hosts.add(new Host("PERROQUET","Iago",27,80));
-        hosts.add(new Host("DU PALAIS","Jasmine",16,12));
-        hosts.add(new Host("LE MAGNIFIQUE","Génie",350,1));
-    }
+
 
     public void fillHostComboItem(){
         /**

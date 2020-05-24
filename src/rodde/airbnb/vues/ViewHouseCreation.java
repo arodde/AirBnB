@@ -225,17 +225,21 @@ public class ViewHouseCreation extends JFrame {
 //            jTextFieldGardenArea.setText("");
 //        }
         for(int i=0; i<verifications.length;i++){
-            if(verifications[i]==true)
+            if(verifications[i]==true){
                 correctHouse = true;
+                System.out.println(verifications[i]);
+            }
             else{
                 i=verifications.length;
                 correctHouse = false;
+                System.out.println(verifications[i]);
             }
         }
         return correctHouse;
     }
     public boolean checkFieldsHouseDailyRate(){
-        if((!jTextFieldDailyRate.getText().isEmpty() &&
+        Uti.info("ViewHouseCreation","checkFieldsHouseDailyRate","");
+        if((!jTextFieldDailyRate.getText().isEmpty()&&
                 StringUtils.isNumeric(jTextFieldDailyRate.getText()) &&
                 Integer.parseInt(jTextFieldDailyRate.getText())>0)){
             jTextFieldDailyRate.setBackground(Color.white);
@@ -248,6 +252,7 @@ public class ViewHouseCreation extends JFrame {
     }
 
     public boolean checkFieldsHouseAddress(){
+        Uti.info("ViewHouseCreation","checkFieldsHouseAddress","");
         if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
             jTextFieldAddress.setBackground(Color.white);
             return true;
@@ -259,6 +264,7 @@ public class ViewHouseCreation extends JFrame {
     }
 
     public boolean checkFieldsHouseArea(){
+        Uti.info("ViewHouseCreation","checkFieldsHouseArea","");
         if((!jTextFieldArea.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldArea.getText()) &&
                 Integer.parseInt(jTextFieldArea.getText())>0)){
@@ -272,6 +278,7 @@ public class ViewHouseCreation extends JFrame {
     }
 
     public boolean checkFieldsHouseTravelersNumber(){
+        Uti.info("ViewHouseCreation","checkFieldsHouseTravelersNumber","");
         if((!jTextFieldTravelersNumber.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldTravelersNumber.getText()) &&
                 Integer.parseInt(jTextFieldTravelersNumber.getText())>0)){
@@ -285,6 +292,7 @@ public class ViewHouseCreation extends JFrame {
     }
 
     public boolean checkFieldsHouseGarderArea(){
+        Uti.info("ViewHouseCreation","checkFieldsHouseGarderArea","");
         if((!jTextFieldGardenArea.getText().isEmpty() &&
                 StringUtils.isNumeric(jTextFieldGardenArea.getText()) &&
                 Integer.parseInt(jTextFieldGardenArea.getText())>0)){
@@ -329,13 +337,7 @@ public class ViewHouseCreation extends JFrame {
             return "";
         }
     }
-    public void toRemoveAfter3(){
-        Uti.info("jButtonValidate","toRemoveAfter3","");
-        hosts.add(new Host("MOUSE","Mickey",135,12));
-        hosts.add(new Host("MOUSE","Minnie",133,6));
-        hosts.add(new Host("DUCK","Donald",134,18));
-        hosts.add(new Host("DOG","Pluto",137,12));
-    }
+
 
     public void fillHostComboItem(){
         /**

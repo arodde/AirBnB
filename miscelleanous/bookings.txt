@@ -1,13 +1,13 @@
 Réservations
 
-0 (UNE DEMANDE DE RÉSERVATION EN ATTENTE DE CONFIRMATION ):
-POTTER Harry (18 ans) a fait une demande de réservation en attente de confirmation  chez GRELOT Martial (35 ans) qui s'engage à répondre dans les 12 heures.
+0 (UNE RÉSERVATION ACCEPTÉE ):
+POTTER Harry (18 ans) a fait une réservation acceptée  chez GRELOT Martial (35 ans) qui s'engage à répondre dans les 12 heures.
 Le logement est une maison située 69 impasse de la Chapelle Fistine 80000 DANS-L-OIGNON.
 Superficie : 666m².
 Jardin : Oui (100m²)
 Piscine : Oui
 Avis de réservation
-La date d'arrivée est le 18/01/2021 pour 9 nuits.Le prix de ce séjour est de 1152 € .
+La date d'arrivée est le 18/01/2021 pour 9 nuits.Le prix de ce séjour est de 1440 € .
 
 1 (UNE RÉSERVATION ACCEPTÉE ):
 WEASLEY Ronald (18 ans) a fait une réservation acceptée  chez BRUME Thierry (14 ans) qui s'engage à répondre dans les 13 heures.
@@ -25,12 +25,12 @@ Superficie : 35m²
 Avis de réservation:
 La date d'arrivée est le 18/12/2021 pour 3 nuits.Le prix de ce séjour est de 75 € .
 
-3 (UNE DEMANDE DE RÉSERVATION EN ATTENTE DE CONFIRMATION ):
-STARK Arya (12 ans) a fait une demande de réservation en attente de confirmation  chez FUYONS Pénélope (70 ans) qui s'engage à répondre dans les 96 heures.
+3 (UNE RÉSERVATION ACCEPTÉE ):
+STARK Arya (12 ans) a fait une réservation acceptée  chez FUYONS Pénélope (70 ans) qui s'engage à répondre dans les 96 heures.
 Le logement est une maison située Château de Poudlard 86000 LA SORCELLERIE.
 Superficie : 2000m².
 Jardin : Oui (7000m²)
 Piscine : Non
 Avis de réservation
-La date d'arrivée est le 18/05/2021 pour 12 nuits.Le prix de ce séjour est de 1152 € .
+La date d'arrivée est le 18/05/2021 pour 12 nuits.Le prix de ce séjour est de 1440 € .
 Fin du fichier

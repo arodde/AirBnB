@@ -116,6 +116,10 @@ public class ViewMenu extends JFrame {
         hostArrayList.add(new Host("Pénélope","FUYONS",70,96));
         hostArrayList.add(new Host("Thierry","BRUME",14,13));
         hostArrayList.add(new Host("Albus Percival Wulferic Brian","DUMBLEDORE",450,1));
+        hostArrayList.add(new Host("DUPEUBLE","Aladdin",17,19));
+        hostArrayList.add(new Host("PERROQUET","Iago",27,80));
+        hostArrayList.add(new Host("DU PALAIS","Jasmine",16,12));
+        hostArrayList.add(new Host("LE MAGNIFIQUE","Génie",350,1));
         travelerArrayList.add(new Traveler("Harry","POTTER",18));
         travelerArrayList.add(new Traveler("Arya","STARK",12));
         travelerArrayList.add(new Traveler("Ronald","WEASLEY",18));
