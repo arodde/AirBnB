@@ -164,6 +164,7 @@ public class ViewMenu extends JFrame {
         sejour4 = (Stay) sejour4;
         try {
             bookingArrayList.add(new Booking(sejour1, travelerArrayList.get(0)));
+            bookingArrayList.get(0).setValidated(true);
 
         } catch (instantiationBookingException e) {
             e.printStackTrace();
@@ -182,6 +183,8 @@ public class ViewMenu extends JFrame {
         }
         try {
             bookingArrayList.add(new Booking(sejour4, travelerArrayList.get(1)));
+            bookingArrayList.get(3).setValidated(true);
+
         } catch (instantiationBookingException e) {
             e.printStackTrace();
         }
