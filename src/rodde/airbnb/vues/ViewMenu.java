@@ -112,19 +112,20 @@ public class ViewMenu extends JFrame {
          * software he is developping
          */
 
-        hostArrayList.add(new Host("Martial","GRELOT",35,12));
-        hostArrayList.add(new Host("Pénélope","FUYONS",70,96));
-        hostArrayList.add(new Host("Thierry","BRUME",14,13));
-        hostArrayList.add(new Host("Albus Percival Wulferic Brian","DUMBLEDORE",450,1));
+        hostArrayList.add(new Host("GRELOT","Martial",35,12));
+        hostArrayList.add(new Host("FUYONS","Pénélope",70,96));
+        hostArrayList.add(new Host("BRUME","Thierry",14,13));
+        hostArrayList.add(new Host("DUMBLEDORE","Albus Percival Wulferic Brian",450,1));
         hostArrayList.add(new Host("DUPEUBLE","Aladdin",17,19));
         hostArrayList.add(new Host("PERROQUET","Iago",27,80));
         hostArrayList.add(new Host("DU PALAIS","Jasmine",16,12));
         hostArrayList.add(new Host("LE MAGNIFIQUE","Génie",350,1));
         travelerArrayList.add(new Traveler("Harry","POTTER",18));
         travelerArrayList.add(new Traveler("Arya","STARK",12));
+        travelerArrayList.add(new Traveler("Hubert-Stanislas-Edmond-Rodrigues-Jacques-Henri","CHAUVINARDEAU DU MAZELONICAN DE VENDOMOISETTE",69));
         travelerArrayList.add(new Traveler("Ronald","WEASLEY",18));
         travelerArrayList.add(new Traveler("Tin","TIN",25));
-        housingArrayList.add((Housing) new House(hostArrayList.get(0),200,"69 impasse de la Chapelle Fistine 80000 DANS-L-OIGNON",666,69,100,true));
+        housingArrayList.add((Housing) new House(hostArrayList.get(0),200,"69 impasse de la Chapelle Fistine 66000 DANS-L-OIGNON",666,69,100,true));
         housingArrayList.add((Housing) new House(hostArrayList.get(1),150,"Château de Poudlard 86000 LA SORCELLERIE",2000,400,7000,false));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(2),350,"224 Boulevard de la Métropolitaine 75012 PARIS",150,8,2,40));
         housingArrayList.add((Housing) new Appartment(hostArrayList.get(3),25,"7 Tour du guet 19000 LACATAPULTE",35,8,0,0));
@@ -306,7 +307,6 @@ public class ViewMenu extends JFrame {
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         this.setContentPane(jScrollPane);
         setVisible(true);
-
     }
     public void displayHousing(){
         /**
@@ -637,7 +637,7 @@ public class ViewMenu extends JFrame {
 //                    jCheckBoxDelete.setVisible(true);
 //                    currentItemBooking.jCheckBoxDelete.setVisible(false);
 
-//                    updateItemBooking();
+                    updateItemBooking();
                     deleteBooking();
                 }
                 updateItemBooking();
@@ -764,6 +764,7 @@ public class ViewMenu extends JFrame {
                  unselected
                  */
                 Uti.info("TravelerDeleteListener","actionPerformed","");
+                updateItemTraveler();
                 deleteTraveler();
                 updateItemTraveler();
             }
@@ -883,6 +884,7 @@ public class ViewMenu extends JFrame {
                  */
 
                 Uti.info("HousingDeleteListener","actionPerformed","");
+                updateItemHousing();
                 deleteHousing();
                 updateItemHousing();
             }
@@ -899,12 +901,14 @@ public class ViewMenu extends JFrame {
                 for(int i = 0; i< housingArrayList.size(); i++){
                     System.out.println("itemBooking indice : "+i);
                     if( currentItemHousing.housing.equals(housingArrayList.get(i))){
+                        updateItemHousing();
                         System.out.println(housingArrayList.size()+" "+housingArrayList.get(i).getId());
                         housingArrayList.remove(housingArrayList.get(i));
                         deleteItemHousing(i);
                         System.out.println((currentItemHousing.housing != null)?"logement courant détruit":"anomalie logement subsiste");
                         System.out.println(housingArrayList.size());
                         updateItemHousing();
+
                         displayListItemHousingAndHousing();
                         displayHousing();
                         break;
@@ -920,14 +924,6 @@ public class ViewMenu extends JFrame {
                 System.out.println("indice itemHousing: "+ index);
                 Uti.mess("je supprime l'itemHousing au même rang de liste");
                 itemsHousingArrayList.remove(itemsHousingArrayList.get(index));
-//                for(int j=0;j<itemsHousingArrayList.size();j++){
-//                    if(currentItemHousing.equals(itemsHousingArrayList.get(j))){
-//                        System.out.println(itemsHousingArrayList.size());
-//                        itemsHousingArrayList.remove(itemsHousingArrayList.get(j));
-//                        System.out.println((currentItemHousing != null)?"élément graphique logement courantZ détruit":"anomalie élément graphique réservation subsiste");
-//                        System.out.println(itemsHostArrayList.size());
-//                    }
-//                }
             }
             public void displayListItemHousingAndHousing() {
                 /**
@@ -1002,10 +998,7 @@ public class ViewMenu extends JFrame {
                 Uti.info("HostDeleteListener","actionPerformed","");
 
 
-//                    jCheckBoxDelete.setVisible(true);
-//                    currentItemHost.jCheckBoxDelete.setVisible(false);
-
-//                    updateItemHost();
+                    updateItemHost();
                     deleteHost();
 
                 updateItemHost();
