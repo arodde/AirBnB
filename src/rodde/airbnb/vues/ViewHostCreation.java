@@ -173,21 +173,21 @@ public class ViewHostCreation extends JFrame {
                     jTextFieldResponseTime.setEnabled(false);
                 } else {
                     jButtonValidate.setEnabled(false);
-                    jButtonFastInput.setEnabled(true); //todo remove this line
+//                    jButtonFastInput.setEnabled(true); //todo remove this line
                 }
             }
         });
-        jButtonFastInput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Uti.info("jButtonFastImput","actionPerformed","a retirer");
-                jTextFieldSurname.setText("BUR");
-                jTextFieldFirstName.setText("Max");
-                jTextFieldAge.setText("51");
-                jTextFieldResponseTime.setText("48");
-                jButtonValidate.setEnabled(true);
-                jButtonFastInput.setEnabled(false);
-            }
-        });
+//        jButtonFastInput.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+//                jTextFieldSurname.setText("BUR");
+//                jTextFieldFirstName.setText("Max");
+//                jTextFieldAge.setText("51");
+//                jTextFieldResponseTime.setText("48");
+//                jButtonValidate.setEnabled(true);
+//                jButtonFastInput.setEnabled(false);
+//            }
+//        });
     }
 }

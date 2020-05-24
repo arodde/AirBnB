@@ -19,7 +19,7 @@ public class ViewTravelerCreation extends JFrame {
     private JLabel jLabelAge;
     private JTextField jTextFieldAge;
     private JButton jButtonValidate;
-    private JButton jButtonFastImput;// todo remove this line
+//    private JButton jButtonFastImput;// todo remove this line
 
     public ViewTravelerCreation(ArrayList<Traveler> travelers){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +46,7 @@ public class ViewTravelerCreation extends JFrame {
         panel.add(jLabelAge);
         panel.add(jTextFieldAge);
         panel.add(jButtonValidate);
-        panel.add(jButtonFastImput);// todo remove this line
+//        panel.add(jButtonFastImput);// todo remove this line
         getContentPane().add(panel);
         setVisible(true);
         // gestion du clic du bouton
@@ -151,20 +151,20 @@ public class ViewTravelerCreation extends JFrame {
                 else
                 {
                     jButtonValidate.setEnabled(false);
-                    jButtonFastImput.setEnabled(true); // todo remove this line
+//                    jButtonFastImput.setEnabled(true); // todo remove this line
                 }
 
             }
         });
-        jButtonFastImput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Uti.info("jButtonFastImput","actionPerformed","a retirer");
-                jTextFieldSurname.setText("CHAUVINARDEAU Du MAZELONICAN DE VENDOMOISETTE");
-                jTextFieldFirstName.setText("Hubert-Stanislas-Edmond-Rodrigues-Jacques-Henri");
-                jTextFieldAge.setText("69");
-                jButtonValidate.setEnabled(true);
-            }
-        });
+//        jButtonFastImput.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("jButtonFastImput","actionPerformed","a retirer");
+//                jTextFieldSurname.setText("CHAUVINARDEAU Du MAZELONICAN DE VENDOMOISETTE");
+//                jTextFieldFirstName.setText("Hubert-Stanislas-Edmond-Rodrigues-Jacques-Henri");
+//                jTextFieldAge.setText("69");
+//                jButtonValidate.setEnabled(true);
+//            }
+//        });
     }
 }

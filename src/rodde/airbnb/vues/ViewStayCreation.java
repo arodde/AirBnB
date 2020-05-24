@@ -39,7 +39,7 @@ public class ViewStayCreation extends JFrame {
     public AddEltHousingListener addEltHousingListener;
     public AddEltTravelerListener addEltTravelerListener;
     public JButton jButtonValidate ;
-    public JButton jButtonFastImput; // todo delete this line  // jbfi
+//    public JButton jButtonFastImput; // todo delete this line  // jbfi
     public ViewStayCreation(ArrayList<rodde.airbnb.utilisateurs.Traveler> travelers, ArrayList<Housing> housings, ArrayList<Booking> bookings){
         /**
          * constructor of the window for Stay creation
@@ -90,7 +90,7 @@ public class ViewStayCreation extends JFrame {
         panel.add(jLabelTravelersNumber);
         panel.add(jTextFieldTravelersNumber);
         panel.add(jButtonValidate);
-        panel.add(jButtonFastImput); // jbfi
+//        panel.add(jButtonFastImput); // jbfi
         getContentPane().add(panel);
         setVisible(true);
         jButtonValidate.addActionListener(new ActionListener() {
@@ -158,10 +158,10 @@ public class ViewStayCreation extends JFrame {
                     //
                     inactiveFieldsViewHousing();
                     jButtonValidate.setEnabled(false);
-                    jButtonFastImput.setEnabled(false);
+//                    jButtonFastImput.setEnabled(false);
                 } else {
                     activeFieldsViewHousing();
-                    jButtonFastImput.setEnabled(true); // todo retrieve after
+//                    jButtonFastImput.setEnabled(true); // todo retrieve after
                     jButtonValidate.setEnabled(true);
                 }
             }
@@ -198,17 +198,17 @@ public class ViewStayCreation extends JFrame {
                 jComboBoxTravelers.setEnabled(true);
             }
         });
-        jButtonFastImput.addActionListener(new ActionListener() { //todo retrieve jbfi
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Uti.info("jButtonFastImput","actionPerformed()","");
-                jFormattedTextFieldArrivalDate.setText("28/03/2021");
-                jTextFieldOvernightsNumber.setText("5");
-                jTextFieldTravelersNumber.setText("2");
-                jButtonValidate.setEnabled(true);
-                jButtonFastImput.setEnabled(false);
-            }
-        });
+//        jButtonFastImput.addActionListener(new ActionListener() { //todo retrieve jbfi
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Uti.info("jButtonFastImput","actionPerformed()","");
+//                jFormattedTextFieldArrivalDate.setText("28/03/2021");
+//                jTextFieldOvernightsNumber.setText("5");
+//                jTextFieldTravelersNumber.setText("2");
+//                jButtonValidate.setEnabled(true);
+//                jButtonFastImput.setEnabled(false);
+//            }
+//        });
     }
 
     public Boolean checkFieldsStay(Boolean correctHousing){
