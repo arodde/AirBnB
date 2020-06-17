@@ -9,5 +9,5 @@
 
 // modification
 // author: AR
-// release 1.0x
-// date 20200617
+// release: 2.0x
+// date: 20200617

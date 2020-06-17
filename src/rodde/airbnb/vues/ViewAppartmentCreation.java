@@ -214,6 +214,7 @@ public class ViewAppartmentCreation extends JFrame {
         //        jTextFieldAddress.setBackground(Color.white);
         //        return true;
         //    }
+        //todo xxx
         if(!(CheckRegex.stringTestRegexFrenchAddressOfAppartement(jTextFieldAddress.getText())).isEmpty()){
             jTextFieldAddress.setBackground(Color.white);
             return true;
@@ -330,12 +331,14 @@ public class ViewAppartmentCreation extends JFrame {
                 correctAppartment = true;
                 jButtonValidate.setEnabled(false);
                 System.out.println(verifications[i]);
+                System.out.println(i+" pour "+verifications.length+" éléments maximum");
             }
             else{
                 i=verifications.length;
                 correctAppartment = false;
                 jButtonValidate.setEnabled(true);
                 System.out.println(verifications[i]);
+                System.out.println(i+" pour "+verifications.length+" éléments maximum");
             }
         }
         return correctAppartment;
