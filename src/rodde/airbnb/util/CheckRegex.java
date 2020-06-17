@@ -28,11 +28,19 @@ public class CheckRegex {
            parameter (the address) doesn't match with the
            pattern
         */
-        boolean b = false;
+        // modification
+        // author: AR
+        // release: 1.04
+        // date: 20200617
+        //        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*";
+        //        String sPattern2 = "(\\s)+.*(\\s)";
+        //        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
+        //        String sPattern4 = "[a-zA-Z\\-'\\s]+";
         String sPattern1 = "(\\s\\d*\\s+)?((bis|Bis|BIS|ter|Ter|TER)\\s+)?";
         String sPattern2 = "(.*\\s+)?";
         String sPattern3 = "\\d{5}\\s+((cedex|Cedex|CEDEX)\\s+\\d{2}\\s+)?";
         String sPattern4 = "[a-zA-Z\\-'\\s]+";
+        boolean b = false;
         String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
         Pattern pattern = Pattern.compile(sPattern);
         Matcher matcher = pattern.matcher(sMatcher);
@@ -63,11 +71,19 @@ public class CheckRegex {
            pattern
         */
         Uti.info("TestRegex","stringTestRegexFrenchAddressOfAppartement","");
-        boolean b = false;
+        // modification
+        // author: AR
+        // release: 1.04
+        // date: 20200617
+        //        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*((appartement|Appartement|APPARTEMENT|app|App|APP)\s+\d*\s+)?";
+        //        String sPattern2 = "(\\s)+.*(\\s)";
+        //        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
+        //        String sPattern4 = "[a-zA-Z\\-'\\s]+";
         String sPattern1 = "(\\s\\d*\\s+)?((bis|Bis|BIS|ter|Ter|TER)\\s+)?((appartement|Appartement|APPARTEMENT|app|App|APP)\\s+\\d*\\s+)?";
         String sPattern2 = "(.*\\s+)?";
         String sPattern3 = "\\d{5}\\s+((cedex|Cedex|CEDEX)\\s+\\d{2}\\s+)?";
         String sPattern4 = "[a-zA-Z\\-'\\s]+";
+        boolean b = false;
         String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
         Pattern pattern = Pattern.compile(sPattern);
         Matcher matcher = pattern.matcher(sMatcher);
