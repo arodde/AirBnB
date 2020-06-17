@@ -3,6 +3,7 @@ package rodde.airbnb.vues;
 import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.logements.Housing;
+import rodde.airbnb.util.CheckRegex;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
@@ -13,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //import static com.sun.deploy.util.StringUtils.*;
 
@@ -207,7 +206,15 @@ public class ViewHouseCreation extends JFrame {
 
     public boolean checkFieldsHouseAddress(){
         Uti.info("ViewHouseCreation","checkFieldsHouseAddress","");
-        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+        // modification
+        // author: AR
+        // release 1.02
+        // date 20200617
+        //        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+        //            jTextFieldAddress.setBackground(Color.white);
+        //            return true;
+        //        }
+        if(!(CheckRegex.stringTestRegexFrenchAddressOfHouse(jTextFieldAddress.getText())).isEmpty()){
             jTextFieldAddress.setBackground(Color.white);
             return true;
         } else {
@@ -258,39 +265,42 @@ public class ViewHouseCreation extends JFrame {
             return false;
         }
     }
-
-    public  String stringTestRegex(String sMatcher){
-        /*
-           this method gives a message which show if the
-           pattern matches with the proposed string or not.
-           the pattern is composed of four pattern:
-           the first for the address' number
-           the second for the street's name
-           the third for the postal code
-           the last for the city's name
-           the return's value is the empty string is the
-           parameter (the address) doesn't match with the
-           pattern
-        */
-        boolean b = false;
-        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
-        String sPattern2 = "(\\s)*+([a-zA-Z\\-\\s])*(\\s)*";
-        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
-        String sPattern4 = "[a-zA-Z\\-\\s]+";
-        String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
-        Pattern pattern = Pattern.compile(sPattern);
-        Matcher matcher = pattern.matcher(sMatcher);
-        b = matcher.matches();
-        if(b){
-            System.out.print("OK :)");
-            return sMatcher;
-        }
-        else
-        {
-            System.out.print("KO :(");
-            return "";
-        }
-    }
+    // modification
+    // author: AR
+    // release 1.02
+    // date 20200617
+    //    public  String stringTestRegex(String sMatcher){
+    //        /*
+    //           this method gives a message which show if the
+    //           pattern matches with the proposed string or not.
+    //           the pattern is composed of four pattern:
+    //           the first for the address' number
+    //           the second for the street's name
+    //           the third for the postal code
+    //           the last for the city's name
+    //           the return's value is the empty string is the
+    //           parameter (the address) doesn't match with the
+    //           pattern
+    //        */
+    //        boolean b = false;
+    //        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
+    //        String sPattern2 = "(\\s)*+([a-zA-Z\\-\\s])*(\\s)*";
+    //        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
+    //        String sPattern4 = "[a-zA-Z\\-\\s]+";
+    //        String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
+    //        Pattern pattern = Pattern.compile(sPattern);
+    //        Matcher matcher = pattern.matcher(sMatcher);
+    //        b = matcher.matches();
+    //        if(b){
+    //            System.out.print("OK :)");
+    //            return sMatcher;
+    //        }
+    //        else
+    //        {
+    //            System.out.print("KO :(");
+    //            return "";
+    //        }
+    //   }
 
 
     public void fillHostComboItem(){

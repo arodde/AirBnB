@@ -1,0 +1,13 @@
+- revoir erreur fiche adresse r 1.02
+- erreur validation app r 1.03
+- si annulation par le voyageur: 
+	- davantage de 24 heures avant le jour de la réservation
+	- l'hôte est informé sur la liste de réservations que le voyageur a annulé.
+- fichier de persistance des réservations   (serialisation java)
+- hôte envoi promo fichier clients (à voir éventuellement)
+
+
+// modification
+// author: AR
+// release 1.0x
+// date 20200617

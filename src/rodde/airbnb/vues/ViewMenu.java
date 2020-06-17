@@ -48,12 +48,12 @@ public class ViewMenu extends JFrame {
     public ArrayList<Housing> housingArrayList;
     public ArrayList<ItemBooking> itemsBookingArrayList ;
     public ArrayList<ItemTraveler> itemsTravelerArrayList ;
-        public ArrayList<ItemHost> itemsHostArrayList ;
+    public ArrayList<ItemHost> itemsHostArrayList ;
     public ArrayList<ItemHousing> itemsHousingArrayList ;
     public Persistence persistence = new Persistence();
     public  ItemBooking currentItemBooking;
     public  ItemTraveler currentItemTraveler;
-        public  ItemHost currentItemHost;
+    public  ItemHost currentItemHost;
     public  ItemHousing currentItemHousing;
 
     public void initArrayAndManagment(){
@@ -181,6 +181,12 @@ public class ViewMenu extends JFrame {
             e.printStackTrace();
         }
         try {
+//            bookingArrayList.add(new Booking(sejour3, travelerArrayList.get(3)));
+//            bookingArrayList.get(2).setValidated(true);
+            // modification
+            // author: AR
+            // release 1.01
+            // date 20200613
             bookingArrayList.add(new Booking(sejour3, travelerArrayList.get(3)));
             bookingArrayList.get(2).setValidated(true);
         } catch (instantiationBookingException e) {
@@ -454,7 +460,7 @@ public class ViewMenu extends JFrame {
             displayTraveler();
         }
     }
-        class ViewDisplayHostListener implements ActionListener {
+    class ViewDisplayHostListener implements ActionListener {
         /**
          * creates and opens the window to see the hosts
          */
@@ -582,15 +588,15 @@ public class ViewMenu extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            /**
-             an event creates for validate the confirmation of a specific
-             booking or cancell the confirmation.
-             the confirmation change the apparence of the graphical item
-             and the boolean in the booking. this boolean precises if the
-             booking is or not  confirmed. the booking is a property of
-             the itemBooking object
-             * @param e
-             */
+                /**
+                 an event creates for validate the confirmation of a specific
+                 booking or cancell the confirmation.
+                 the confirmation change the apparence of the graphical item
+                 and the boolean in the booking. this boolean precises if the
+                 booking is or not  confirmed. the booking is a property of
+                 the itemBooking object
+                 * @param e
+                 */
                 Uti.info("BookingConfirmListener","actionPerformed","");
                 Uti.mess("action sur jCheckboxConfirm "+booking.getId()+" "+(booking.isValidated()?"coché":"decoché"));
 
@@ -769,34 +775,34 @@ public class ViewMenu extends JFrame {
                 updateItemTraveler();
             }
 
-        public void deleteTraveler(){
-            /**
-             comparates the Traveler of the currentItemTraveler with the TravelerArrayList.
-             If the equality is found the Traveler is delete in the TravelerArrayList.
-             the itemTraveler at the same position in tne itemTravelerArrayList is
-             deleted
-             actualise the currentItemTraveler
-             */
-            Uti.info("TravelerDeleteListener","deleteTraveler","");
-            updateItemTraveler();
-            displayListItemTravelerAndTraveler();
-            for(int i = 0; i< travelerArrayList.size(); i++){
-                System.out.println("itemTraveler indice : "+i);
-                if( currentItemTraveler.traveler.equals(travelerArrayList.get(i))){
-                    System.out.println(travelerArrayList.size()+" "+travelerArrayList.get(i).getId());
-                    Uti.mess("Je supprime le voyageur");
-                    travelerArrayList.remove(travelerArrayList.get(i));
-                    deleteItemTraveler(i);
-                    System.out.println((currentItemTraveler.traveler != null)?"Voyageur courant détruit":"anomalie voyageur subsiste");
-                    System.out.println(travelerArrayList.size());
+            public void deleteTraveler(){
+                /**
+                 comparates the Traveler of the currentItemTraveler with the TravelerArrayList.
+                 If the equality is found the Traveler is delete in the TravelerArrayList.
+                 the itemTraveler at the same position in tne itemTravelerArrayList is
+                 deleted
+                 actualise the currentItemTraveler
+                 */
+                Uti.info("TravelerDeleteListener","deleteTraveler","");
+                updateItemTraveler();
+                displayListItemTravelerAndTraveler();
+                for(int i = 0; i< travelerArrayList.size(); i++){
+                    System.out.println("itemTraveler indice : "+i);
+                    if( currentItemTraveler.traveler.equals(travelerArrayList.get(i))){
+                        System.out.println(travelerArrayList.size()+" "+travelerArrayList.get(i).getId());
+                        Uti.mess("Je supprime le voyageur");
+                        travelerArrayList.remove(travelerArrayList.get(i));
+                        deleteItemTraveler(i);
+                        System.out.println((currentItemTraveler.traveler != null)?"Voyageur courant détruit":"anomalie voyageur subsiste");
+                        System.out.println(travelerArrayList.size());
 //                        currentItemTraveler= null;
-                    updateItemTraveler();
-                    displayListItemTravelerAndTraveler();
-                    displayTraveler();
-                    break;
+                        updateItemTraveler();
+                        displayListItemTravelerAndTraveler();
+                        displayTraveler();
+                        break;
+                    }
                 }
             }
-        }
             public void deleteItemTraveler(int index){
                 /**
                  deletes the itemTraveler in the itemsTravelerArrayList() at the position
@@ -998,8 +1004,8 @@ public class ViewMenu extends JFrame {
                 Uti.info("HostDeleteListener","actionPerformed","");
 
 
-                    updateItemHost();
-                    deleteHost();
+                updateItemHost();
+                deleteHost();
 
                 updateItemHost();
             }
@@ -1066,5 +1072,5 @@ public class ViewMenu extends JFrame {
                 System.out.println();
             }
         }
-   }
+    }
 }

@@ -3,6 +3,7 @@ package rodde.airbnb.vues;
 import org.apache.commons.lang3.StringUtils;
 import rodde.airbnb.logements.Appartment;
 import rodde.airbnb.logements.Housing;
+import rodde.airbnb.util.CheckRegex;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
 
@@ -13,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class ViewAppartmentCreation extends JFrame {
@@ -39,7 +38,7 @@ public class ViewAppartmentCreation extends JFrame {
     private  ArrayList<Housing> housings = new ArrayList<Housing>();
     public AddEltHostListener addEltHost;
     public JButton jButtonValidate;
-//    public JButton jButtonFastImput;
+    //    public JButton jButtonFastImput;
     public ViewAppartmentCreation(ArrayList<Host> hosts, ArrayList<Housing> housings){
 
         Uti.info("ViewAppartmentCreation","ViewAppartmentCreation","");
@@ -153,39 +152,45 @@ public class ViewAppartmentCreation extends JFrame {
 //            }
 //        });
     }
-    public  String stringTestRegex(String sMatcher){
-        /*
-           the regular expression below is for a french address.
-           this method gives a message which show if the
-           pattern matches with the proposed string or not.
-           the pattern is composed of four pattern:
-           the first for the address' number
-           the second for the street's name
-           the third for the postal code
-           the last for the city's name
-           the return's value is the empty string is the
-           parameter (the address) doesn't match with the
-           pattern
-        */
-        boolean b = false;
-        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
-        String sPattern2 = "(\\s)+.*(\\s)";
-        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
-        String sPattern4 = "[a-zA-Z\\-\\s]+";
-        String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
-        Pattern pattern = Pattern.compile(sPattern);
-        Matcher matcher = pattern.matcher(sMatcher);
-        b = matcher.matches();
-        if(b){
-            System.out.print("OK :)");
-            return sMatcher;
-        }
-        else
-        {
-            System.out.print("KO :(");
-            return "";
-        }
-    }
+
+    // modification
+    // author: AR
+    // release 1.02
+    // date 20200617
+    //    public  String stringTestRegex(String sMatcher){
+    //        /*
+    //           the regular expression below is for a french address.
+    //           this method gives a message which show if the
+    //           pattern matches with the proposed string or not.
+    //           the pattern is composed of four pattern:
+    //           the first for the address' number
+    //           the second for the street's name
+    //           the third for the postal code
+    //           the last for the city's name
+    //           the return's value is the empty string is the
+    //           parameter (the address) doesn't match with the
+    //           pattern
+    //        */
+    //        boolean b = false;
+    //        String sPattern1 = "\\s*(\\d*)?(\\s)*(bis|Bis|BIS|ter|Ter|TER)?\\s*(appartement|Appartement|APPARTEMENT|app|App|APP)?\\s*(\\d*)?\\s*";
+    //        String sPattern2 = "(\\s)+.*(\\s)";
+    //        String sPattern3 = "\\s*(\\d){5}\\s*((cedex|Cedex|CEDEX)\\d{2})?\\s*";
+    //        String sPattern4 = "[a-zA-Z\\-\\s]+";
+    //        String sPattern = sPattern1 + sPattern2 + sPattern3 + sPattern4;;
+    //        Pattern pattern = Pattern.compile(sPattern);
+    //        Matcher matcher = pattern.matcher(sMatcher);
+    //        b = matcher.matches();
+    //        if(b){
+    //            System.out.print("OK :)");
+    //            return sMatcher;
+    //        }
+    //        else
+    //        {
+    //            System.out.print("KO :(");
+    //            return "";
+    //        }
+    //    }
+
     public boolean checkFieldsAppartmentDailyRate(){
         Uti.info("ViewAppartementCreation","checkFieldsAppartmentDailyRate","");
         if((!jTextFieldDailyRate.getText().isEmpty() &&
@@ -201,15 +206,26 @@ public class ViewAppartmentCreation extends JFrame {
     }
     public boolean checkFieldsAppartmentAddress(){
         Uti.info("ViewAppartementCreation","checkFieldsAppartmentAddress","");
-        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+        // modification
+        // author: AR
+        // release 1.02
+        // date 20200617
+        //        if(!(stringTestRegex(jTextFieldAddress.getText())).isEmpty()){
+        //        jTextFieldAddress.setBackground(Color.white);
+        //        return true;
+        //    }
+        if(!(CheckRegex.stringTestRegexFrenchAddressOfAppartement(jTextFieldAddress.getText())).isEmpty()){
             jTextFieldAddress.setBackground(Color.white);
             return true;
-        } else {
+        }
+        else
+        {
             jTextFieldAddress.setBackground(Color.red);
             jTextFieldAddress.setText("");
             return false;
         }
     }
+    // TODO REACTIVER VALIDATION SI ERREUR DANS VIEW APPARTEMENT
     public boolean checkFieldsAppartmentFieldArea(){
         Uti.info("ViewAppartementCreation","checkFieldsAppartmentFieldArea","");
         if((!jTextFieldArea.getText().isEmpty() &&
@@ -288,22 +304,37 @@ public class ViewAppartmentCreation extends JFrame {
         verifications[0] = currentHost != null ? true:false;
         if(!verifications[0])
             jComboBoxHosts.setBackground(Color.RED);
-      verifications[1]= checkFieldsAppartmentDailyRate();
+        verifications[1]= checkFieldsAppartmentDailyRate();
         verifications[2]= checkFieldsAppartmentAddress();
         verifications[3]= checkFieldsAppartmentFieldArea();
         verifications[4]= checkFieldsAppartmentTravelersNumber();
         verifications[5]= checkFieldsAppartmentFloorNumber();
         verifications[6]= checkFieldsAppartmentBalconyArea();
         for(int i=0; i<(verifications.length);i++){
+            // modification
+            // author: AR
+            // release 1.03
+            // date 20200617
+            //            if(verifications[i]==true){
+            //                correctAppartment = true;
+            //                jButtonValidate.setEnabled(true);
+            //                System.out.println(verifications[i]);
+            //            }
+            //            else{
+            //                i=verifications.length;
+            //                correctAppartment = false;
+            //                jButtonValidate.setEnabled(false);
+            //                System.out.println(verifications[i]);
+            //            }
             if(verifications[i]==true){
                 correctAppartment = true;
-                jButtonValidate.setEnabled(true);
+                jButtonValidate.setEnabled(false);
                 System.out.println(verifications[i]);
             }
             else{
                 i=verifications.length;
                 correctAppartment = false;
-                jButtonValidate.setEnabled(false);
+                jButtonValidate.setEnabled(true);
                 System.out.println(verifications[i]);
             }
         }
@@ -320,7 +351,7 @@ public class ViewAppartmentCreation extends JFrame {
         Uti.mess("dans la liste d'hôtes : "+ hosts.size());
         if(hosts != null){
             for(int i=0;i< hosts.size(); i++){
-               jComboBoxHosts.addItem(i+" "+hosts.get(i).getSurname()+ " "+hosts.get(i).getFirstname());
+                jComboBoxHosts.addItem(i+" "+hosts.get(i).getSurname()+ " "+hosts.get(i).getFirstname());
             }
         }
     }

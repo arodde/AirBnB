@@ -3,6 +3,7 @@
 .idea/
 AirBnB.iml
 resources/listeInventaire.txt
+resources/manuel.md
 exempleutilisationItemlistener.java
 jdb-airbnb.md
 
