@@ -1,5 +1,6 @@
 - revoir erreur fiche adresse r 1.02
 - erreur validation app r 1.03
+
 - si annulation par le voyageur: 
 	- davantage de 24 heures avant le jour de la réservation
 	- l'hôte est informé sur la liste de réservations que le voyageur a annulé.
