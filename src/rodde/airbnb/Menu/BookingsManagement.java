@@ -10,7 +10,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-public class BookingManagement {
+public class BookingsManagement {
     /**
      this class manages the menu in console menu for add, delete operations
      */
@@ -65,14 +65,14 @@ public class BookingManagement {
 //        Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
         Path path = null;
         File file = null;
-        TravellersManagement travellersManagement = null;
+        TravelersManagement travelersManagement = null;
         indexOfDisplayedBooking();
         //
         if (Menu.getTravelerArrayList().isEmpty()) {
             System.out.println("Aucun voyageur enregistré, Toute réservation doit être rattachée à un voyageur");
             Menu.listMenu();
         } else {
-            TravellersManagement.indexOfDisplayedTraveler();
+            TravelersManagement.indexOfDisplayedTraveler();
             bOk = false;
             while (!bOk) {
                 try {
@@ -92,7 +92,7 @@ public class BookingManagement {
             System.out.println("Aucun logement enregistré, Toute séjour doit doit être rattaché à un logement.");
             Menu.listMenu();
         } else {
-            HousingManagement.indexOfDisplayedHousing();
+            HousingsManagement.indexOfDisplayedHousing();
             bOk = false;
             while (!bOk) {
                 try {

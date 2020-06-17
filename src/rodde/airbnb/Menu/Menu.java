@@ -4,10 +4,7 @@ import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
-import rodde.airbnb.vues.ViewHostCreation;
-import rodde.airbnb.vues.ViewHouseCreation;
-import rodde.airbnb.vues.ViewMenu;
-import rodde.airbnb.vues.ViewTravelerCreation;
+import rodde.airbnb.vues.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,14 +19,15 @@ public class Menu {
     private static ArrayList<rodde.airbnb.utilisateurs.Traveler> travelerArrayList;
     private static ArrayList<Housing> housingArrayList;
     private static ArrayList<Booking> bookingArrayList;
-    private static BookingManagement bookingManagement;
-    private static TravellersManagement travellersManagement;
+    private static BookingsManagement bookingsManagement;
+    private static TravelersManagement travelersManagement;
     private static HostsManagement hostsManagement;
-    private static HousingManagement housingManagement;
+    private static HousingsManagement housingsManagement;
     private static ViewMenu viewMenu;
     private static ViewHostCreation viewHostCreation;
     private static ViewTravelerCreation viewTravelerCreation;
     private static ViewHouseCreation viewHouseCreation;
+    private static ViewAppartmentCreation viewAppartmentCreation;
     public static void displayBookings(){
         if(bookingArrayList.size()>0){
             for (int i = 0; i < bookingArrayList.size(); i++){
@@ -94,21 +92,21 @@ public class Menu {
                     selectedOption = 0;
                     break;
                 case 2 :
-                    housingManagement.listHousingsMenu();
+                    housingsManagement.listHousingsMenu();
                     // where the housing is a house
                     selectedOption = 0;
                     break;
                 case 3 :
-                    housingManagement.listHousingsMenu();
+                    housingsManagement.listHousingsMenu();
                     // where the housing is an appartment
                     selectedOption = 0;
                     break;
                 case 4 :
-                    travellersManagement.listTravelersMenu();
+                    travelersManagement.listTravelersMenu();
                     selectedOption = 0;
                     break;
                 case 5 :
-                    bookingManagement.listBookingsMenu();
+                    bookingsManagement.listBookingsMenu();
                     selectedOption = 0;
                     break;
                 default:
@@ -181,13 +179,13 @@ public class Menu {
         Uti.info("Menu","setListeReservations","");
         Menu.bookingArrayList = bookingArrayList;
     }
-    public static BookingManagement getBookingManagement() {
+    public static BookingsManagement getBookingsManagement() {
         Uti.info("Menu","getGestionReservations","");
-        return bookingManagement;
+        return bookingsManagement;
     }
-    public static void setBookingManagement(BookingManagement bookingManagement) {
+    public static void setBookingsManagement(BookingsManagement bookingsManagement) {
         Uti.info("Menu","setGestionReservations","");
-        Menu.bookingManagement = bookingManagement;
+        Menu.bookingsManagement = bookingsManagement;
     }
     public static HostsManagement getHostsManagement() {
         Uti.info("Menu","getGestionHotes","");
@@ -197,21 +195,21 @@ public class Menu {
         Uti.info("Menu","setGestionHotes","");
         Menu.hostsManagement = hostsManagement;
     }
-    public static HousingManagement getHousingManagement() {
+    public static HousingsManagement getHousingsManagement() {
         Uti.info("Menu","getGestionLogements","");
-        return housingManagement;
+        return housingsManagement;
     }
-    public static void setHousingManagement(HousingManagement housingManagement) {
+    public static void setHousingsManagement(HousingsManagement housingsManagement) {
         Uti.info("Menu","setGestionLogements","");
-        Menu.housingManagement = housingManagement;
+        Menu.housingsManagement = housingsManagement;
     }
-    public static TravellersManagement getTravellersManagement() {
+    public static TravelersManagement getTravelersManagement() {
         Uti.info("Menu","getGestionVoyageurs","");
-        return travellersManagement;
+        return travelersManagement;
     }
-    public static void setTravellersManagement(TravellersManagement travellersManagement) {
+    public static void setTravelersManagement(TravelersManagement travelersManagement) {
         Uti.info("Menu","setGestionVoyageurs","");
-        Menu.travellersManagement = travellersManagement;
+        Menu.travelersManagement = travelersManagement;
     }
     public static ArrayList<rodde.airbnb.utilisateurs.Traveler> getTravelerArrayList() {
         Uti.info("Menu","getListeVoyageurs","");

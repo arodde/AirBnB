@@ -18,10 +18,11 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ViewMenu extends JFrame {
 
-
+    public static Scanner sc;
     public JPanel jPanel;
     public JMenuBar jMenuBar;
     public JMenu jMenuAdd ;
@@ -55,7 +56,17 @@ public class ViewMenu extends JFrame {
     public  ItemTraveler currentItemTraveler;
     public  ItemHost currentItemHost;
     public  ItemHousing currentItemHousing;
+    public static void main(String[] args)  {
+        /**
+         * creates and opens the main window
+         */
+        Uti.info("Main","main","");
+        sc = new Scanner( System .in);
+        ViewMenu viewMenu = new ViewMenu();
+        sc.close();
 
+
+    }
     public void initArrayAndManagment(){
         /**
          * creates the lists if they don't created before

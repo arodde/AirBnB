@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 
-public class LongStay extends Stay {
-    /**
+public class LongStay extends Stay implements PricingConditionsInterface{
+      /**
      the long stay has a price minoration
      * @param dateArrivee
      * @param nbNuits
@@ -21,11 +21,13 @@ public class LongStay extends Stay {
     }
     private final int PERCENTAGE_PROMOTION = 20;
     private int promotion ;
+    @Override
     public int rateUpdate(){
 
         return overnightsNumber * housing.getDaylyRate();
     }
-    public boolean checkTravelersNumber(){
+    @Override
+       public boolean checkTravelersNumber(){
         Uti.info("SejourLong","verificationNombreDeVoyageurs()","");
         // nombre voyageurs < inférieur ou égal à capacité acceuil et supérieur à 0
         if(travelersNumber >= 1 && travelersNumber <= housing.getMaxTravelersNumber()){
@@ -37,7 +39,8 @@ public class LongStay extends Stay {
             return false;
         }
     }
-    public int getRate(){
+    @Override
+       public int getRate(){
         Uti.info("SejourLong","getTarif()","");
 //        if (beneficiePromotion()){
 //           return tarif *(100 - PROMOTION_EN_POURCENTAGE)/100;
@@ -59,6 +62,7 @@ public class LongStay extends Stay {
 
         return rate;
     }
+    @Override
     public boolean benefitPromotion(){
         Uti.info("SejourLong","beneficiePromotion()","");
         boolean bPromotion= false;
@@ -68,6 +72,7 @@ public class LongStay extends Stay {
             return false;
         }
     }
+    @Override
     public void display() {
         Uti.info("SejourLong", "afficher()", "");
         // gestion de la date en chaîne de caractères
@@ -91,7 +96,6 @@ public class LongStay extends Stay {
             System.out.println("===>  Aucune réservation ne peut être prise en l'état.\\n");
         }
     }
-
     @Override
     public String stringDisplay() {
         String s="";

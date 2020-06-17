@@ -3,7 +3,7 @@ package rodde.airbnb.Menu;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Traveler;
 
-public class TravellersManagement {
+public class TravelersManagement {
     /**
      this class manages the menu in console menu for add, delete operations
      */

@@ -5,7 +5,7 @@ import rodde.airbnb.logements.Housing;
 import rodde.airbnb.logements.House;
 import rodde.airbnb.util.Uti;
 
-public class HousingManagement {
+public class HousingsManagement {
     /**
      this class manages the menu in console menu for add, delete operations
      */
