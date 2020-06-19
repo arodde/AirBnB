@@ -6,6 +6,7 @@ import rodde.airbnb.logements.Housing;
 import rodde.airbnb.reservations.*;
 import rodde.airbnb.util.Uti;
 import rodde.airbnb.utilisateurs.Host;
+import rodde.airbnb.utilisateurs.ProfileUser;
 import rodde.airbnb.utilisateurs.Traveler;
 
 import javax.swing.*;
@@ -66,6 +67,7 @@ public class ViewMenu extends JFrame {
     //    release: 2.0.0
     //    date: 20200618
     public static Scanner sc;
+    public String currentProfile ="";
     public JPanel jPanel;
     public JMenuBar jMenuBar;
     public JMenu jMenuProfile;
@@ -139,6 +141,10 @@ public class ViewMenu extends JFrame {
             itemsHousingArrayList  = new ArrayList<ItemHousing>();
         if(itemsBookingArrayList== null)
             itemsBookingArrayList  = new ArrayList<ItemBooking>();
+    }
+    public void titleUpdate(String title){
+        currentProfile = title;
+        setTitle("AirBnB"+(currentProfile !=""?" - "+ currentProfile :""));
     }
     public ViewMenu(){
         /**
@@ -1227,7 +1233,7 @@ public class ViewMenu extends JFrame {
             this.setText(name);
         }
         public void profileHostMenuManagement(){
-            viewMenu.setTitle("AirBnB - Interface Hôte");
+            viewMenu.titleUpdate(ProfileUser.Host.name());
             jMenuAddAppartment.setEnabled(true);
             jMenuItemProfileHost.setEnabled(false);
             jMenuItemProfileTraveler.setEnabled(true);
@@ -1237,7 +1243,7 @@ public class ViewMenu extends JFrame {
             jMenuAddTraveler.setEnabled(false);
         }
         public void profileTravelerMenuManagement(){
-            viewMenu.setTitle("AirBnB - Interface Voyageur");
+            viewMenu.titleUpdate(ProfileUser.Traveler.name());
             jMenuAddAppartment.setEnabled(false);
             jMenuItemProfileTraveler.setEnabled(false);
             jMenuItemProfileHost.setEnabled(true);
