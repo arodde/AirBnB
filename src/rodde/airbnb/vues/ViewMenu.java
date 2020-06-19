@@ -22,14 +22,60 @@ import java.util.Scanner;
 
 public class ViewMenu extends JFrame {
 
+//    modification
+//    author: AR
+//    release: 1.0.0
+//    date: 20200618
+//    public static Scanner sc;
+//    public JPanel jPanel;
+//    public JMenuBar jMenuBar;
+//    public JMenu jMenuAdd ;
+//    public JMenu jMenuDisplay ;
+//    public JMenuItem jMenuItemClose ;
+//    public JMenuItem jMenuItemDisplayTraveler;
+//    public JMenuItem jMenuItemDisplayHost;
+//    public JMenuItem jMenuItemDisplayHousing;
+//    public JMenuItem jMenuItemDisplayBooking;
+//    public JMenuItem jMenuAddHost;
+//    public JMenuItem jMenuAddTraveler;
+//    public JMenuItem jMenuAddHouse;
+//    public JMenuItem jMenuAddAppartment;
+//    public JMenuItem jMenuAddStay;
+//    public JScrollPane jScrollPane;
+//    public ViewHostCreation viewHostCreation;
+//    public ViewTravelerCreation viewTravelerCreation;
+//    public ViewHouseCreation viewHouseCreation;
+//    public ViewAppartmentCreation viewAppartmentCreation;
+//    public ViewStayCreation viewStayCreation;
+//    public ArrayList<Traveler> travelerArrayList;
+//    public ArrayList<Booking> bookingArrayList;
+//    public ArrayList<Host> hostArrayList ;
+//    public ArrayList<Housing> housingArrayList;
+//    public ArrayList<ItemBooking> itemsBookingArrayList ;
+//    public ArrayList<ItemTraveler> itemsTravelerArrayList ;
+//    public ArrayList<ItemHost> itemsHostArrayList ;
+//    public ArrayList<ItemHousing> itemsHousingArrayList ;
+//    public Persistence persistence = new Persistence();
+//    public  ItemBooking currentItemBooking;
+//    public  ItemTraveler currentItemTraveler;
+//    public  ItemHost currentItemHost;
+//    public  ItemHousing currentItemHousing;
+
+    //    modification
+    //    author: AR
+    //    release: 2.0.0
+    //    date: 20200618
     public static Scanner sc;
     public JPanel jPanel;
     public JMenuBar jMenuBar;
+    public JMenu jMenuProfile;
     public JMenu jMenuAdd ;
     public JMenu jMenuDisplay ;
     public JMenuItem jMenuItemClose ;
-    public JMenuItem jMenuItemDisplayTraveler;
+    public JMenuItem jMenuItemProfileHost;
+    public JMenuItem jMenuItemProfileTraveler;
     public JMenuItem jMenuItemDisplayHost;
+    public JMenuItem jMenuItemDisplayTraveler;
     public JMenuItem jMenuItemDisplayHousing;
     public JMenuItem jMenuItemDisplayBooking;
     public JMenuItem jMenuAddHost;
@@ -211,14 +257,72 @@ public class ViewMenu extends JFrame {
             e.printStackTrace();
         }
     }
+
     public void initMenu(){
         /**
          * create the menu bar with all JMenu and JMenuItem with their specific action
          */
         Uti.info("ViewMenu","initMenu","");
+// modification
+// author: AR
+// release: 2.0.1
+// date: 20200618
+//        jMenuBar = new JMenuBar();
+//        jMenuAdd = new JMenu("Ajouter");
+//        jMenuDisplay = new JMenu("Afficher");
+//        jMenuItemDisplayTraveler = new JMenuItem("Afficher les voyageurs");
+//        jMenuItemDisplayHost = new JMenuItem("Afficher les hôtes");
+//        jMenuItemDisplayHousing = new JMenuItem("Afficher les logements");
+//        jMenuItemDisplayBooking = new JMenuItem("Afficher les réservations");
+//        jMenuAddHost = new JMenuItem("Ajouter un hôte");
+//        jMenuAddTraveler = new JMenuItem("Ajouter un voyageur");
+//        jMenuAddHouse = new JMenuItem("Ajouter une maison");
+//        jMenuAddAppartment = new JMenuItem("Ajouter un appartement");
+//        jMenuAddStay = new JMenuItem("Ajouter un séjour");
+//        jMenuItemClose = new JMenuItem("Fermer");
+//        jMenuItemClose.addActionListener(
+//                new ActionListener(){
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        /**
+//                         * Saves bookings in a file text before closing application
+//                         */
+//                        Uti.info("ViewMenu", "initMenu","");
+//                        persistence.saveBookings();
+//                        System.exit(0);
+//                    }
+//                }
+//        );
+//        jMenuAddHost.addActionListener(new ViewCreationHostListener());
+//        jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
+//        jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
+//        jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
+//        jMenuAddStay.addActionListener(new ViewCreationStayListener());
+//        jMenuItemDisplayTraveler.addActionListener(new ViewDisplayTravelerListener());
+//        jMenuItemDisplayHost.addActionListener(new ViewDisplayHostListener());
+//        jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
+//        jMenuItemDisplayBooking.addActionListener(new ViewDisplayBookingListener());
+//        jMenuAdd.add(jMenuAddHost);
+//        jMenuAdd.add(jMenuAddHouse);
+//        jMenuAdd.add(jMenuAddAppartment);
+//        jMenuAdd.add(jMenuAddTraveler);
+//        jMenuAdd.add(jMenuAddStay);
+//        jMenuAdd.add(jMenuAdd);
+//        jMenuDisplay.add(jMenuItemDisplayTraveler);
+//        jMenuDisplay.add(jMenuItemDisplayHost);
+//        jMenuDisplay.add(jMenuItemDisplayHousing);
+//        jMenuDisplay.add(jMenuItemDisplayBooking);
+//        jMenuBar.add(jMenuAdd);
+//        jMenuBar.add(jMenuDisplay);
+//        jMenuBar.add(jMenuItemClose);
+//        setJMenuBar(jMenuBar);
+
         jMenuBar = new JMenuBar();
+        jMenuProfile = new JMenu("Profil");
         jMenuAdd = new JMenu("Ajouter");
         jMenuDisplay = new JMenu("Afficher");
+        jMenuItemProfileHost = new JMenuItem("Profil hôte");
+        jMenuItemProfileTraveler = new JMenuItem("Profil voyageur");
         jMenuItemDisplayTraveler = new JMenuItem("Afficher les voyageurs");
         jMenuItemDisplayHost = new JMenuItem("Afficher les hôtes");
         jMenuItemDisplayHousing = new JMenuItem("Afficher les logements");
@@ -251,6 +355,10 @@ public class ViewMenu extends JFrame {
         jMenuItemDisplayHost.addActionListener(new ViewDisplayHostListener());
         jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
         jMenuItemDisplayBooking.addActionListener(new ViewDisplayBookingListener());
+        jMenuItemProfileHost.addActionListener(new JMenuItemProfileListener("Profile hôte",this));
+        jMenuItemProfileTraveler.addActionListener(new JMenuItemProfileListener("Profile traveler",this));
+        jMenuProfile.add(jMenuItemProfileHost);
+        jMenuProfile.add(jMenuItemProfileTraveler);
         jMenuAdd.add(jMenuAddHost);
         jMenuAdd.add(jMenuAddHouse);
         jMenuAdd.add(jMenuAddAppartment);
@@ -261,9 +369,11 @@ public class ViewMenu extends JFrame {
         jMenuDisplay.add(jMenuItemDisplayHost);
         jMenuDisplay.add(jMenuItemDisplayHousing);
         jMenuDisplay.add(jMenuItemDisplayBooking);
+        jMenuBar.add(jMenuProfile);
         jMenuBar.add(jMenuAdd);
         jMenuBar.add(jMenuDisplay);
         jMenuBar.add(jMenuItemClose);
+        jMenuAdd.setEnabled(false);
         setJMenuBar(jMenuBar);
     }
     public void displayTraveler(){
@@ -507,6 +617,8 @@ public class ViewMenu extends JFrame {
             displayBooking();
         }
     }
+
+
     public class Persistence{
         public File parentFile = new File("miscelleanous/");
         String fileName ="bookings.txt";
@@ -963,7 +1075,6 @@ public class ViewMenu extends JFrame {
             }
         }
     }
-
     public class ItemHost {
         public JPanel jPanelSon = new JPanel();
         public JPanel jPanelCommand;
@@ -1082,6 +1193,58 @@ public class ViewMenu extends JFrame {
                 }
                 System.out.println();
             }
+        }
+
+    }
+    // modification
+    // author: AR
+    // release: 2.0.0
+    // date: 20200617
+    class JMenuItemProfileListener extends JMenuItem implements ActionListener {
+        /**
+         * this class implements the jRadioButtonMenuItem in order to
+         * enable the appropriate menu's options according to the
+         * profile chosen by the user
+         * the profile are
+         *  - host
+         *  - traveler
+         * @param e is the event of a specific JRadioButtonMenuItem
+         */
+        public ViewMenu viewMenu;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jMenuAdd.setEnabled(true);
+            if(e.getSource().equals(jMenuItemProfileHost)){
+                System.out.println("profil host");
+                profileHostMenuManagement();
+            } else {
+                System.out.println("profil traveler");
+                profileTravelerMenuManagement();
+            }
+        }
+        public JMenuItemProfileListener(String name,ViewMenu viewMenu){
+            this.viewMenu = viewMenu;
+            this.setText(name);
+        }
+        public void profileHostMenuManagement(){
+            viewMenu.setTitle("AirBnB - Interface Hôte");
+            jMenuAddAppartment.setEnabled(true);
+            jMenuItemProfileHost.setEnabled(false);
+            jMenuItemProfileTraveler.setEnabled(true);
+            jMenuAddHouse.setEnabled(true);
+            jMenuAddHost.setEnabled(true);
+            jMenuAddStay.setEnabled(false);
+            jMenuAddTraveler.setEnabled(false);
+        }
+        public void profileTravelerMenuManagement(){
+            viewMenu.setTitle("AirBnB - Interface Voyageur");
+            jMenuAddAppartment.setEnabled(false);
+            jMenuItemProfileTraveler.setEnabled(false);
+            jMenuItemProfileHost.setEnabled(true);
+            jMenuAddHouse.setEnabled(false);
+            jMenuAddHost.setEnabled(false);
+            jMenuAddStay.setEnabled(true);
+            jMenuAddTraveler.setEnabled(true);
         }
     }
 }

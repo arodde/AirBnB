@@ -4,7 +4,7 @@
 - si annulation par le voyageur: 
 	- davantage de 24 heures avant le jour de la réservation
 	- l'hôte est informé sur la liste de réservations que le voyageur a annulé.
-- fichier de persistance des réservations   (serialisation java)
+- fichier de persistance des réservations   (serialisation java) r 2.0.1
 - hôte envoi promo fichier clients (à voir éventuellement)
 
 
@@ -12,3 +12,49 @@
 // author: AR
 // release: 2.0x
 // date: 20200617
+
+///////////////////////////////////////////////////////
+
+avant
+C : 64.4 Go disponible
+après
+C : + Go disponible
+
+
+// modification
+// author: AR
+// release: 2.0.0
+// date: 20200618
+
+objectifs
+- choix de l'utilisateur au début du programme pour qualité de hôte ou de voyageur 
+- actions partagées:
+    - fermer
+    - afficher
+    - 
+    - 
+- actions voyageur:
+    - voyageur ajout
+    - séjour ajout
+    - 
+    - 
+- actions hôtes:
+    - hôte ajout
+    - ajout logement
+    - réservation annulation mais plus de 24 heures à l'avance
+    - 
+    - 
+
+
+// modification
+// author: AR
+// release: 2.0.2
+// date: 20200618
+
+sérialisation réservation
+
+
+// modification
+// author: AR
+// release: 2.0.1
+// date: 20200618
