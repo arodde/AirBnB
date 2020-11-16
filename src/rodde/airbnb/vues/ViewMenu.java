@@ -99,7 +99,7 @@ public class ViewMenu extends JFrame {
     public ArrayList<ItemTraveler> itemsTravelerArrayList ;
     public ArrayList<ItemHost> itemsHostArrayList ;
     public ArrayList<ItemHousing> itemsHousingArrayList ;
-    public Persistence persistence = new Persistence();
+    public PersistenceBooking persistenceBooking = new PersistenceBooking();
     public  ItemBooking currentItemBooking;
     public  ItemTraveler currentItemTraveler;
     public  ItemHost currentItemHost;
@@ -159,7 +159,7 @@ public class ViewMenu extends JFrame {
         setSize(600,400);
         System.out.println(this.getX()+" "+this.getY());
         setLocationRelativeTo(null);
-        persistence.createNewRealFile();
+        persistenceBooking.createNewRealFile();
         initArrayAndManagment();
         initMenu();
         jPanel = new JPanel();
@@ -244,12 +244,7 @@ public class ViewMenu extends JFrame {
             e.printStackTrace();
         }
         try {
-//            bookingArrayList.add(new Booking(sejour3, travelerArrayList.get(3)));
-//            bookingArrayList.get(2).setValidated(true);
-            // modification
-            // author: AR
-            // release 1.01
-            // date 20200613
+
             bookingArrayList.add(new Booking(sejour3, travelerArrayList.get(3)));
             bookingArrayList.get(2).setValidated(true);
         } catch (instantiationBookingException e) {
@@ -269,59 +264,6 @@ public class ViewMenu extends JFrame {
          * create the menu bar with all JMenu and JMenuItem with their specific action
          */
         Uti.info("ViewMenu","initMenu","");
-// modification
-// author: AR
-// release: 2.0.1
-// date: 20200618
-//        jMenuBar = new JMenuBar();
-//        jMenuAdd = new JMenu("Ajouter");
-//        jMenuDisplay = new JMenu("Afficher");
-//        jMenuItemDisplayTraveler = new JMenuItem("Afficher les voyageurs");
-//        jMenuItemDisplayHost = new JMenuItem("Afficher les hôtes");
-//        jMenuItemDisplayHousing = new JMenuItem("Afficher les logements");
-//        jMenuItemDisplayBooking = new JMenuItem("Afficher les réservations");
-//        jMenuAddHost = new JMenuItem("Ajouter un hôte");
-//        jMenuAddTraveler = new JMenuItem("Ajouter un voyageur");
-//        jMenuAddHouse = new JMenuItem("Ajouter une maison");
-//        jMenuAddAppartment = new JMenuItem("Ajouter un appartement");
-//        jMenuAddStay = new JMenuItem("Ajouter un séjour");
-//        jMenuItemClose = new JMenuItem("Fermer");
-//        jMenuItemClose.addActionListener(
-//                new ActionListener(){
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        /**
-//                         * Saves bookings in a file text before closing application
-//                         */
-//                        Uti.info("ViewMenu", "initMenu","");
-//                        persistence.saveBookings();
-//                        System.exit(0);
-//                    }
-//                }
-//        );
-//        jMenuAddHost.addActionListener(new ViewCreationHostListener());
-//        jMenuAddHouse.addActionListener(new ViewCreationHouseListener());
-//        jMenuAddAppartment.addActionListener(new ViewCreationAppartmentListener());
-//        jMenuAddTraveler.addActionListener(new ViewCreationTravelersListener());
-//        jMenuAddStay.addActionListener(new ViewCreationStayListener());
-//        jMenuItemDisplayTraveler.addActionListener(new ViewDisplayTravelerListener());
-//        jMenuItemDisplayHost.addActionListener(new ViewDisplayHostListener());
-//        jMenuItemDisplayHousing.addActionListener(new ViewDisplayHousingListener());
-//        jMenuItemDisplayBooking.addActionListener(new ViewDisplayBookingListener());
-//        jMenuAdd.add(jMenuAddHost);
-//        jMenuAdd.add(jMenuAddHouse);
-//        jMenuAdd.add(jMenuAddAppartment);
-//        jMenuAdd.add(jMenuAddTraveler);
-//        jMenuAdd.add(jMenuAddStay);
-//        jMenuAdd.add(jMenuAdd);
-//        jMenuDisplay.add(jMenuItemDisplayTraveler);
-//        jMenuDisplay.add(jMenuItemDisplayHost);
-//        jMenuDisplay.add(jMenuItemDisplayHousing);
-//        jMenuDisplay.add(jMenuItemDisplayBooking);
-//        jMenuBar.add(jMenuAdd);
-//        jMenuBar.add(jMenuDisplay);
-//        jMenuBar.add(jMenuItemClose);
-//        setJMenuBar(jMenuBar);
 
         jMenuBar = new JMenuBar();
         jMenuProfile = new JMenu("Profil");
@@ -346,8 +288,9 @@ public class ViewMenu extends JFrame {
                         /**
                          * Saves bookings in a file text before closing application
                          */
+                        // todo ici fermeture application
                         Uti.info("ViewMenu", "initMenu","");
-                        persistence.saveBookings();
+                        persistenceBooking.saveBookings();
                         System.exit(0);
                     }
                 }
@@ -480,7 +423,7 @@ public class ViewMenu extends JFrame {
 
 
         jPanel = new JPanel();
-        jPanel.setBackground(Color.blue);
+        jPanel.setBackground(Color.white);
         jScrollPane = new JScrollPane(jPanel);
         itemsBookingArrayList.removeAll(itemsBookingArrayList);
 
@@ -625,7 +568,7 @@ public class ViewMenu extends JFrame {
     }
 
 
-    public class Persistence{
+    public class PersistenceBooking {
         public File parentFile = new File("miscelleanous/");
         String fileName ="bookings.txt";
 
@@ -635,7 +578,7 @@ public class ViewMenu extends JFrame {
              the path is composed of rootProject and the additionalPath.
              */
 
-            Uti.info("Persistence","createNewRealFile","");
+            Uti.info("PersistenceBooking","createNewRealFile","");
             String s="";
             try {
                 s = parentFile.getPath()+"/"+fileName;
@@ -650,8 +593,9 @@ public class ViewMenu extends JFrame {
             }
         }
         public void saveBookings(){
-            Uti.info("Persistence","saveBookings","");
+            Uti.info("PersistenceBooking","saveBookings","");
             try {
+                // todo add actualization of file in relation with the user's manipulations
                 FileWriter fw = new FileWriter(parentFile.getPath()+"/"+fileName);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
@@ -691,6 +635,7 @@ public class ViewMenu extends JFrame {
             /**
              * the current itemBooking becomes the currentItemBooking of viewMenu.
              */
+            Uti.info("ItemBooking","updateItemBooking","");
             viewMenu.currentItemBooking = this;
         }
         public void organizeJPanelSon(){
@@ -786,7 +731,6 @@ public class ViewMenu extends JFrame {
                  actualise the currentItemBooking
                  */
                 Uti.info("BookingDeleteListener","deleteBooking","");
-                updateItemBooking();
                 displayListItemBookingAndBooking();
                 for(int i = 0; i< bookingArrayList.size(); i++){
                     System.out.println("itemBooking indice : "+i);
@@ -1043,7 +987,6 @@ public class ViewMenu extends JFrame {
                         System.out.println((currentItemHousing.housing != null)?"logement courant détruit":"anomalie logement subsiste");
                         System.out.println(housingArrayList.size());
                         updateItemHousing();
-
                         displayListItemHousingAndHousing();
                         displayHousing();
                         break;
@@ -1130,11 +1073,8 @@ public class ViewMenu extends JFrame {
                  */
 
                 Uti.info("HostDeleteListener","actionPerformed","");
-
-
                 updateItemHost();
                 deleteHost();
-
                 updateItemHost();
             }
             public void deleteHost(){
