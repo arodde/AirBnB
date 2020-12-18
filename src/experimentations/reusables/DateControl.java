@@ -1,14 +1,14 @@
 package experimentations.reusables;
 
 public class DateControl {
-    String day ;
-    String month ;
-    String year ;
-    int dayNumber ;
-    int monthNumber ;
-    int yearNumber ;
-    int maxDay = 0;
-    public  boolean controlValidityDate(String text) throws IncorrectMonthException, IncorrectDayException, IncorrectYearException, VeryOlderYearException {
+  private  String day ;
+    private  String month ;
+    private   String year ;
+   public int dayNumber ;
+    public   int monthNumber ;
+    public    int yearNumber ;
+    private    int maxDay = 0;
+    public   boolean controlValidityDate(String text) throws IncorrectMonthException, IncorrectDayException, IncorrectYearException, VeryOlderYearException {
         /**
          This function checks if the date is possible
          date and returns true if it is the case
