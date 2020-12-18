@@ -1,14 +1,14 @@
 package experimentations.reusables;
 
 public class DateControl {
-  private  String day ;
-    private  String month ;
-    private   String year ;
+  private  String day ="01";
+    private  String month ="01";
+    private   String year ="1980";
    public int dayNumber ;
     public   int monthNumber ;
     public    int yearNumber ;
-    private    int maxDay = 0;
-    public   boolean controlValidityDate(String text) throws IncorrectMonthException, IncorrectDayException, IncorrectYearException, VeryOlderYearException {
+    public    int maxDay = 0;
+    public   boolean controlValidityDate(String text) throws IncorrectMonthException, IncorrectDayException, /*IncorrectYearException*/ VeryOlderYearException {
         /**
          This function checks if the date is possible
          date and returns true if it is the case
@@ -88,14 +88,14 @@ public class DateControl {
             return true;
         }
     }
-    private boolean controlYear() throws IncorrectYearException, VeryOlderYearException {
+    private boolean controlYear() throws /*IncorrectYearException, */VeryOlderYearException {
         /**
          This function checks if the year is correct.
          It returns true if the value is correct and false in the
          other case.
          */
         if(!isCorrectYearNumber(yearNumber)){
-            throw new IncorrectYearException();
+            throw new VeryOlderYearException();
         } else {
             return true;
         }
