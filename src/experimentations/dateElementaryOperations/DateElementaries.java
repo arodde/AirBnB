@@ -91,6 +91,10 @@ public class DateElementaries extends JFrame {
         jPanelError.add(jLabelInfoError);
         jPanel.add(jPanelError);
     }
+    public void formValidated(){
+        jLabelInfoError.setForeground(Color.black);
+        jLabelInfoError.setText("Formulaire validé.");
+    }
     private class CheckListener implements FocusListener {
         JFormattedTextField jFormattedTextField= new JFormattedTextField();
         DateControl dateControl= new DateControl();
@@ -160,7 +164,6 @@ public class DateElementaries extends JFrame {
             thread = new Thread();
         }
     }
-
 //    private class CheckListener implements ChangeListener  {
 //        JFormattedTextField jFormattedTextField= new JFormattedTextField();
 //
@@ -257,10 +260,12 @@ public class DateElementaries extends JFrame {
             localDate1 = LocalDate.of(dateControl1.yearNumber, dateControl1.monthNumber, dateControl1.dayNumber);
             localDate2 = LocalDate.of(dateControl2.yearNumber, dateControl2.monthNumber, dateControl2.dayNumber);
             if(testLocalDatesExist()){
-                if(!posteriority()){
-                    jFormattedTextField1.setBackground(Color.ORANGE);
-                    jFormattedTextField2.setBackground(Color.ORANGE);
-                };
+                if(!anteriority()){
+                    jLabelInfoError.setText("La date d'envoi doit précéder la date de retour.");
+                } else {
+                    System.out.println("Date d'envoi est avant Date de retour: OK");
+                    formValidated();
+                }
             } else {
                 System.out.println("la date d'envoi ou la date de retour est nulle.");
             }
@@ -270,6 +275,8 @@ public class DateElementaries extends JFrame {
         public void reset(){
             localDate1 = null;
             localDate2 = null;
+            jFormattedTextField1.setBackground(Color.white);
+            jFormattedTextField2.setBackground(Color.white);
         }
         public void cafteuse(){
             System.out.println(dateControl1.yearNumber);
@@ -279,7 +286,7 @@ public class DateElementaries extends JFrame {
             System.out.println(dateControl2.monthNumber);
             System.out.println(dateControl2.dayNumber);
         }
-        public boolean posteriority(){
+        public boolean anteriority(){
             if(localDate1.isBefore(localDate2)||localDate1.equals(localDate2)){
                 System.out.println("Date d'envoi est avant Date de retour: OK");
                 return true;
@@ -315,5 +322,6 @@ public class DateElementaries extends JFrame {
             setVisible(true);
             thread = new Thread();
         }
+
     }
 }
