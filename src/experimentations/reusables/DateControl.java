@@ -1,5 +1,7 @@
 package experimentations.reusables;
 
+import rodde.airbnb.util.Uti;
+
 public class DateControl {
   private  String day ="01";
     private  String month ="01";
@@ -23,8 +25,10 @@ public class DateControl {
         yearNumber = Integer.parseInt(year);
         maxDay = 0;
         if (controlMonth() && controlDay() && controlYear()){
+            Uti.mess("mois, jour, année corrects.");
             return true;
         } else {
+            Uti.mess("mois, jour, année INcorrects.");
             return false;
         }
     }

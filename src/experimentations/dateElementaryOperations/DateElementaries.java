@@ -3,18 +3,14 @@ package experimentations.dateElementaryOperations;
 import experimentations.reusables.*;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.EventListener;
 
 public class DateElementaries extends JFrame {
     public JPanel jPanel = new JPanel();
@@ -27,15 +23,12 @@ public class DateElementaries extends JFrame {
     public JLabel jLabelInfoError = new JLabel();
     public MaskFormatter maskFormatter;
     public Font font ;
-    public JFormattedTextField jFormattedTextField ;
-    public JFormattedTextField jFormattedTextField2 ;
-    //    public JButton jButton = new JButton("Vérifier");
-//    public JButton jButton2 = new JButton("Vérifier");
+    public JFormattedTextField jFormattedTextField1 = new JFormattedTextField();
+    public JFormattedTextField jFormattedTextField2 = new JFormattedTextField();
     public JButton jButton3 = new JButton("Positionnement temporel");
     public CheckListener checkListener= new CheckListener();
     public CheckListener checkListener2= new CheckListener();
     public TimePositionningListener timePositionningListener= new TimePositionningListener();
-    //    public DisplayThread displayThread = new DisplayThread();
     public Thread thread = new Thread() ;
     public DateControl dateControl1 = new DateControl();
     public DateControl dateControl2 = new DateControl();
@@ -45,9 +38,10 @@ public class DateElementaries extends JFrame {
     }
     public DateElementaries(){
         initFrame();
-        fieldsConception();
-        lookJFTF(jFormattedTextField);
-        lookJFTF(jFormattedTextField2);
+        jFormattedTextField1 = jFormattedTextFieldsConception(jFormattedTextField1);
+        jFormattedTextField2  = jFormattedTextFieldsConception(jFormattedTextField2);
+        lookJFormattedTextField(jFormattedTextField1);
+        lookJFormattedTextField(jFormattedTextField2);
         addComponentListeners();
         buildLayout();
         this.setContentPane(jPanel);
@@ -56,57 +50,49 @@ public class DateElementaries extends JFrame {
     public void initFrame(){
         setTitle("Date");
         setResizable(true);
-        setSize(600,400);
+        setSize(450,250);
         setLocationRelativeTo(null);
     }
-    public void lookJFTF(JFormattedTextField jFormattedTextField){
+    public void lookJFormattedTextField(JFormattedTextField jFormattedTextField){
         font = new Font("Arial", Font.BOLD, 14);
         jFormattedTextField.setFont(font);
         jFormattedTextField.setPreferredSize(new Dimension(150, 30));
         jFormattedTextField.setForeground(Color.BLUE);
     }
-    public void fieldsConception(){
+    public JFormattedTextField jFormattedTextFieldsConception(JFormattedTextField jFormattedTextField){
 
         try {
             maskFormatter = new MaskFormatter("##-##-####");
             jFormattedTextField = new JFormattedTextField(maskFormatter);
-            jFormattedTextField2 = new JFormattedTextField(maskFormatter);
         } catch (ParseException      parseException) {
             parseException.printStackTrace();
         }
+        return jFormattedTextField;
     }
     public void addComponentListeners(){
-//        jButton.addActionListener(checkListener);
-//        jFormattedTextField.addActionListener((ActionListener) checkListener);
-        jFormattedTextField.addFocusListener(checkListener);
-//        jFormattedTextField.addChangeListener(checkListener);
-        checkListener.init(jFormattedTextField, dateControl1);
-//        jButton2.addActionListener(checkListener2);
+        jFormattedTextField1.addFocusListener(checkListener);
+        checkListener.init(jFormattedTextField1, dateControl1);
         jFormattedTextField2.addFocusListener(checkListener2);
-//        jFormattedTextField2.addChangeListener(checkListener2);
         checkListener2.init(jFormattedTextField2,dateControl2);
         jButton3.addActionListener(timePositionningListener);
-        timePositionningListener.init(dateControl1,jFormattedTextField, dateControl2,jFormattedTextField2);
+        timePositionningListener.init(dateControl1, jFormattedTextField1, dateControl2,jFormattedTextField2);
     }
     public void buildLayout(){
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
         jPanelFirst.add(jLabel);
-        jPanelFirst.add(jFormattedTextField);
-//        jPanelFirst.add(jButton);
+        jPanelFirst.add(jFormattedTextField1);
         jPanel.add(jPanelFirst);
         jPanelSecond.add(jLabel2);
         jPanelSecond.add(jFormattedTextField2);
-//        jPanelSecond.add(jButton2);
         jPanel.add(jPanelSecond);
         jPanelThird.add(jButton3);
         jPanel.add(jPanelThird);
+        jLabelInfoError.setForeground(Color.RED);
         jPanelError.add(jLabelInfoError);
         jPanel.add(jPanelError);
     }
-
     private class CheckListener implements FocusListener {
         JFormattedTextField jFormattedTextField= new JFormattedTextField();
-
         DateControl dateControl= new DateControl();
         //        @Override
 //        public void actionPerformed2(ActionEvent actionEvent) {
@@ -145,7 +131,7 @@ public class DateElementaries extends JFrame {
                     jFormattedTextField.setBackground(Color.white);
                     dateControl.controlValidityDate(jFormattedTextField.getText());
                     System.out.println("Date "+ jFormattedTextField.getText() +" is valid.");
-                    jLabelInfoError.setText("OK");
+                    jLabelInfoError.setText("");
                 }
             }  catch(IncorrectMonthException incorrectMonthException){
                 jFormattedTextField.setBackground(Color.RED);
@@ -174,6 +160,7 @@ public class DateElementaries extends JFrame {
             thread = new Thread();
         }
     }
+
 //    private class CheckListener implements ChangeListener  {
 //        JFormattedTextField jFormattedTextField= new JFormattedTextField();
 //
@@ -270,7 +257,10 @@ public class DateElementaries extends JFrame {
             localDate1 = LocalDate.of(dateControl1.yearNumber, dateControl1.monthNumber, dateControl1.dayNumber);
             localDate2 = LocalDate.of(dateControl2.yearNumber, dateControl2.monthNumber, dateControl2.dayNumber);
             if(testLocalDatesExist()){
-                posteriority();
+                if(!posteriority()){
+                    jFormattedTextField1.setBackground(Color.ORANGE);
+                    jFormattedTextField2.setBackground(Color.ORANGE);
+                };
             } else {
                 System.out.println("la date d'envoi ou la date de retour est nulle.");
             }
@@ -289,15 +279,17 @@ public class DateElementaries extends JFrame {
             System.out.println(dateControl2.monthNumber);
             System.out.println(dateControl2.dayNumber);
         }
-        public void posteriority(){
-            if(localDate1.isAfter(localDate2)){
-                System.out.println("Date d'envoi est après Date de retour: ANOMALIE");
-            } else {
+        public boolean posteriority(){
+            if(localDate1.isBefore(localDate2)||localDate1.equals(localDate2)){
                 System.out.println("Date d'envoi est avant Date de retour: OK");
+                return true;
+            } else {
+                jLabelInfoError.setText("La date d'envoi doit précéder la date de retour.");
+                return false;
             }
         }
         public boolean testLocalDatesExist(){
-            if(localDate1 != null && localDate2 != null){
+            if(localDate1 != null && localDate2 != null){ // todo && ||
                 return true;
             }else{
                 return false;
@@ -309,10 +301,13 @@ public class DateElementaries extends JFrame {
             this.dateControl1 = dateControl1;
             this.jFormattedTextField1 = jFormattedTextField1;
             this.dateControl2 = dateControl2;
-            this.jFormattedTextField1 = jFormattedTextField2;
+            this.jFormattedTextField2 = jFormattedTextField2;
         }
         @Override
         public void run() {
+            displayErrorOnFrame();
+        }
+        public void displayErrorOnFrame(){
             jPanel.remove(jPanelError);
             jPanelError.removeAll();
             jPanelError.add(jLabelInfoError);
@@ -320,7 +315,5 @@ public class DateElementaries extends JFrame {
             setVisible(true);
             thread = new Thread();
         }
-
-
     }
 }
